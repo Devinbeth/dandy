@@ -10,8 +10,6 @@ const app = express();
 
 massive(CONNECTION_STRING).then(db => app.set('db', db));
 
-app.use(express.static(__dirname + './../build'));
-
 app.use(session({
     secret: SESSION_SECRET,
     resave: false,
@@ -31,7 +29,7 @@ passport.use(new Auth0Strategy({
     const db = app.get('db');
     db.find_user([profile.id]).then(users => {
         if (!users[0]) {
-            db.create_user([profile.displayName, profile.picture, profile.id]).then(user => {
+            db.create_user([profile.displayName, profile.id]).then(user => {
                 done(null, user[0].id);
             });
         }
