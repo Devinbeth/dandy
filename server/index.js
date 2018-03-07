@@ -66,5 +66,6 @@ app.get('/auth/logout', (req, res) => {
 });
 
 app.get('/api/characters', character_controller.readCharacters);
+app.get('/api/character/:id', character_controller.readCharacter);
 
 app.listen(SERVER_PORT, () => console.log(`Server is listening on port: ${SERVER_PORT}`));

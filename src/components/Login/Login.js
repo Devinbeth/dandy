@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './Login.css';
 import AppBar from 'material-ui/AppBar';
 
 export default class Login extends Component {
+    
     render() {
         return (
             <div className='Login'>
