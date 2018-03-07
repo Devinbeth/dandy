@@ -6,8 +6,6 @@ import Header from '../Header/Header.js';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
 
 class Character extends Component {
 
@@ -65,17 +63,11 @@ class Character extends Component {
                         onChange={e => this.setState({name: e.target.value})}
                         floatingLabelText='Character Name'
                     /><br />
-                    <DropDownMenu value={this.state.race} onChange={(e) => this.setState({race: e.target.value})}>
-                        <MenuItem value='Dwarf' primaryText='Dwarf' />
-                        <MenuItem value='Elf' primaryText='Elf' />
-                        <MenuItem value='Hafling' primaryText='Hafling' />
-                        <MenuItem value='Human' primaryText='Human' />
-                        <MenuItem value='Dragonborn' primaryText='Dragonborn' />
-                        <MenuItem value='Gnome' primaryText='Gnome' />
-                        <MenuItem value='Half-Elf' primaryText='Half-Elf' />
-                        <MenuItem value='Half-Orc' primaryText='Half-Orc' />
-                        <MenuItem value='Tiefling' primaryText='Tiefling' />
-                    </DropDownMenu><br />
+                    <TextField className='basic_info_text'
+                        value={this.state.race}
+                        onChange={e => this.setState({race: e.target.value})}
+                        floatingLabelText='Race'
+                    /><br />
                     <TextField className='basic_info_text'
                         value={this.state.class}
                         onChange={e => this.setState({class: e.target.value})}
