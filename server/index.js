@@ -5,6 +5,7 @@ const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 const massive = require('massive');
 const { SERVER_PORT, SESSION_SECRET, DOMAIN, CLIENT_ID, CLIENT_SECRET, CALLBACK_URL, CONNECTION_STRING } = process.env
+const character_controller = require('./controllers/character_controller.js');
 
 const app = express();
 
@@ -62,6 +63,8 @@ app.get('/auth/me', (req, res) => {
 app.get('/auth/logout', (req, res) => {
     req.logOut();
     res.redirect('http://localhost:3000/')
-})
+});
+
+app.get('/api/characters', character_controller.readCharacters);
 
 app.listen(SERVER_PORT, () => console.log(`Server is listening on port: ${SERVER_PORT}`));

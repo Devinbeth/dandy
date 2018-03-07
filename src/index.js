@@ -5,10 +5,13 @@ import './index.css';
 import App from './App';
 import store from './store';
 import { unregister } from './registerServiceWorker';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <MuiThemeProvider>
+            <App />
+        </MuiThemeProvider>
     </Provider>
 , document.getElementById('root'));
 unregister();

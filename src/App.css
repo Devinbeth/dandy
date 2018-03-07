@@ -26,3 +26,12 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+a {
+  color:white;
+  text-decoration: none;
+}
+
+.log {
+  padding: 15% 20px;
+}
