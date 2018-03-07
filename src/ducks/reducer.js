@@ -1,15 +1,21 @@
 import axios from 'axios';
 
+
 const initialState = {
     user: {},
     characters: [],
     character: []
 };
 
+
+//CONSTANTS
 const GET_USER = 'GET_USER';
 const GET_CHARACTERS = 'GET_CHARACTERS';
 const GET_CHARACTER = 'GET_CHARACTER';
+const SAVE_CHARACTER = 'SAVE_CHARACTER';
 
+
+//ACTION BUILDERS
 export function getUser() {
     let userData = axios.get('/auth/me').then(res => res.data);
     return {
@@ -34,14 +40,32 @@ export function getCharacter(id) {
     };
 }
 
+export function saveCharacter(id, character) {
+    console.log(character);
+    let savedCharacter = axios.put(`/api/character/${id}`, character).then(res => res.data);
+    return {
+        type: SAVE_CHARACTER,
+        payload: savedCharacter
+    };
+}
+
+
+//REDUCER
 export default function reducer(state = initialState, action) {
     switch (action.type) {
+
         case GET_USER + '_FULFILLED':
             return Object.assign({}, state, { user: action.payload });
+
         case GET_CHARACTERS + '_FULFILLED':
             return Object.assign({}, state, { characters: action.payload });
+
         case GET_CHARACTER + '_FULFILLED':
             return Object.assign({}, state, { character: action.payload });
+
+        case SAVE_CHARACTER + '_FULFILLED':
+            return Object.assign({}, state, { character: action.payload });
+
         default:
             return state;
     }

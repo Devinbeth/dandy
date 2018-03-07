@@ -1,0 +1,21 @@
+.Character img {
+    height: 20vh;
+    display: flex;
+    align-content: flex-start;
+}
+
+.Character .basic_info {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+
+.Character .basic_info_text {
+    margin: 10px;
+}
+
+.Character .save {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}

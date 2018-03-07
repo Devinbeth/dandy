@@ -1,5 +1,5 @@
 module.exports = {
-    create: (req, res) => {
+    createCharacter: (req, res) => {
     
     },
     readCharacters: (req, res) => {
@@ -20,10 +20,18 @@ module.exports = {
             }
         });
     },
-    update: (req, res) => {
-    
+    updateCharacter: (req, res) => {
+        const db = req.app.get('db');
+        db.characters.update({id: req.params.id}, req.body).then(characters => {
+            if (req.user.id === characters[0].user_id) {
+                res.status(200).send(characters);
+            }
+            else {
+                res.status(401).send('Nice try suckaaaaaa!!!!!!');
+            }
+        });
     },
-    delete: (req, res) => {
+    deleteCharacter: (req, res) => {
     
     },
 }
