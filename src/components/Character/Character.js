@@ -425,7 +425,7 @@ class Character extends Component {
                         />
                         <TextField className='col3_info'
                             value={this.state.max_hit_points}
-                            onChange={e => this.setState({ speed: e.target.value })}
+                            onChange={e => this.setState({ max_hit_points: e.target.value })}
                             floatingLabelText='Max HP'
                             style={{ width: '25%' }}
                         />
