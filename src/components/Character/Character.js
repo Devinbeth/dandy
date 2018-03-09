@@ -8,9 +8,9 @@ import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Toggle from 'material-ui/Toggle';
+import Checkbox from 'material-ui/Checkbox';
 
 class Character extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -59,6 +59,8 @@ class Character extends Component {
             speed: 0,
             max_hit_points: 0,
             current_hit_points: 0,
+            death_save_successes: 0,
+            death_save_failures: 0,
             temp_hit_points: 0,
             total_hit_dice: '',
             current_hit_dice: 0,
@@ -162,7 +164,7 @@ class Character extends Component {
             <div className='Character'>
                 <Header />
                 <div className='sheet'>
-                    <div className='character_info'>
+                    <div className='character_name'>
                         <img className='logo' src={logo} alt='' />
                         <TextField className='basic_info_text'
                             value={this.state.name}
@@ -401,6 +403,67 @@ class Character extends Component {
                                 onToggle={() => this.setState({ survival: !this.state.survival })}
                             />
                         </div>
+                    </div>
+                    <div className='col3'>
+                        <TextField className='col3_info'
+                            value={this.state.armor_class}
+                            onChange={e => this.setState({ armor_class: e.target.value })}
+                            floatingLabelText='Armor Class'
+                            style={{ width: '25%' }}
+                        />
+                        <TextField className='col3_info'
+                            value={this.state.initiative}
+                            onChange={e => this.setState({ initiative: e.target.value })}
+                            floatingLabelText='Initiative'
+                            style={{ width: '25%' }}
+                        />
+                        <TextField className='col3_info'
+                            value={this.state.speed}
+                            onChange={e => this.setState({ speed: e.target.value })}
+                            floatingLabelText='Speed'
+                            style={{ width: '25%' }}
+                        />
+                        <TextField className='col3_info'
+                            value={this.state.max_hit_points}
+                            onChange={e => this.setState({ speed: e.target.value })}
+                            floatingLabelText='Max HP'
+                            style={{ width: '25%' }}
+                        />
+                        <TextField className='col3_info'
+                            value={this.state.current_hit_points}
+                            onChange={e => this.setState({ current_hit_points: e.target.value })}
+                            floatingLabelText='Current HP'
+                            style={{ width: '25%' }}
+                        />
+                        <TextField className='col3_info'
+                            value={this.state.temp_hit_points}
+                            onChange={e => this.setState({ temp_hit_points: e.target.value })}
+                            floatingLabelText='Temporary HP'
+                            style={{ width: '30%' }}
+                        />
+                        <TextField className='col3_info'
+                            value={this.state.total_hit_dice}
+                            onChange={e => this.setState({ total_hit_dice: e.target.value })}
+                            floatingLabelText='Total Hit Dice'
+                            style={{ width: '30%' }}
+                        />
+                        <TextField className='col3_info'
+                            value={this.state.current_hit_dice}
+                            onChange={e => this.setState({ current_hit_dice: e.target.value })}
+                            floatingLabelText='Current Hit Dice'
+                            style={{ width: '40%' }}
+                        />
+                        <h3>DEATH SAVES</h3>
+                        <Checkbox/>
+                        <Checkbox/>
+                        <Checkbox
+                            label="Successes"
+                        />
+                        <Checkbox/>
+                        <Checkbox/>
+                        <Checkbox
+                            label="Failures"
+                        />
                     </div>
                     <FloatingActionButton className='save' onClick={() => this.props.saveCharacter(this.props.match.params.id, this.state)}>
                         <ContentAdd />

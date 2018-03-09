@@ -49,6 +49,8 @@ create table if not exists characters (
     temp_hit_points integer,
     total_hit_dice varchar(10),
     current_hit_dice integer,
+    death_save_successes integer default 0,
+    death_save_failures integer default 0,
     personality_traits varchar(180),
     ideals varchar(180),
     bonds varchar(180),

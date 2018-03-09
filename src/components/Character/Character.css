@@ -15,7 +15,7 @@
     margin: 15% 0;
 }
 
-.Character .character_info {
+.Character .character_name {
     grid-area: 1 / 1 / 2 / 3;
     border: 1px;
     border-radius: 10px;
@@ -42,7 +42,7 @@
 }
 
 .Character .modifiers {
-    grid-area: 2 / 1 / 7 / 1;
+    grid-area: 2 / 1 / 5 / 1;
     border: 1px;
     border-radius: 10px;
     border-style: solid;
@@ -63,6 +63,23 @@
     flex-direction: column;
     align-items: center;
     margin: 10px 0;
+}
+
+.Character .col3 {
+    grid-area: 2 / 3 / 7 / 4;
+    border: 1px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.Character .col3 .col3_info {
+    margin: 2%;
 }
 
 .Character .save {
