@@ -6,7 +6,7 @@ export default class Login extends Component {
     render() {
         return (
             <div className='Login'>
-                <AppBar title='Dandy'
+                <AppBar title='DANDY'
                         showMenuIconButton={false}
                         iconElementRight={<a href={ process.env.REACT_APP_LOGIN }><div className='log'>Login</div></a>}
                 />

@@ -24,7 +24,7 @@ class Home extends Component {
                         />
                         <CardTitle title={e.name} subtitle={`${e.race} ${e.class}`} />
                         <CardActions>
-                            <Link to={`/character/${e.id}`}><RaisedButton label="Edit" primary={true} /></Link>
+                            <Link to={`/character/${e.id}`}><RaisedButton label="View" primary={true} /></Link>
                             <RaisedButton label="Delete" secondary={true} />
                         </CardActions>
                     </Card>

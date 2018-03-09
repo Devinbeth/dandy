@@ -8,12 +8,12 @@ class Header extends Component {
     componentDidMount() {
         this.props.getUser();
     }
-    
+
     render() {
 
         return (
             <div className='Home'>
-                <AppBar title='Dandy'
+                <AppBar title='DANDY'
                     iconElementRight={<a href={process.env.REACT_APP_LOGOUT}><div className='log'>Logout</div></a>}
                 />
             </div>
