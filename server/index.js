@@ -8,6 +8,7 @@ const cors = require('cors');
 const massive = require('massive');
 const { SERVER_PORT, SESSION_SECRET, DOMAIN, CLIENT_ID, CLIENT_SECRET, CALLBACK_URL, CONNECTION_STRING } = process.env
 const character_controller = require('./controllers/character_controller.js');
+const weapons_controller = require('./controllers/weapons_controller.js');
 
 const app = express();
 
@@ -52,6 +53,8 @@ passport.deserializeUser((id, done) => {
     })
 });
 
+
+// AUTH ENDPOINTS
 app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', passport.authenticate('auth0', {
     successRedirect: 'http://localhost:3000/#/home',
@@ -70,8 +73,15 @@ app.get('/auth/logout', (req, res) => {
     res.redirect('http://localhost:3000/')
 });
 
+
+// CHARACTER ENDPOINTS
 app.get('/api/characters', character_controller.readCharacters);
 app.get('/api/character/:id', character_controller.readCharacter);
 app.put('/api/character/:id', character_controller.updateCharacter);
+
+
+// WEAPONS ENDPOINTS
+app.get('api/weapons/:id', weapons_controller.readWeapon);
+
 
 app.listen(SERVER_PORT, () => console.log(`Server is listening on port: ${SERVER_PORT}`));

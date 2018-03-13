@@ -168,7 +168,7 @@ class Character extends Component {
                         <img className='logo' src={logo} alt='' />
                         <TextField className='basic_info_text'
                             value={this.state.name}
-                            onChange={e => this.setState({ name: e.target.value })}
+                            onChange={(e) => this.setState({ name: e.target.value })}
                             floatingLabelText='Character Name'
                             style={{ width: '75%' }}
                         />
@@ -180,37 +180,37 @@ class Character extends Component {
                         <div className='basic_info_bin'>
                             <TextField className='basic_info_text'
                                 value={this.state.race}
-                                onChange={e => this.setState({ race: e.target.value })}
+                                onChange={(e) => this.setState({ race: e.target.value })}
                                 floatingLabelText='Race'
                                 style={{ width: '25%' }}
                             />
                             <TextField className='basic_info_text'
                                 value={this.state.class}
-                                onChange={e => this.setState({ class: e.target.value })}
+                                onChange={(e) => this.setState({ class: e.target.value })}
                                 floatingLabelText='Class'
                                 style={{ width: '25%' }}
                             />
                             <TextField className='basic_info_text'
                                 value={this.state.level}
-                                onChange={e => this.setState({ level: e.target.value })}
+                                onChange={(e) => this.setState({ level: e.target.value })}
                                 floatingLabelText='Level'
                                 style={{ width: '25%' }}
                             />
                             <TextField className='basic_info_text'
                                 value={this.state.experience_points}
-                                onChange={e => this.setState({ experience_points: e.target.value })}
+                                onChange={(e) => this.setState({ experience_points: e.target.value })}
                                 floatingLabelText='XP'
                                 style={{ width: '25%' }}
                             />
                             <TextField className='basic_info_text'
                                 value={this.state.background}
-                                onChange={e => this.setState({ background: e.target.value })}
+                                onChange={(e) => this.setState({ background: e.target.value })}
                                 floatingLabelText='Background'
                                 style={{ width: '25%' }}
                             />
                             <TextField className='basic_info_text'
                                 value={this.state.alignment}
-                                onChange={e => this.setState({ alignment: e.target.value })}
+                                onChange={(e) => this.setState({ alignment: e.target.value })}
                                 floatingLabelText='Alignment'
                                 style={{ width: '25%' }}
                             />
@@ -219,42 +219,42 @@ class Character extends Component {
                     <div className='modifiers'>
                         <TextField
                             value={this.state.strength}
-                            onChange={e => this.setState({ strength: e.target.value })}
+                            onChange={(e) => this.setState({ strength: e.target.value })}
                             floatingLabelText='Strength'
                             style={{ width: '60%' }}
                         />
                         {this.abilityModifiers(this.state.strength)}
                         <TextField
                             value={this.state.dexterity}
-                            onChange={e => this.setState({ dexterity: e.target.value })}
+                            onChange={(e) => this.setState({ dexterity: e.target.value })}
                             floatingLabelText='Dexterity'
                             style={{ width: '60%' }}
                         />
                         {this.abilityModifiers(this.state.dexterity)}
                         <TextField
                             value={this.state.constitution}
-                            onChange={e => this.setState({ constitution: e.target.value })}
+                            onChange={(e) => this.setState({ constitution: e.target.value })}
                             floatingLabelText='Constitution'
                             style={{ width: '60%' }}
                         />
                         {this.abilityModifiers(this.state.constitution)}
                         <TextField
                             value={this.state.intelligence}
-                            onChange={e => this.setState({ intelligence: e.target.value })}
+                            onChange={(e) => this.setState({ intelligence: e.target.value })}
                             floatingLabelText='Intelligence'
                             style={{ width: '60%' }}
                         />
                         {this.abilityModifiers(this.state.intelligence)}
                         <TextField
                             value={this.state.wisdom}
-                            onChange={e => this.setState({ wisdom: e.target.value })}
+                            onChange={(e) => this.setState({ wisdom: e.target.value })}
                             floatingLabelText='Wisdom'
                             style={{ width: '60%' }}
                         />
                         {this.abilityModifiers(this.state.wisdom)}
                         <TextField
                             value={this.state.charisma}
-                            onChange={e => this.setState({ charisma: e.target.value })}
+                            onChange={(e) => this.setState({ charisma: e.target.value })}
                             floatingLabelText='Charisma'
                             style={{ width: '60%' }}
                         />
@@ -264,7 +264,7 @@ class Character extends Component {
                         <div className='inspiration'>
                             <TextField
                                 value={this.state.inspiration}
-                                onChange={e => this.setState({ inspiration: e.target.value })}
+                                onChange={(e) => this.setState({ inspiration: e.target.value })}
                                 floatingLabelText='Inspiration'
                                 style={{ width: '75%' }}
                             />
@@ -272,7 +272,7 @@ class Character extends Component {
                         <div className='proficiency_bonus'>
                             <TextField
                                 value={this.state.proficiency_bonus}
-                                onChange={e => this.setState({ proficiency_bonus: e.target.value })}
+                                onChange={(e) => this.setState({ proficiency_bonus: e.target.value })}
                                 floatingLabelText='Proficieny Bonus'
                                 style={{ width: '75%' }}
                             />
@@ -407,63 +407,64 @@ class Character extends Component {
                     <div className='col3'>
                         <TextField className='col3_info'
                             value={this.state.armor_class}
-                            onChange={e => this.setState({ armor_class: e.target.value })}
+                            onChange={(e) => this.setState({ armor_class: e.target.value })}
                             floatingLabelText='Armor Class'
                             style={{ width: '25%' }}
                         />
                         <TextField className='col3_info'
                             value={this.state.initiative}
-                            onChange={e => this.setState({ initiative: e.target.value })}
+                            onChange={(e) => this.setState({ initiative: e.target.value })}
                             floatingLabelText='Initiative'
                             style={{ width: '25%' }}
                         />
                         <TextField className='col3_info'
                             value={this.state.speed}
-                            onChange={e => this.setState({ speed: e.target.value })}
+                            onChange={(e) => this.setState({ speed: e.target.value })}
                             floatingLabelText='Speed'
                             style={{ width: '25%' }}
                         />
                         <TextField className='col3_info'
                             value={this.state.max_hit_points}
-                            onChange={e => this.setState({ max_hit_points: e.target.value })}
+                            onChange={(e) => this.setState({ max_hit_points: e.target.value })}
                             floatingLabelText='Max HP'
                             style={{ width: '25%' }}
                         />
                         <TextField className='col3_info'
                             value={this.state.current_hit_points}
-                            onChange={e => this.setState({ current_hit_points: e.target.value })}
+                            onChange={(e) => this.setState({ current_hit_points: e.target.value })}
                             floatingLabelText='Current HP'
                             style={{ width: '25%' }}
                         />
                         <TextField className='col3_info'
                             value={this.state.temp_hit_points}
-                            onChange={e => this.setState({ temp_hit_points: e.target.value })}
+                            onChange={(e) => this.setState({ temp_hit_points: e.target.value })}
                             floatingLabelText='Temporary HP'
                             style={{ width: '30%' }}
                         />
                         <TextField className='col3_info'
                             value={this.state.total_hit_dice}
-                            onChange={e => this.setState({ total_hit_dice: e.target.value })}
+                            onChange={(e) => this.setState({ total_hit_dice: e.target.value })}
                             floatingLabelText='Total Hit Dice'
                             style={{ width: '30%' }}
                         />
                         <TextField className='col3_info'
                             value={this.state.current_hit_dice}
-                            onChange={e => this.setState({ current_hit_dice: e.target.value })}
+                            onChange={(e) => this.setState({ current_hit_dice: e.target.value })}
                             floatingLabelText='Current Hit Dice'
                             style={{ width: '40%' }}
                         />
                         <h3>DEATH SAVES</h3>
-                        <Checkbox/>
-                        <Checkbox/>
-                        <Checkbox
-                            label="Successes"
-                        />
-                        <Checkbox/>
-                        <Checkbox/>
-                        <Checkbox
-                            label="Failures"
-                        />
+                        <div className='death_saves'>
+                            <Checkbox/>
+                            <Checkbox/>
+                            <Checkbox label='Successes'/>
+                            <Checkbox/>
+                            <Checkbox/>
+                            <Checkbox label='Failures'/>
+                        </div>
+                    </div>
+                    <div className='attacks'>
+                        
                     </div>
                     <FloatingActionButton className='save' onClick={() => this.props.saveCharacter(this.props.match.params.id, this.state)}>
                         <ContentAdd />

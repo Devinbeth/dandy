@@ -4,7 +4,8 @@ import axios from 'axios';
 const initialState = {
     user: {},
     characters: [],
-    character: []
+    character: [],
+    character_weapons: []
 };
 
 
@@ -13,6 +14,8 @@ const GET_USER = 'GET_USER';
 const GET_CHARACTERS = 'GET_CHARACTERS';
 const GET_CHARACTER = 'GET_CHARACTER';
 const SAVE_CHARACTER = 'SAVE_CHARACTER';
+const GET_WEAPONS = 'GET_WEAPONS';
+const ADD_WEAPONS = 'ADD_WEAPONS';
 
 
 //ACTION BUILDERS

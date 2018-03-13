@@ -66,7 +66,7 @@
 }
 
 .Character .col3 {
-    grid-area: 2 / 3 / 7 / 4;
+    grid-area: 2 / 3 / 5 / 4;
     border: 1px;
     border-radius: 10px;
     border-style: solid;
@@ -80,6 +80,25 @@
 
 .Character .col3 .col3_info {
     margin: 2%;
+}
+
+.Character .death_saves {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.Character .attacks {
+    grid-area: 5 / 3 / 7 / 4;
+    border: 1px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px 0;
 }
 
 .Character .save {

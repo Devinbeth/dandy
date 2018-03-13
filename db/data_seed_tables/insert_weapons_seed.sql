@@ -1,0 +1,11 @@
+insert into weapons (category, name, cost, damage, weight, properties) values ('Simple Melee Weapons', 'Club', '1 sp', '1d4 bludgeoning', '2 lb.', 'Light');
+insert into weapons (category, name, cost, damage, weight, properties) values ('Simple Melee Weapons', 'Dagger', '2 gp', '1d4 piercing', '1 lb.', 'Finesse, Light, Thrown (Range 20/60)');
+insert into weapons (category, name, cost, damage, weight, properties) values ('Simple Melee Weapons', 'Greatclub', '2 sp', '1d8 bludgeoning', '10 lb.', 'Two-handed');
+insert into weapons (category, name, cost, damage, weight, properties) values ('Simple Melee Weapons', 'Handaxe', '5 gp', '1d6 slashing', '2 lb.', 'Light, Thrown (Range 20/60)');
+insert into weapons (category, name, cost, damage, weight, properties) values ('Simple Melee Weapons', 'Javelin', '5 sp', '1d6 piercing', '2 lb.', 'Thrown (Range 30/120)');
+insert into weapons (category, name, cost, damage, weight, properties) values ('Simple Melee Weapons', 'Light Hammer', '2 gp', '1d4 bludgeoning', '2 lb.', 'Light, Thrown (Range 20/60)');
+insert into weapons (category, name, cost, damage, weight)             values ('Simple Melee Weapons', 'Mace', '5 gp', '1d6 bludgeoning', '4 lb.');
+insert into weapons (category, name, cost, damage, weight, properties) values ('Simple Melee Weapons', 'Quaterstaff', '2 sp', '1d6 bludgeoning', '4 lb.', 'Versatile (1d8)');
+insert into weapons (category, name, cost, damage, weight, properties) values ('Simple Melee Weapons', 'Sickle', '1 gp', '1d4 slashing', '2 lb.', 'Light');
+insert into weapons (category, name, cost, damage, weight, properties) values ('Simple Melee Weapons', 'Spear', '1 gp', '1d6 piercing', '3 lb.', 'Thrown (Range 30/120), Versatile (1d8)');
+insert into weapons (category, name, damage)                           values ('Simple Melee Weapons', 'Unarmed Strike', '1 bludgeoning');
