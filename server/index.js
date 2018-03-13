@@ -81,7 +81,7 @@ app.put('/api/character/:id', character_controller.updateCharacter);
 
 
 // WEAPONS ENDPOINTS
-app.get('api/weapons/:id', weapons_controller.readWeapon);
+app.get('/api/weapons/:id', weapons_controller.readWeapon);
 
 
 app.listen(SERVER_PORT, () => console.log(`Server is listening on port: ${SERVER_PORT}`));

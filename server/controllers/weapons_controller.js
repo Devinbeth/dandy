@@ -4,13 +4,8 @@ module.exports = {
     },
     readWeapon: (req, res) => {
         const db = req.app.get('db');
-        db.get_character([req.params.id]).then(characters => {
-            if (req.user.id === characters[0].user_id) {
-                res.status(200).send(characters);
-            }
-            else {
-                res.status(401).send('Nice try suckaaaaaa!!!!!!');
-            }
+        db.get_character_weapons([req.params.id]).then(weapons => {
+            res.status(200).send(weapons);
         });
     },
     deleteWeapon: (req, res) => {

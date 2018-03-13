@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUser, getCharacter, saveCharacter } from '../../ducks/reducer.js';
+import { getUser, getCharacter, saveCharacter, getWeapons } from '../../ducks/reducer.js';
 import './Character.css';
 import Header from '../Header/Header.js';
 import logo from '../../assets/D&D_5E_Logo.png';
@@ -72,10 +72,12 @@ class Character extends Component {
             gold: 0,
             electrum: 0,
             silver: 0,
-            copper: 0
+            copper: 0,
+            weapons: []
         }
         this.abilityModifiers = this.abilityModifiers.bind(this);
         this.modifiers = this.modifiers.bind(this);
+        this.weaponsList = this.weaponsList.bind(this);
     }
 
     abilityModifiers(ability) {
@@ -93,8 +95,20 @@ class Character extends Component {
         return modifier;
     }
 
+    weaponsList() {
+        let formattedWeaponsList = this.state.weapons.map((e, i) => {
+            return (
+                <div key={e.id + i}>
+                    {e.name} {} {e.damage}
+                </div>
+            );
+        });
+        return formattedWeaponsList;
+    }
+
     componentDidMount() {
         this.props.getCharacter(this.props.match.params.id);
+        this.props.getWeapons(this.props.match.params.id);
     }
 
     componentWillReceiveProps(newProps) {
@@ -155,7 +169,8 @@ class Character extends Component {
             gold: newProps.character[0].gold,
             electrum: newProps.character[0].electrum,
             silver: newProps.character[0].silver,
-            copper: newProps.character[0].copper
+            copper: newProps.character[0].copper,
+            weapons: newProps.character_weapons
         });
     }
 
@@ -464,7 +479,7 @@ class Character extends Component {
                         </div>
                     </div>
                     <div className='attacks'>
-                        
+                        {this.weaponsList()}
                     </div>
                     <FloatingActionButton className='save' onClick={() => this.props.saveCharacter(this.props.match.params.id, this.state)}>
                         <ContentAdd />
@@ -477,8 +492,9 @@ class Character extends Component {
 
 function mapStateToProps(state) {
     return {
-        character: state.character
+        character: state.character,
+        character_weapons: state.character_weapons
     };
 }
 
-export default connect(mapStateToProps, { getUser, getCharacter, saveCharacter })(Character);
+export default connect(mapStateToProps, { getUser, getCharacter, saveCharacter, getWeapons })(Character);

@@ -15,7 +15,6 @@ const GET_CHARACTERS = 'GET_CHARACTERS';
 const GET_CHARACTER = 'GET_CHARACTER';
 const SAVE_CHARACTER = 'SAVE_CHARACTER';
 const GET_WEAPONS = 'GET_WEAPONS';
-const ADD_WEAPONS = 'ADD_WEAPONS';
 
 
 //ACTION BUILDERS
@@ -52,6 +51,14 @@ export function saveCharacter(id, character) {
     };
 }
 
+export function getWeapons(id) {
+    let weapons = axios.get(`/api/weapons/${id}`).then(res => res.data);
+    return {
+        type: GET_WEAPONS,
+        payload: weapons
+    };
+}
+
 
 //REDUCER
 export default function reducer(state = initialState, action) {
@@ -68,6 +75,10 @@ export default function reducer(state = initialState, action) {
 
         case SAVE_CHARACTER + '_FULFILLED':
             return Object.assign({}, state, { character: action.payload });
+
+        case GET_WEAPONS + '_FULFILLED':
+            console.log(action.payload);
+            return Object.assign({}, state, { character_weapons: action.payload });
 
         default:
             return state;
