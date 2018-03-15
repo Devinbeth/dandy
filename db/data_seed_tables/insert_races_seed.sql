@@ -1,0 +1,9 @@
+insert into races (race) values ('Dwarf');
+insert into races (race) values ('Elf');
+insert into races (race) values ('Hafling');
+insert into races (race) values ('Human');
+insert into races (race) values ('Dragonborn');
+insert into races (race) values ('Gnome');
+insert into races (race) values ('Half-Elf');
+insert into races (race) values ('Half-Orc');
+insert into races (race) values ('Tiefling');

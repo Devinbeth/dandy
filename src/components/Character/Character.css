@@ -2,7 +2,7 @@
     display: grid;
     grid-gap: 1%;
     grid-template-columns: 10% 18% 34.5% 34.5%;
-    grid-template-rows: 200px 100px 100px 100px 100px 100px 100px 100px 100px;
+    grid-template-rows: 200px 120px 100px 100px 100px 100px 100px 100px 100px;
     margin: 1%;
 }
 
@@ -47,6 +47,7 @@
     border-style: solid;
     border-color: black;
     margin-top: 10px;
+    text-align: center;
 }
 
 .Character .dexterity {
@@ -128,7 +129,31 @@
     align-items: center;
     margin-top: 10px;
     padding: 0 2%;
-    font-size: 90%;
+}
+
+.Character .passive_wisdom {
+    grid-area: 12 / 1 / 13 / 3;
+    border: 1px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.Character .other_prof_languages {
+    grid-area: 13 / 1 / 16 / 3;
+    border: 1px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    text-align: left;
 }
 
 .Character .ac_hp {
@@ -162,7 +187,20 @@
 }
 
 .Character .attacks {
-    grid-area: 6 / 3 / 9 / 4;
+    grid-area: 6 / 3 / 11 / 4;
+    border: 1px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.Character .equipment {
+    grid-area: 11 / 3 / 16 / 4;
     border: 1px;
     border-radius: 10px;
     border-style: solid;
@@ -185,6 +223,21 @@
     justify-content: space-around;
     align-items: center;
     margin-top: 10px;
+    text-align: left;
+}
+
+.Character .feature_traits {
+    grid-area: 6 / 4 / 16 / 5;
+    border: 1px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+    text-align: left;
 }
 
 .Character .save {

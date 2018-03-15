@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 
 class Attacks extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class Attacks extends Component {
         let formattedWeaponsList = this.state.weapons.map((weapon, index) => {
             return (
                 <div className='weapons_list' key={weapon.id + index}>
-                    {weapon.name}
+                        <FlatButton label={weapon.name} />
                     <TextField className='weapons'
                         value={weapon.attack_bonus}
                         onChange={(e) => {
