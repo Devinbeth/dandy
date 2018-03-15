@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUser, getCharacter, saveCharacter, getWeapons } from '../../ducks/reducer.js';
+import { getUser, getCharacter, saveCharacter } from '../../ducks/reducer.js';
 import './Character.css';
 import Header from '../Header/Header.js';
+import Attacks from './Attacks/Attacks.js';
 import logo from '../../assets/D&D_5E_Logo.png';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import Toggle from 'material-ui/Toggle';
 import Checkbox from 'material-ui/Checkbox';
 
@@ -22,14 +22,14 @@ class Character extends Component {
             experience_points: '',
             background: '',
             alignment: '',
-            strength: 0,
-            dexterity: 0,
-            constitution: 0,
-            intelligence: 0,
-            wisdom: 0,
-            charisma: 0,
-            inspiration: 0,
-            proficiency_bonus: 0,
+            strength: null,
+            dexterity: null,
+            constitution: null,
+            intelligence: null,
+            wisdom: null,
+            charisma: null,
+            inspiration: null,
+            proficiency_bonus: null,
             strength_saving_throw: false,
             dexterity_saving_throw: false,
             constitution_saving_throw: false,
@@ -54,39 +54,53 @@ class Character extends Component {
             sleight_of_hand: false,
             stealth: false,
             survival: false,
-            armor_class: 0,
-            initiative: 0,
-            speed: 0,
-            max_hit_points: 0,
-            current_hit_points: 0,
-            death_save_successes: 0,
-            death_save_failures: 0,
-            temp_hit_points: 0,
+            armor_class: null,
+            initiative: null,
+            speed: null,
+            max_hit_points: null,
+            current_hit_points: null,
+            death_save_successes: null,
+            death_save_failures: null,
+            temp_hit_points: null,
             total_hit_dice: '',
-            current_hit_dice: 0,
+            current_hit_dice: null,
             personality_traits: '',
             ideals: '',
             bonds: '',
             flaws: '',
-            platinum: 0,
-            gold: 0,
-            electrum: 0,
-            silver: 0,
-            copper: 0,
-            weapons: []
+            platinum: null,
+            gold: null,
+            electrum: null,
+            silver: null,
+            copper: null,
         }
+        this.save = this.save.bind(this);
+        this.undo = this.undo.bind(this);
         this.abilityModifiers = this.abilityModifiers.bind(this);
         this.modifiers = this.modifiers.bind(this);
-        this.weaponsList = this.weaponsList.bind(this);
+    }
+
+    save() {
+        this.props.saveCharacter(this.props.match.params.id, this.state);
+    }
+
+    undo() {
+        this.props.getCharacter(this.props.match.params.id);
     }
 
     abilityModifiers(ability) {
+        if (isNaN(ability)) {
+            return;
+        }
         let num = Math.floor((ability - 10) / 2);
         let modifier = num > 0 ? `+${num}` : num;
         return modifier;
     }
 
     modifiers(ability, saving_throw) {
+        if (isNaN(ability)) {
+            return 0;
+        }
         let num = Math.floor((ability - 10) / 2);
         if (saving_throw) {
             num += Number(this.state.proficiency_bonus);
@@ -95,20 +109,8 @@ class Character extends Component {
         return modifier;
     }
 
-    weaponsList() {
-        let formattedWeaponsList = this.state.weapons.map((e, i) => {
-            return (
-                <div key={e.id + i}>
-                    {e.name} {} {e.damage}
-                </div>
-            );
-        });
-        return formattedWeaponsList;
-    }
-
     componentDidMount() {
         this.props.getCharacter(this.props.match.params.id);
-        this.props.getWeapons(this.props.match.params.id);
     }
 
     componentWillReceiveProps(newProps) {
@@ -170,7 +172,6 @@ class Character extends Component {
             electrum: newProps.character[0].electrum,
             silver: newProps.character[0].silver,
             copper: newProps.character[0].copper,
-            weapons: newProps.character_weapons
         });
     }
 
@@ -192,7 +193,7 @@ class Character extends Component {
                         <div className='char_image'>
                             <img className='character_image' src={this.state.image} alt='' />
                         </div>
-                        <div className='basic_info_bin'>
+                        <div>
                             <TextField className='basic_info_text'
                                 value={this.state.race}
                                 onChange={(e) => this.setState({ race: e.target.value })}
@@ -209,12 +210,14 @@ class Character extends Component {
                                 value={this.state.level}
                                 onChange={(e) => this.setState({ level: e.target.value })}
                                 floatingLabelText='Level'
+                                type='number'
                                 style={{ width: '25%' }}
                             />
                             <TextField className='basic_info_text'
                                 value={this.state.experience_points}
                                 onChange={(e) => this.setState({ experience_points: e.target.value })}
                                 floatingLabelText='XP'
+                                type='number'
                                 style={{ width: '25%' }}
                             />
                             <TextField className='basic_info_text'
@@ -231,259 +234,312 @@ class Character extends Component {
                             />
                         </div>
                     </div>
-                    <div className='modifiers'>
+                    <div className='strength'>
                         <TextField
                             value={this.state.strength}
                             onChange={(e) => this.setState({ strength: e.target.value })}
                             floatingLabelText='Strength'
+                            type='number'
                             style={{ width: '60%' }}
                         />
                         {this.abilityModifiers(this.state.strength)}
+                    </div>
+                    <div className='dexterity'>
                         <TextField
                             value={this.state.dexterity}
                             onChange={(e) => this.setState({ dexterity: e.target.value })}
                             floatingLabelText='Dexterity'
+                            type='number'
                             style={{ width: '60%' }}
                         />
                         {this.abilityModifiers(this.state.dexterity)}
+                    </div>
+                    <div className='constitution'>
                         <TextField
                             value={this.state.constitution}
                             onChange={(e) => this.setState({ constitution: e.target.value })}
                             floatingLabelText='Constitution'
+                            type='number'
                             style={{ width: '60%' }}
                         />
                         {this.abilityModifiers(this.state.constitution)}
+                    </div>
+                    <div className='intelligence'>
                         <TextField
                             value={this.state.intelligence}
                             onChange={(e) => this.setState({ intelligence: e.target.value })}
                             floatingLabelText='Intelligence'
+                            type='number'
                             style={{ width: '60%' }}
                         />
                         {this.abilityModifiers(this.state.intelligence)}
+                    </div>
+                    <div className='wisdom'>
                         <TextField
                             value={this.state.wisdom}
                             onChange={(e) => this.setState({ wisdom: e.target.value })}
                             floatingLabelText='Wisdom'
+                            type='number'
                             style={{ width: '60%' }}
                         />
                         {this.abilityModifiers(this.state.wisdom)}
+                    </div>
+                    <div className='charisma'>
                         <TextField
                             value={this.state.charisma}
                             onChange={(e) => this.setState({ charisma: e.target.value })}
                             floatingLabelText='Charisma'
+                            type='number'
                             style={{ width: '60%' }}
                         />
                         {this.abilityModifiers(this.state.charisma)}
                     </div>
-                    <div className='col2'>
-                        <div className='inspiration'>
-                            <TextField
-                                value={this.state.inspiration}
-                                onChange={(e) => this.setState({ inspiration: e.target.value })}
-                                floatingLabelText='Inspiration'
-                                style={{ width: '75%' }}
-                            />
-                        </div>
-                        <div className='proficiency_bonus'>
-                            <TextField
-                                value={this.state.proficiency_bonus}
-                                onChange={(e) => this.setState({ proficiency_bonus: e.target.value })}
-                                floatingLabelText='Proficieny Bonus'
-                                style={{ width: '75%' }}
-                            />
-                        </div>
-                        <div className='saving_throws'>
-                            <h3>SAVING THROWS</h3>
-                            <Toggle
-                                defaultToggled={this.state.strength_saving_throw}
-                                label={`Strength: ${this.modifiers(this.state.strength, this.state.strength_saving_throw)}`}
-                                onToggle={() => this.setState({ strength_saving_throw: !this.state.strength_saving_throw })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.dexterity_saving_throw}
-                                label={`Dexterity: ${this.modifiers(this.state.dexterity, this.state.dexterity_saving_throw)}`}
-                                onToggle={() => this.setState({ dexterity_saving_throw: !this.state.dexterity_saving_throw })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.constitution_saving_throw}
-                                label={`Constitution: ${this.modifiers(this.state.constitution, this.state.constitution_saving_throw)}`}
-                                onToggle={() => this.setState({ constitution_saving_throw: !this.state.constitution_saving_throw })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.wisdom_saving_throw}
-                                label={`Wisdom: ${this.modifiers(this.state.wisdom, this.state.wisdom_saving_throw)}`}
-                                onToggle={() => this.setState({ wisdom_saving_throw: !this.state.wisdom_saving_throw })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.intelligence_saving_throw}
-                                label={`Intelligence: ${this.modifiers(this.state.intelligence, this.state.intelligence_saving_throw)}`}
-                                onToggle={() => this.setState({ intelligence_saving_throw: !this.state.intelligence_saving_throw })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.charisma_saving_throw}
-                                label={`Charisma: ${this.modifiers(this.state.charisma, this.state.charisma_saving_throw)}`}
-                                onToggle={() => this.setState({ charisma_saving_throw: !this.state.charisma_saving_throw })}
-                            />
-                        </div>
-                        <div className='skills'>
-                            <h3>SKILLS</h3>
-                            <Toggle
-                                defaultToggled={this.state.acrobatics}
-                                label={`Acrobatics: ${this.modifiers(this.state.dexterity, this.state.acrobatics)}`}
-                                onToggle={() => this.setState({ acrobatics: !this.state.acrobatics })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.animal_handling}
-                                label={`Animal Handling: ${this.modifiers(this.state.wisdom, this.state.animal_handling)}`}
-                                onToggle={() => this.setState({ animal_handling: !this.state.animal_handling })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.arcana}
-                                label={`Arcana: ${this.modifiers(this.state.intelligence, this.state.arcana)}`}
-                                onToggle={() => this.setState({ arcana: !this.state.arcana })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.athletics}
-                                label={`Athletics: ${this.modifiers(this.state.strength, this.state.athletics)}`}
-                                onToggle={() => this.setState({ athletics: !this.state.athletics })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.deception}
-                                label={`Deception: ${this.modifiers(this.state.charisma, this.state.deception)}`}
-                                onToggle={() => this.setState({ deception: !this.state.deception })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.history}
-                                label={`History: ${this.modifiers(this.state.intelligence, this.state.history)}`}
-                                onToggle={() => this.setState({ history: !this.state.history })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.insight}
-                                label={`Insight: ${this.modifiers(this.state.wisdom, this.state.insight)}`}
-                                onToggle={() => this.setState({ insight: !this.state.insight })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.intimidation}
-                                label={`Intimidation: ${this.modifiers(this.state.charisma, this.state.intimidation)}`}
-                                onToggle={() => this.setState({ intimidation: !this.state.intimidation })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.investigation}
-                                label={`Investigation: ${this.modifiers(this.state.intelligence, this.state.investigation)}`}
-                                onToggle={() => this.setState({ investigation: !this.state.investigation })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.medicine}
-                                label={`Medicine: ${this.modifiers(this.state.wisdom, this.state.medicine)}`}
-                                onToggle={() => this.setState({ medicine: !this.state.medicine })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.nature}
-                                label={`Nature: ${this.modifiers(this.state.intelligence, this.state.nature)}`}
-                                onToggle={() => this.setState({ nature: !this.state.nature })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.perception}
-                                label={`Perception: ${this.modifiers(this.state.wisdom, this.state.perception)}`}
-                                onToggle={() => this.setState({ perception: !this.state.perception })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.performance}
-                                label={`Performance: ${this.modifiers(this.state.charisma, this.state.performance)}`}
-                                onToggle={() => this.setState({ performance: !this.state.performance })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.persuasion}
-                                label={`Persuasion: ${this.modifiers(this.state.charisma, this.state.persuasion)}`}
-                                onToggle={() => this.setState({ persuasion: !this.state.persuasion })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.religion}
-                                label={`Religion: ${this.modifiers(this.state.intelligence, this.state.religion)}`}
-                                onToggle={() => this.setState({ religion: !this.state.religion })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.sleight_of_hand}
-                                label={`Sleight of Hand: ${this.modifiers(this.state.dexterity, this.state.sleight_of_hand)}`}
-                                onToggle={() => this.setState({ sleight_of_hand: !this.state.sleight_of_hand })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.stealth}
-                                label={`Stealth: ${this.modifiers(this.state.dexterity, this.state.stealth)}`}
-                                onToggle={() => this.setState({ stealth: !this.state.stealth })}
-                            />
-                            <Toggle
-                                defaultToggled={this.state.survival}
-                                label={`Survival: ${this.modifiers(this.state.wisdom, this.state.survival)}`}
-                                onToggle={() => this.setState({ survival: !this.state.survival })}
-                            />
-                        </div>
+                    <div className='inspiration_proficiency'>
+                        <TextField className='col2'
+                            value={this.state.inspiration}
+                            onChange={(e) => this.setState({ inspiration: e.target.value })}
+                            floatingLabelText='Inspiration'
+                            type='number'
+                            style={{ width: '75%' }}
+                        />
+                        <TextField className='col2'
+                            value={this.state.proficiency_bonus}
+                            onChange={(e) => this.setState({ proficiency_bonus: e.target.value })}
+                            floatingLabelText='Proficieny Bonus'
+                            type='number'
+                            style={{ width: '75%' }}
+                        />
                     </div>
-                    <div className='col3'>
-                        <TextField className='col3_info'
+                    <div className='saving_throws'>
+                        <Toggle
+                            defaultToggled={this.state.strength_saving_throw}
+                            label={`Strength: ${this.modifiers(this.state.strength, this.state.strength_saving_throw)}`}
+                            onToggle={() => this.setState({ strength_saving_throw: !this.state.strength_saving_throw })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.dexterity_saving_throw}
+                            label={`Dexterity: ${this.modifiers(this.state.dexterity, this.state.dexterity_saving_throw)}`}
+                            onToggle={() => this.setState({ dexterity_saving_throw: !this.state.dexterity_saving_throw })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.constitution_saving_throw}
+                            label={`Constitution: ${this.modifiers(this.state.constitution, this.state.constitution_saving_throw)}`}
+                            onToggle={() => this.setState({ constitution_saving_throw: !this.state.constitution_saving_throw })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.wisdom_saving_throw}
+                            label={`Wisdom: ${this.modifiers(this.state.wisdom, this.state.wisdom_saving_throw)}`}
+                            onToggle={() => this.setState({ wisdom_saving_throw: !this.state.wisdom_saving_throw })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.intelligence_saving_throw}
+                            label={`Intelligence: ${this.modifiers(this.state.intelligence, this.state.intelligence_saving_throw)}`}
+                            onToggle={() => this.setState({ intelligence_saving_throw: !this.state.intelligence_saving_throw })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.charisma_saving_throw}
+                            label={`Charisma: ${this.modifiers(this.state.charisma, this.state.charisma_saving_throw)}`}
+                            onToggle={() => this.setState({ charisma_saving_throw: !this.state.charisma_saving_throw })}
+                        />
+                        <h4>SAVING THROWS</h4>
+                    </div>
+                    <div className='skills'>
+                        <Toggle
+                            defaultToggled={this.state.acrobatics}
+                            label={`Acrobatics: ${this.modifiers(this.state.dexterity, this.state.acrobatics)}`}
+                            onToggle={() => this.setState({ acrobatics: !this.state.acrobatics })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.animal_handling}
+                            label={`Animal Handling: ${this.modifiers(this.state.wisdom, this.state.animal_handling)}`}
+                            onToggle={() => this.setState({ animal_handling: !this.state.animal_handling })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.arcana}
+                            label={`Arcana: ${this.modifiers(this.state.intelligence, this.state.arcana)}`}
+                            onToggle={() => this.setState({ arcana: !this.state.arcana })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.athletics}
+                            label={`Athletics: ${this.modifiers(this.state.strength, this.state.athletics)}`}
+                            onToggle={() => this.setState({ athletics: !this.state.athletics })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.deception}
+                            label={`Deception: ${this.modifiers(this.state.charisma, this.state.deception)}`}
+                            onToggle={() => this.setState({ deception: !this.state.deception })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.history}
+                            label={`History: ${this.modifiers(this.state.intelligence, this.state.history)}`}
+                            onToggle={() => this.setState({ history: !this.state.history })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.insight}
+                            label={`Insight: ${this.modifiers(this.state.wisdom, this.state.insight)}`}
+                            onToggle={() => this.setState({ insight: !this.state.insight })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.intimidation}
+                            label={`Intimidation: ${this.modifiers(this.state.charisma, this.state.intimidation)}`}
+                            onToggle={() => this.setState({ intimidation: !this.state.intimidation })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.investigation}
+                            label={`Investigation: ${this.modifiers(this.state.intelligence, this.state.investigation)}`}
+                            onToggle={() => this.setState({ investigation: !this.state.investigation })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.medicine}
+                            label={`Medicine: ${this.modifiers(this.state.wisdom, this.state.medicine)}`}
+                            onToggle={() => this.setState({ medicine: !this.state.medicine })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.nature}
+                            label={`Nature: ${this.modifiers(this.state.intelligence, this.state.nature)}`}
+                            onToggle={() => this.setState({ nature: !this.state.nature })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.perception}
+                            label={`Perception: ${this.modifiers(this.state.wisdom, this.state.perception)}`}
+                            onToggle={() => this.setState({ perception: !this.state.perception })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.performance}
+                            label={`Performance: ${this.modifiers(this.state.charisma, this.state.performance)}`}
+                            onToggle={() => this.setState({ performance: !this.state.performance })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.persuasion}
+                            label={`Persuasion: ${this.modifiers(this.state.charisma, this.state.persuasion)}`}
+                            onToggle={() => this.setState({ persuasion: !this.state.persuasion })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.religion}
+                            label={`Religion: ${this.modifiers(this.state.intelligence, this.state.religion)}`}
+                            onToggle={() => this.setState({ religion: !this.state.religion })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.sleight_of_hand}
+                            label={`Sleight of Hand: ${this.modifiers(this.state.dexterity, this.state.sleight_of_hand)}`}
+                            onToggle={() => this.setState({ sleight_of_hand: !this.state.sleight_of_hand })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.stealth}
+                            label={`Stealth: ${this.modifiers(this.state.dexterity, this.state.stealth)}`}
+                            onToggle={() => this.setState({ stealth: !this.state.stealth })}
+                        />
+                        <Toggle
+                            defaultToggled={this.state.survival}
+                            label={`Survival: ${this.modifiers(this.state.wisdom, this.state.survival)}`}
+                            onToggle={() => this.setState({ survival: !this.state.survival })}
+                        />
+                        <h4>SKILLS</h4>
+                    </div>
+                    <div className='ac_hp'>
+                        <TextField className='ac_hp_info'
                             value={this.state.armor_class}
                             onChange={(e) => this.setState({ armor_class: e.target.value })}
                             floatingLabelText='Armor Class'
+                            type='number'
                             style={{ width: '25%' }}
                         />
-                        <TextField className='col3_info'
+                        <TextField className='ac_hp_info'
                             value={this.state.initiative}
                             onChange={(e) => this.setState({ initiative: e.target.value })}
                             floatingLabelText='Initiative'
+                            type='number'
                             style={{ width: '25%' }}
                         />
-                        <TextField className='col3_info'
+                        <TextField className='ac_hp_info'
                             value={this.state.speed}
                             onChange={(e) => this.setState({ speed: e.target.value })}
                             floatingLabelText='Speed'
+                            type='number'
                             style={{ width: '25%' }}
                         />
-                        <TextField className='col3_info'
+                        <TextField className='ac_hp_info'
                             value={this.state.max_hit_points}
                             onChange={(e) => this.setState({ max_hit_points: e.target.value })}
                             floatingLabelText='Max HP'
+                            type='number'
                             style={{ width: '25%' }}
                         />
-                        <TextField className='col3_info'
+                        <TextField className='ac_hp_info'
                             value={this.state.current_hit_points}
                             onChange={(e) => this.setState({ current_hit_points: e.target.value })}
                             floatingLabelText='Current HP'
+                            type='number'
                             style={{ width: '25%' }}
                         />
-                        <TextField className='col3_info'
+                        <TextField className='ac_hp_info'
                             value={this.state.temp_hit_points}
                             onChange={(e) => this.setState({ temp_hit_points: e.target.value })}
                             floatingLabelText='Temporary HP'
+                            type='number'
                             style={{ width: '30%' }}
                         />
-                        <TextField className='col3_info'
+                        <TextField className='ac_hp_info'
                             value={this.state.total_hit_dice}
                             onChange={(e) => this.setState({ total_hit_dice: e.target.value })}
                             floatingLabelText='Total Hit Dice'
                             style={{ width: '30%' }}
                         />
-                        <TextField className='col3_info'
+                        <TextField className='ac_hp_info'
                             value={this.state.current_hit_dice}
                             onChange={(e) => this.setState({ current_hit_dice: e.target.value })}
                             floatingLabelText='Current Hit Dice'
+                            type='number'
                             style={{ width: '40%' }}
                         />
-                        <h3>DEATH SAVES</h3>
-                        <div className='death_saves'>
-                            <Checkbox/>
-                            <Checkbox/>
-                            <Checkbox label='Successes'/>
-                            <Checkbox/>
-                            <Checkbox/>
-                            <Checkbox label='Failures'/>
+                    </div>
+                    <div className='death_saves'>
+                        <div className='successes'>
+                            <Checkbox className='saves' style={{float: "left", width: "1%"}} />
+                            <Checkbox className='saves' style={{float: "left", width: "1%"}} />
+                            <Checkbox className='saves' style={{float: "left", width: "1%"}} label='Successes'/>
+                        </div>
+                        <div className='failures'>
+                            <Checkbox className='saves' style={{float: "left", width: "1%"}} />
+                            <Checkbox className='saves' style={{float: "left", width: "1%"}} />
+                            <Checkbox className='saves' style={{float: "left", width: "1%"}} label='Failures'/>
+                        </div>
+                        <div>
+                            <h4>DEATH SAVES</h4>
                         </div>
                     </div>
                     <div className='attacks'>
-                        {this.weaponsList()}
+                        <Attacks id={this.props.match.params.id}/>
                     </div>
-                    <FloatingActionButton className='save' onClick={() => this.props.saveCharacter(this.props.match.params.id, this.state)}>
-                        <ContentAdd />
-                    </FloatingActionButton>
+                    <div className='personality'>
+                        <TextField
+                            hintText='Personality Traits'
+                            floatingLabelText='Personality Traits'
+                            multiLine={true}
+                            rows={2}
+                            onChange={(e) => this.setState({ personality_traits: e.target.value })}
+                        />
+                        <TextField
+                            hintText='Ideals'
+                            floatingLabelText='Ideals'
+                            multiLine={true}
+                            rows={2}
+                        />
+                        <TextField
+                            hintText='Bonds'
+                            floatingLabelText='Bonds'
+                            multiLine={true}
+                            rows={2}
+                        />
+                        <TextField
+                            hintText='Flaws'
+                            floatingLabelText='Flaws'
+                            multiLine={true}
+                            rows={2}
+                        />
+                    </div>
+                    <FloatingActionButton className='undo' children={'UNDO'} onClick={() => this.componentDidMount()} secondary={true} />
+                    <FloatingActionButton className='save' children={'SAVE'} onClick={() => this.save()} />
                 </div>
             </div>
         )
@@ -497,4 +553,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { getUser, getCharacter, saveCharacter, getWeapons })(Character);
+export default connect(mapStateToProps, { getUser, getCharacter, saveCharacter })(Character);

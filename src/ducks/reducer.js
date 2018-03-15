@@ -3,9 +3,9 @@ import axios from 'axios';
 
 const initialState = {
     user: {},
-    characters: [],
-    character: [],
-    character_weapons: []
+    characters: [{}],
+    character: [{}],
+    character_weapons: [{}]
 };
 
 
@@ -62,6 +62,7 @@ export function getWeapons(id) {
 
 //REDUCER
 export default function reducer(state = initialState, action) {
+
     switch (action.type) {
 
         case GET_USER + '_FULFILLED':
@@ -77,7 +78,6 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, { character: action.payload });
 
         case GET_WEAPONS + '_FULFILLED':
-            console.log(action.payload);
             return Object.assign({}, state, { character_weapons: action.payload });
 
         default:

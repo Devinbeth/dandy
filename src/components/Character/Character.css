@@ -2,7 +2,7 @@
     display: grid;
     grid-gap: 1%;
     grid-template-columns: 10% 18% 34.5% 34.5%;
-    grid-template-rows: 200px 200px 200px 200px;
+    grid-template-rows: 200px 100px 100px 100px 100px 100px 100px 100px 100px;
     margin: 1%;
 }
 
@@ -34,15 +34,78 @@
     border-style: solid;
     border-color: black;
     display: flex;
-    padding: 0 2%;
 }
 
-.Character .basic_info .basic_info_text {
+.Character .basic_info_text {
     margin: 2%;
 }
 
-.Character .modifiers {
-    grid-area: 2 / 1 / 5 / 1;
+.Character .strength {
+    grid-area: 2 / 1 / 3 / 2;
+    border: 1px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    margin-top: 10px;
+}
+
+.Character .dexterity {
+    grid-area: 3 / 1 / 4 / 2;
+    border: 1px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    margin-top: 10px;
+}
+
+.Character .constitution {
+    grid-area: 4 / 1 / 5 / 2;
+    border: 1px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    margin-top: 10px;
+}
+
+.Character .intelligence {
+    grid-area: 5 / 1 / 6 / 2;
+    border: 1px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    margin-top: 10px;
+}
+
+.Character .wisdom {
+    grid-area: 6 / 1 / 7 / 2;
+    border: 1px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    margin-top: 10px;
+}
+
+.Character .charisma {
+    grid-area: 7 / 1 / 8 / 2;
+    border: 1px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    margin-top: 10px;
+}
+
+.Character .inspiration_proficiency {
+    grid-area: 2 / 2 / 4 / 3;
+    border: 1px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    margin-top: 10px;
+    padding: 5%;
+}
+
+.Character .saving_throws {
+    grid-area: 4 / 2 / 6 / 3;
     border: 1px;
     border-radius: 10px;
     border-style: solid;
@@ -50,11 +113,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px 0;
+    margin-top: 10px;
+    padding: 2% 5%;
 }
 
-.Character .col2 {
-    grid-area: 2 / 2 / 7 / 3;
+.Character .skills {
+    grid-area: 6 / 2 / 11 / 3;
     border: 1px;
     border-radius: 10px;
     border-style: solid;
@@ -62,10 +126,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px 0;
+    margin-top: 10px;
+    padding: 0 2%;
+    font-size: 90%;
 }
 
-.Character .col3 {
+.Character .ac_hp {
     grid-area: 2 / 3 / 5 / 4;
     border: 1px;
     border-radius: 10px;
@@ -75,21 +141,28 @@
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    margin: 10px 0;
+    margin-top: 10px;
 }
 
-.Character .col3 .col3_info {
+.Character .ac_hp .ac_hp_info {
     margin: 2%;
 }
 
 .Character .death_saves {
+    grid-area: 5 / 3 / 6 / 4;
+    border: 1px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
+    padding: 5%;
+    margin-top: 10px;
 }
 
 .Character .attacks {
-    grid-area: 5 / 3 / 7 / 4;
+    grid-area: 6 / 3 / 9 / 4;
     border: 1px;
     border-radius: 10px;
     border-style: solid;
@@ -98,11 +171,30 @@
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    margin: 10px 0;
+    margin-top: 10px;
+}
+
+.Character .personality {
+    grid-area: 2 / 4 / 6 / 5;
+    border: 1px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
 }
 
 .Character .save {
     position: fixed;
     bottom: 2%;
     right: 2%;
+}
+
+.Character .undo {
+    position: fixed;
+    bottom: 2%;
+    right: 8%;
 }
