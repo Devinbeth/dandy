@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
+import React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 
 export default function Race(props) {
     return (
         <div className='Race' >
-            <FlatButton>
-            <DropDownMenu value={props.race} onChange={(event, index, value) => this.set} >
+            {console.log(props.race)}
+            <DropDownMenu value={props.race} onChange={(event, index, value) => props.updateRace(value)} style={{ width: '25%' }}>
                 <MenuItem value={1} primaryText="Dwarf" />
                 <MenuItem value={2} primaryText="Elf" />
                 <MenuItem value={3} primaryText="Hafling" />
@@ -20,7 +18,7 @@ export default function Race(props) {
                 <MenuItem value={8} primaryText="Half-Orc" />
                 <MenuItem value={9} primaryText="Tiefling" />
             </DropDownMenu>
-            </FlatButton>
+            <FloatingActionButton mini={true} />
         </div>
     );
 }

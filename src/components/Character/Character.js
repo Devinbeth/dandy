@@ -76,6 +76,7 @@ class Character extends Component {
             copper: 0,
         }
         this.save = this.save.bind(this);
+        this.updateRace = this.updateRace.bind(this);
         this.abilityModifiers = this.abilityModifiers.bind(this);
         this.modifiers = this.modifiers.bind(this);
         this.passiveWisdom = this.passiveWisdom.bind(this);
@@ -85,6 +86,10 @@ class Character extends Component {
 
     save() {
         this.props.saveCharacter(this.props.match.params.id, this.state);
+    }
+
+    updateRace(newRace) {
+        this.setState({ race: newRace });
     }
 
     abilityModifiers(ability) {
@@ -218,7 +223,7 @@ class Character extends Component {
                             <img className='character_image' src={this.state.image} alt='' />
                         </div>
                         <div>
-                            <Race race={this.state.race}/>
+                            <Race race={this.state.race} updateRace={this.updateRace} />
                             <TextField className='basic_info_text'
                                 id="text-field-controlled"
                                 value={this.state.class}
