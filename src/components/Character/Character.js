@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { getUser, getCharacter, saveCharacter } from '../../ducks/reducer.js';
 import './Character.css';
 import Header from '../Header/Header.js';
-import Race from './Race/Race.js';
+import Race from './Race.js';
+import Class from './Class.js';
+import Alignment from './Alignment.js';
+import Background from './Background.js';
 import Attacks from './Attacks/Attacks.js';
 import logo from '../../assets/D&D_5E_Logo.png';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import Toggle from 'material-ui/Toggle';
 import Checkbox from 'material-ui/Checkbox';
 
 class Character extends Component {
@@ -55,6 +57,8 @@ class Character extends Component {
             sleight_of_hand: false,
             stealth: false,
             survival: false,
+            languages: '',
+            other_proficiencies: '',
             armor_class: 0,
             initiative: 0,
             speed: 0,
@@ -77,6 +81,9 @@ class Character extends Component {
         }
         this.save = this.save.bind(this);
         this.updateRace = this.updateRace.bind(this);
+        this.updateClass = this.updateClass.bind(this);
+        this.updateAlignment = this.updateAlignment.bind(this);
+        this.updateBackground = this.updateBackground.bind(this);
         this.abilityModifiers = this.abilityModifiers.bind(this);
         this.modifiers = this.modifiers.bind(this);
         this.passiveWisdom = this.passiveWisdom.bind(this);
@@ -90,6 +97,18 @@ class Character extends Component {
 
     updateRace(newRace) {
         this.setState({ race: newRace });
+    }
+
+    updateClass(newClass) {
+        this.setState({ class: newClass });
+    }
+
+    updateAlignment(newAlignment) {
+        this.setState({ alignment: newAlignment });
+    }
+
+    updateBackground(newBackground) {
+        this.setState({ background: newBackground });
     }
 
     abilityModifiers(ability) {
@@ -181,6 +200,8 @@ class Character extends Component {
             sleight_of_hand: newProps.character[0].sleight_of_hand,
             stealth: newProps.character[0].stealth,
             survival: newProps.character[0].survival,
+            languages: newProps.character[0].languages,
+            other_proficiencies: newProps.character[0].other_proficiencies,
             armor_class: newProps.character[0].armor_class,
             initiative: newProps.character[0].initiative,
             speed: newProps.character[0].speed,
@@ -208,297 +229,337 @@ class Character extends Component {
             <div className='Character'>
                 <Header />
                 <div className='sheet'>
-                    <div className='character_name'>
+                    <div className=' box character_name'>
                         <img className='logo' src={logo} alt='' />
                         <TextField className='basic_info_text'
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.name}
                             onChange={(e) => this.setState({ name: e.target.value })}
                             floatingLabelText='Character Name'
                             style={{ width: '75%' }}
                         />
                     </div>
-                    <div className='basic_info'>
-                        <div className='char_image'>
-                            <img className='character_image' src={this.state.image} alt='' />
-                        </div>
-                        <div>
+                    <div className='box basic_info'>
+                        <img className='character_image' src={this.state.image} alt='' />
+                        <div className='race'>
                             <Race race={this.state.race} updateRace={this.updateRace} />
-                            <TextField className='basic_info_text'
-                                id="text-field-controlled"
-                                value={this.state.class}
-                                onChange={(e) => this.setState({ class: e.target.value })}
-                                floatingLabelText='Class'
-                                style={{ width: '25%' }}
-                            />
-                            <TextField className='basic_info_text'
-                                id="text-field-controlled"
-                                value={this.state.level ? this.state.level : undefined}
-                                onChange={(e) => this.setState({ level: e.target.value })}
-                                floatingLabelText='Level'
-                                type='number'
-                                style={{ width: '25%' }}
-                            />
-                            <TextField className='basic_info_text'
-                                id="text-field-controlled"
-                                value={this.state.experience_points ? this.state.experience_points : undefined}
-                                onChange={(e) => this.setState({ experience_points: e.target.value })}
-                                floatingLabelText='XP'
-                                type='number'
-                                style={{ width: '25%' }}
-                            />
-                            <TextField className='basic_info_text'
-                                id="text-field-controlled"
-                                value={this.state.background}
-                                onChange={(e) => this.setState({ background: e.target.value })}
-                                floatingLabelText='Background'
-                                style={{ width: '25%' }}
-                            />
-                            <TextField className='basic_info_text'
-                                id="text-field-controlled"
-                                value={this.state.alignment}
-                                onChange={(e) => this.setState({ alignment: e.target.value })}
-                                floatingLabelText='Alignment'
-                                style={{ width: '25%' }}
-                            />
+                        </div>
+                        <div className='class'>
+                            <Class class={this.state.class} updateClass={this.updateClass} />
+                        </div>
+                        <TextField
+                            className='level'
+                            id='text-field-controlled'
+                            value={this.state.level ? this.state.level : undefined}
+                            onChange={(e) => this.setState({ level: e.target.value })}
+                            floatingLabelText='Level'
+                            type='number'
+                            style={{ width: '90%' }}
+                        />
+                        <TextField
+                            className='xp'
+                            id='text-field-controlled'
+                            value={this.state.experience_points ? this.state.experience_points : undefined}
+                            onChange={(e) => this.setState({ experience_points: e.target.value })}
+                            floatingLabelText='XP'
+                            type='number'
+                            style={{ width: '90%' }}
+                        />
+                        <div className='background'>
+                            <Background background={this.state.background} updateBackground={this.updateBackground} />
+                        </div>
+                        <div className='alignment'>
+                            <Alignment alignment={this.state.alignment} updateAlignment={this.updateAlignment} />
                         </div>
                     </div>
-                    <div className='strength'>
+                    <div className='box abilities strength'>
+                        <h5>STRENGTH</h5>
                         <TextField
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.strength ? this.state.strength : undefined}
-                            onChange={(e) => this.setState({ strength: e.target.value })}
-                            floatingLabelText='Strength'
-                            type='number'
-                            style={{ width: '50%', textAlign: 'center' }}
-                            underlineShow={false}
+                            onChange={(e) => this.setState({ strength: Number(e.target.value) })}
+                            style={{ width: '75%' }}
+                            inputStyle={{ textAlign: 'center' }}
                         /><br />
                         {this.abilityModifiers(this.state.strength)}
                     </div>
-                    <div className='dexterity'>
+                    <div className='box abilities dexterity'>
+                        <h5>DEXTERITY</h5>
                         <TextField
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.dexterity ? this.state.dexterity : undefined}
-                            onChange={(e) => this.setState({ dexterity: e.target.value })}
-                            floatingLabelText='Dexterity'
-                            type='number'
-                            style={{ width: '60%' }}
-                        />
+                            onChange={(e) => this.setState({ dexterity: Number(e.target.value) })}
+                            style={{ width: '75%' }}
+                            inputStyle={{ textAlign: 'center' }}
+                        /><br />
                         {this.abilityModifiers(this.state.dexterity)}
                     </div>
-                    <div className='constitution'>
+                    <div className='box abilities constitution'>
+                        <h5>CONSTITUTION
+                        </h5>
                         <TextField
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.constitution ? this.state.constitution : undefined}
-                            onChange={(e) => this.setState({ constitution: e.target.value })}
-                            floatingLabelText='Constitution'
-                            type='number'
-                            style={{ width: '60%' }}
-                        />
+                            onChange={(e) => this.setState({ constitution: Number(e.target.value) })}
+                            style={{ width: '75%' }}
+                            inputStyle={{ textAlign: 'center' }}
+                        /><br />
                         {this.abilityModifiers(this.state.constitution)}
                     </div>
-                    <div className='intelligence'>
+                    <div className='box abilities intelligence'>
+                        <h5>INTELLIGENCE</h5>
                         <TextField
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.intelligence ? this.state.intelligence : undefined}
-                            onChange={(e) => this.setState({ intelligence: e.target.value })}
-                            floatingLabelText='Intelligence'
-                            type='number'
-                            style={{ width: '60%' }}
-                        />
+                            onChange={(e) => this.setState({ intelligence: Number(e.target.value) })}
+                            style={{ width: '75%' }}
+                            inputStyle={{ textAlign: 'center' }}
+                        /><br />
                         {this.abilityModifiers(this.state.intelligence)}
                     </div>
-                    <div className='wisdom'>
+                    <div className='box abilities wisdom'>
+                        <h5>WISDOM</h5>
                         <TextField
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.wisdom ? this.state.wisdom : undefined}
-                            onChange={(e) => this.setState({ wisdom: e.target.value })}
-                            floatingLabelText='Wisdom'
-                            type='number'
-                            style={{ width: '60%' }}
-                        />
+                            onChange={(e) => this.setState({ wisdom: Number(e.target.value) })}
+                            style={{ width: '75%' }}
+                            inputStyle={{ textAlign: 'center' }}
+                        /><br />
                         {this.abilityModifiers(this.state.wisdom)}
                     </div>
-                    <div className='charisma'>
+                    <div className='box abilities charisma'>
+                        <h5>CHARISMA</h5>
                         <TextField
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.charisma ? this.state.charisma : undefined}
-                            onChange={(e) => this.setState({ charisma: e.target.value })}
-                            floatingLabelText='Charisma'
-                            type='number'
-                            style={{ width: '60%' }}
-                        />
+                            onChange={(e) => this.setState({ charisma: Number(e.target.value) })}
+                            style={{ width: '75%' }}
+                            inputStyle={{ textAlign: 'center' }}
+                        /><br />
                         {this.abilityModifiers(this.state.charisma)}
                     </div>
-                    <div className='inspiration_proficiency'>
-                        <TextField className='col2'
-                            id="text-field-controlled"
+                    <div className='box inspiration'>
+                        <TextField
+                            id='text-field-controlled'
                             value={this.state.inspiration ? this.state.inspiration : 0}
-                            onChange={(e) => this.setState({ inspiration: e.target.value })}
+                            onChange={(e) => this.setState({ inspiration: Number(e.target.value) })}
                             floatingLabelText='Inspiration'
                             type='number'
                             style={{ width: '75%' }}
                         />
-                        <TextField className='col2'
-                            id="text-field-controlled"
+                    </div>
+                    <div className='box proficiency'>
+                        <TextField
+                            id='text-field-controlled'
                             value={this.state.proficiency_bonus ? this.state.proficiency_bonus : undefined}
-                            onChange={(e) => this.setState({ proficiency_bonus: e.target.value })}
+                            onChange={(e) => this.setState({ proficiency_bonus: Number(e.target.value) })}
                             floatingLabelText='Proficieny Bonus'
                             type='number'
                             style={{ width: '75%' }}
                         />
                     </div>
-                    <div className='saving_throws'>
-                        <Toggle
-                            defaultToggled={this.state.strength_saving_throw}
-                            label={`Strength: ${this.modifiers(this.state.strength, this.state.strength_saving_throw)}`}
-                            onToggle={() => this.setState({ strength_saving_throw: !this.state.strength_saving_throw })}
+                    <div className='box saving_throws'>
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.strength, this.state.strength_saving_throw)}  Strength`}
+                            checked={this.state.strength_saving_throw}
+                            onCheck={() => this.setState({ strength_saving_throw: !this.state.strength_saving_throw })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.dexterity_saving_throw}
-                            label={`Dexterity: ${this.modifiers(this.state.dexterity, this.state.dexterity_saving_throw)}`}
-                            onToggle={() => this.setState({ dexterity_saving_throw: !this.state.dexterity_saving_throw })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.dexterity, this.state.dexterity_saving_throw)}  Dexterity`}
+                            checked={this.state.dexterity_saving_throw}
+                            onCheck={() => this.setState({ dexterity_saving_throw: !this.state.dexterity_saving_throw })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.constitution_saving_throw}
-                            label={`Constitution: ${this.modifiers(this.state.constitution, this.state.constitution_saving_throw)}`}
-                            onToggle={() => this.setState({ constitution_saving_throw: !this.state.constitution_saving_throw })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.constitution, this.state.constitution_saving_throw)}  Constitution`}
+                            checked={this.state.constitution_saving_throw}
+                            onCheck={() => this.setState({ constitution_saving_throw: !this.state.constitution_saving_throw })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.wisdom_saving_throw}
-                            label={`Wisdom: ${this.modifiers(this.state.wisdom, this.state.wisdom_saving_throw)}`}
-                            onToggle={() => this.setState({ wisdom_saving_throw: !this.state.wisdom_saving_throw })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.wisdom, this.state.wisdom_saving_throw)}  Wisdom`}
+                            checked={this.state.wisdom_saving_throw}
+                            onCheck={() => this.setState({ wisdom_saving_throw: !this.state.wisdom_saving_throw })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.intelligence_saving_throw}
-                            label={`Intelligence: ${this.modifiers(this.state.intelligence, this.state.intelligence_saving_throw)}`}
-                            onToggle={() => this.setState({ intelligence_saving_throw: !this.state.intelligence_saving_throw })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.intelligence, this.state.intelligence_saving_throw)}  Intelligence`}
+                            checked={this.state.intelligence_saving_throw}
+                            onCheck={() => this.setState({ intelligence_saving_throw: !this.state.intelligence_saving_throw })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.charisma_saving_throw}
-                            label={`Charisma: ${this.modifiers(this.state.charisma, this.state.charisma_saving_throw)}`}
-                            onToggle={() => this.setState({ charisma_saving_throw: !this.state.charisma_saving_throw })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.charisma, this.state.charisma_saving_throw)}  Charisma`}
+                            checked={this.state.charisma_saving_throw}
+                            onCheck={() => this.setState({ charisma_saving_throw: !this.state.charisma_saving_throw })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <h4>SAVING THROWS</h4>
+                        <h5>SAVING THROWS</h5>
                     </div>
-                    <div className='skills'>
-                        <Toggle
-                            defaultToggled={this.state.acrobatics}
-                            label={`Acrobatics: ${this.modifiers(this.state.dexterity, this.state.acrobatics)}`}
-                            onToggle={() => this.setState({ acrobatics: !this.state.acrobatics })}
+                    <div className='box skills'>
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.dexterity, this.state.acrobatics)}  Acrobatics (Dex)`}
+                            checked={this.state.acrobatics}
+                            onCheck={() => this.setState({ acrobatics: !this.state.acrobatics })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.animal_handling}
-                            label={`Animal Handling: ${this.modifiers(this.state.wisdom, this.state.animal_handling)}`}
-                            onToggle={() => this.setState({ animal_handling: !this.state.animal_handling })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.wisdom, this.state.animal_handling)}  Animal Handling (Wis)`}
+                            checked={this.state.animal_handling}
+                            onCheck={() => this.setState({ animal_handling: !this.state.animal_handling })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.arcana}
-                            label={`Arcana: ${this.modifiers(this.state.intelligence, this.state.arcana)}`}
-                            onToggle={() => this.setState({ arcana: !this.state.arcana })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.intelligence, this.state.arcana)}  Arcana (Int)`}
+                            checked={this.state.arcana}
+                            onCheck={() => this.setState({ arcana: !this.state.arcana })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.athletics}
-                            label={`Athletics: ${this.modifiers(this.state.strength, this.state.athletics)}`}
-                            onToggle={() => this.setState({ athletics: !this.state.athletics })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.strength, this.state.athletics)}  Athletics (Str)`}
+                            checked={this.state.athletics}
+                            onCheck={() => this.setState({ athletics: !this.state.athletics })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.deception}
-                            label={`Deception: ${this.modifiers(this.state.charisma, this.state.deception)}`}
-                            onToggle={() => this.setState({ deception: !this.state.deception })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.charisma, this.state.deception)}  Deception (Cha)`}
+                            checked={this.state.deception}
+                            onCheck={() => this.setState({ deception: !this.state.deception })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.history}
-                            label={`History: ${this.modifiers(this.state.intelligence, this.state.history)}`}
-                            onToggle={() => this.setState({ history: !this.state.history })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.intelligence, this.state.history)}  History (Int)`}
+                            checked={this.state.history}
+                            onCheck={() => this.setState({ history: !this.state.history })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.insight}
-                            label={`Insight: ${this.modifiers(this.state.wisdom, this.state.insight)}`}
-                            onToggle={() => this.setState({ insight: !this.state.insight })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.wisdom, this.state.insight)}  Insight (Wis)`}
+                            checked={this.state.insight}
+                            onCheck={() => this.setState({ insight: !this.state.insight })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.intimidation}
-                            label={`Intimidation: ${this.modifiers(this.state.charisma, this.state.intimidation)}`}
-                            onToggle={() => this.setState({ intimidation: !this.state.intimidation })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.charisma, this.state.intimidation)}  Intimidation (Cha)`}
+                            checked={this.state.intimidation}
+                            onCheck={() => this.setState({ intimidation: !this.state.intimidation })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.investigation}
-                            label={`Investigation: ${this.modifiers(this.state.intelligence, this.state.investigation)}`}
-                            onToggle={() => this.setState({ investigation: !this.state.investigation })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.intelligence, this.state.investigation)}  Investigation (Int)`}
+                            checked={this.state.investigation}
+                            onCheck={() => this.setState({ investigation: !this.state.investigation })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.medicine}
-                            label={`Medicine: ${this.modifiers(this.state.wisdom, this.state.medicine)}`}
-                            onToggle={() => this.setState({ medicine: !this.state.medicine })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.wisdom, this.state.medicine)}  Medicine (Wis)`}
+                            checked={this.state.medicine}
+                            onCheck={() => this.setState({ medicine: !this.state.medicine })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.nature}
-                            label={`Nature: ${this.modifiers(this.state.intelligence, this.state.nature)}`}
-                            onToggle={() => this.setState({ nature: !this.state.nature })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.intelligence, this.state.nature)}  Nature (Int)`}
+                            checked={this.state.nature}
+                            onCheck={() => this.setState({ nature: !this.state.nature })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.perception}
-                            label={`Perception: ${this.modifiers(this.state.wisdom, this.state.perception)}`}
-                            onToggle={() => this.setState({ perception: !this.state.perception })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.wisdom, this.state.perception)}  Perception (Wis)`}
+                            checked={this.state.perception}
+                            onCheck={() => this.setState({ perception: !this.state.perception })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.performance}
-                            label={`Performance: ${this.modifiers(this.state.charisma, this.state.performance)}`}
-                            onToggle={() => this.setState({ performance: !this.state.performance })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.charisma, this.state.performance)}  Performance (Cha)`}
+                            checked={this.state.performance}
+                            onCheck={() => this.setState({ performance: !this.state.performance })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.persuasion}
-                            label={`Persuasion: ${this.modifiers(this.state.charisma, this.state.persuasion)}`}
-                            onToggle={() => this.setState({ persuasion: !this.state.persuasion })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.charisma, this.state.persuasion)}  Persuasion (Cha)`}
+                            checked={this.state.persuasion}
+                            onCheck={() => this.setState({ persuasion: !this.state.persuasion })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.religion}
-                            label={`Religion: ${this.modifiers(this.state.intelligence, this.state.religion)}`}
-                            onToggle={() => this.setState({ religion: !this.state.religion })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.intelligence, this.state.religion)}  Religion (Int)`}
+                            checked={this.state.religion}
+                            onCheck={() => this.setState({ religion: !this.state.religion })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.sleight_of_hand}
-                            label={`Sleight of Hand: ${this.modifiers(this.state.dexterity, this.state.sleight_of_hand)}`}
-                            onToggle={() => this.setState({ sleight_of_hand: !this.state.sleight_of_hand })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.dexterity, this.state.sleight_of_hand)}  Sleight of Hand (Dex)`}
+                            checked={this.state.sleight_of_hand}
+                            onCheck={() => this.setState({ sleight_of_hand: !this.state.sleight_of_hand })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.stealth}
-                            label={`Stealth: ${this.modifiers(this.state.dexterity, this.state.stealth)}`}
-                            onToggle={() => this.setState({ stealth: !this.state.stealth })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.dexterity, this.state.stealth)}  Stealth (Dex)`}
+                            checked={this.state.stealth}
+                            onCheck={() => this.setState({ stealth: !this.state.stealth })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <Toggle
-                            defaultToggled={this.state.survival}
-                            label={`Survival: ${this.modifiers(this.state.wisdom, this.state.survival)}`}
-                            onToggle={() => this.setState({ survival: !this.state.survival })}
+                        <Checkbox
+                            label={` ${this.modifiers(this.state.wisdom, this.state.survival)}  Survival (Wis)`}
+                            checked={this.state.survival}
+                            onCheck={() => this.setState({ survival: !this.state.survival })}
+                            iconStyle={{ margin: '0 3%' }}
+                            labelStyle={{ width: '150px' }}
                         />
-                        <h4>SKILLS</h4>
+                        <h5>SKILLS</h5>
                     </div>
-                    <div className='passive_wisdom'>
-                        <h4>PASSIVE WISDOM (PERCEPTION): {this.passiveWisdom()}</h4>
+                    <div className='box passive_wisdom'>
+                        <h5>PASSIVE WISDOM (PERCEPTION): {this.passiveWisdom()}</h5>
                     </div>
-                    <div className='other_prof_languages'>
+                    <div className='box other_prof_languages'>
                         <TextField
-                            id="text-field-controlled"
-                            onChange={(e) => this.setState()}
+                            id='text-field-controlled'
+                            value={this.state.languages}
+                            onChange={(e) => this.setState({ languages: e.target.value })}
                             hintText='Languages'
                             floatingLabelText='Languages'
                             multiLine={true}
                             rows={2}
                         />
                         <TextField
-                            id="text-field-controlled"
-                            onChange={(e) => this.setState()}
+                            id='text-field-controlled'
+                            value={this.state.other_proficiencies}
+                            onChange={(e) => this.setState({ other_proficiencies: e.target.value })}
                             hintText='Other Proficiencies'
                             floatingLabelText='Other Proficiencies'
                             multiLine={true}
                             rows={2}
                         />
-                        <h4>OTHER PROFICIENCIES & LANGUAGES</h4>
+                        <h5>OTHER PROFICIENCIES & LANGUAGES</h5>
                     </div>
-                    <div className='ac_hp'>
+                    <div className='box ac_hp'>
                         <TextField className='ac_hp_info'
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.armor_class ? this.state.armor_class : undefined}
                             onChange={(e) => this.setState({ armor_class: e.target.value })}
                             floatingLabelText='Armor Class'
@@ -506,7 +567,7 @@ class Character extends Component {
                             style={{ width: '25%' }}
                         />
                         <TextField className='ac_hp_info'
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.initiative ? this.state.initiative : 0}
                             onChange={(e) => this.setState({ initiative: e.target.value })}
                             floatingLabelText='Initiative'
@@ -514,7 +575,7 @@ class Character extends Component {
                             style={{ width: '25%' }}
                         />
                         <TextField className='ac_hp_info'
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.speed ? this.state.speed : undefined}
                             onChange={(e) => this.setState({ speed: e.target.value })}
                             floatingLabelText='Speed'
@@ -522,7 +583,7 @@ class Character extends Component {
                             style={{ width: '25%' }}
                         />
                         <TextField className='ac_hp_info'
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.max_hit_points ? this.state.max_hit_points : undefined}
                             onChange={(e) => this.setState({ max_hit_points: e.target.value })}
                             floatingLabelText='Max HP'
@@ -530,7 +591,7 @@ class Character extends Component {
                             style={{ width: '25%' }}
                         />
                         <TextField className='ac_hp_info'
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.current_hit_points ? this.state.current_hit_points : 0}
                             onChange={(e) => this.setState({ current_hit_points: e.target.value })}
                             floatingLabelText='Current HP'
@@ -538,7 +599,7 @@ class Character extends Component {
                             style={{ width: '25%' }}
                         />
                         <TextField className='ac_hp_info'
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.temp_hit_points ? this.state.temp_hit_points : 0}
                             onChange={(e) => this.setState({ temp_hit_points: e.target.value })}
                             floatingLabelText='Temporary HP'
@@ -547,7 +608,7 @@ class Character extends Component {
                         />
                         <TextField
                             className='ac_hp_info'
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.total_hit_dice}
                             onChange={(e) => this.setState({ total_hit_dice: e.target.value })}
                             floatingLabelText='Total Hit Dice'
@@ -555,7 +616,7 @@ class Character extends Component {
                         />
                         <TextField
                             className='ac_hp_info'
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.current_hit_dice ? this.state.current_hit_dice : 0}
                             onChange={(e) => this.setState({ current_hit_dice: e.target.value })}
                             floatingLabelText='Current Hit Dice'
@@ -563,25 +624,25 @@ class Character extends Component {
                             style={{ width: '40%' }}
                         />
                     </div>
-                    <div className='death_saves'>
+                    <div className='box death_saves'>
                         <div className='successes'>
                             <Checkbox
                                 className='saves'
                                 checked={this.state.death_save_successes >= 1 ? true : false}
                                 onCheck={(event, isInputChecked) => this.deathSaveSuccesses(isInputChecked)}
-                                style={{ float: "left", width: "1%" }}
+                                style={{ float: 'left', width: '1%' }}
                             />
                             <Checkbox
                                 className='saves'
                                 checked={this.state.death_save_successes >= 2 ? true : false}
                                 onCheck={(event, isInputChecked) => this.deathSaveSuccesses(isInputChecked)}
-                                style={{ float: "left", width: "1%" }}
+                                style={{ float: 'left', width: '1%' }}
                             />
                             <Checkbox
                                 className='saves'
                                 checked={this.state.death_save_successes === 3 ? true : false}
                                 onCheck={(event, isInputChecked) => this.deathSaveSuccesses(isInputChecked)}
-                                style={{ float: "left", width: "1%" }}
+                                style={{ float: 'left', width: '1%' }}
                                 label='Successes'
                             />
                         </div>
@@ -590,76 +651,77 @@ class Character extends Component {
                                 className='saves'
                                 checked={this.state.death_save_failures >= 1 ? true : false}
                                 onCheck={(event, isInputChecked) => this.deathSaveFailures(isInputChecked)}
-                                style={{ float: "left", width: "1%" }}
+                                style={{ float: 'left', width: '1%' }}
                             />
                             <Checkbox
                                 className='saves'
                                 checked={this.state.death_save_failures >= 2 ? true : false}
                                 onCheck={(event, isInputChecked) => this.deathSaveFailures(isInputChecked)}
-                                style={{ float: "left", width: "1%" }}
+                                style={{ float: 'left', width: '1%' }}
                             />
                             <Checkbox
                                 className='saves'
                                 checked={this.state.death_save_failures === 3 ? true : false}
                                 onCheck={(event, isInputChecked) => this.deathSaveFailures(isInputChecked)}
-                                style={{ float: "left", width: "1%" }}
+                                style={{ float: 'left', width: '1%' }}
                                 label='Failures'
                             />
                         </div>
                         <div>
-                            <br />
-                            <h4>DEATH SAVES</h4>
+                            <h5>DEATH SAVES</h5>
                         </div>
                     </div>
-                    <div className='attacks'>
+                    <div className='box attacks'>
                         <Attacks id={this.props.match.params.id} />
                     </div>
-                    <div className='equipment'>
-                        <TextField
-                            id="text-field-controlled"
-                            value={this.state.copper ? this.state.copper : 0}
-                            onChange={(e) => this.setState({ copper: e.target.value })}
-                            floatingLabelText='CP'
-                            type='number'
-                            style={{ width: '15%' }}
-                        />
-                        <TextField
-                            id="text-field-controlled"
-                            value={this.state.silver ? this.state.silver : 0}
-                            onChange={(e) => this.setState({ silver: e.target.value })}
-                            floatingLabelText='SP'
-                            type='number'
-                            style={{ width: '15%' }}
-                        />
-                        <TextField
-                            id="text-field-controlled"
-                            value={this.state.electrum ? this.state.electrum : 0}
-                            onChange={(e) => this.setState({ electrum: e.target.value })}
-                            floatingLabelText='EP'
-                            type='number'
-                            style={{ width: '15%' }}
-                        />
-                        <TextField
-                            id="text-field-controlled"
-                            value={this.state.gold ? this.state.gold : 0}
-                            onChange={(e) => this.setState({ gold: e.target.value })}
-                            floatingLabelText='GP'
-                            type='number'
-                            style={{ width: '15%' }}
-                        />
-                        <TextField
-                            id="text-field-controlled"
-                            value={this.state.platinum ? this.state.platinum : 0}
-                            onChange={(e) => this.setState({ platinum: e.target.value })}
-                            floatingLabelText='PP'
-                            type='number'
-                            style={{ width: '15%' }}
-                        />
-                        <h4>EQUIPMENT</h4>
+                    <div className='box equipment'>
+                        <div className='money'>
+                            <TextField
+                                id='text-field-controlled'
+                                value={this.state.copper ? this.state.copper : 0}
+                                onChange={(e) => this.setState({ copper: e.target.value })}
+                                floatingLabelText='CP'
+                                type='number'
+                                style={{ width: '30%' }}
+                            />
+                            <TextField
+                                id='text-field-controlled'
+                                value={this.state.silver ? this.state.silver : 0}
+                                onChange={(e) => this.setState({ silver: e.target.value })}
+                                floatingLabelText='SP'
+                                type='number'
+                                style={{ width: '30%' }}
+                            />
+                            <TextField
+                                id='text-field-controlled'
+                                value={this.state.electrum ? this.state.electrum : 0}
+                                onChange={(e) => this.setState({ electrum: e.target.value })}
+                                floatingLabelText='EP'
+                                type='number'
+                                style={{ width: '30%' }}
+                            />
+                            <TextField
+                                id='text-field-controlled'
+                                value={this.state.gold ? this.state.gold : 0}
+                                onChange={(e) => this.setState({ gold: e.target.value })}
+                                floatingLabelText='GP'
+                                type='number'
+                                style={{ width: '30%' }}
+                            />
+                            <TextField
+                                id='text-field-controlled'
+                                value={this.state.platinum ? this.state.platinum : 0}
+                                onChange={(e) => this.setState({ platinum: e.target.value })}
+                                floatingLabelText='PP'
+                                type='number'
+                                style={{ width: '30%' }}
+                            />
+                        </div>
+                        <h5>EQUIPMENT</h5>
                     </div>
-                    <div className='personality'>
+                    <div className='box personality'>
                         <TextField
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.personality_traits}
                             onChange={(e) => this.setState({ personality_traits: e.target.value })}
                             hintText='Personality Traits'
@@ -668,7 +730,7 @@ class Character extends Component {
                             rows={2}
                         />
                         <TextField
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.ideals}
                             onChange={(e) => this.setState({ ideals: e.target.value })}
                             hintText='Ideals'
@@ -677,7 +739,7 @@ class Character extends Component {
                             rows={2}
                         />
                         <TextField
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.bonds}
                             onChange={(e) => this.setState({ bonds: e.target.value })}
                             hintText='Bonds'
@@ -686,7 +748,7 @@ class Character extends Component {
                             rows={2}
                         />
                         <TextField
-                            id="text-field-controlled"
+                            id='text-field-controlled'
                             value={this.state.flaws}
                             onChange={(e) => this.setState({ flaws: e.target.value })}
                             hintText='Flaws'
@@ -695,8 +757,8 @@ class Character extends Component {
                             rows={2}
                         />
                     </div>
-                    <div className='feature_traits'>
-                        <h4>FEATURES & TRAITS</h4>
+                    <div className='box feature_traits'>
+                        <h5>FEATURES & TRAITS</h5>
                     </div>
                     <FloatingActionButton className='undo' children={'UNDO'} onClick={() => this.componentDidMount()} secondary={true} />
                     <FloatingActionButton className='save' children={'SAVE'} onClick={() => this.save()} />

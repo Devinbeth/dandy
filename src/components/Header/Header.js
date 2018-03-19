@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUser } from '../../ducks/reducer.js';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
 class Header extends Component {
     constructor() {
@@ -23,13 +26,16 @@ class Header extends Component {
                 <AppBar 
                     title='DANDY'
                     onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}
-                    iconElementRight={<a href={process.env.REACT_APP_LOGOUT}><div className='log'>Logout</div></a>}
+                    iconElementRight={<a href={process.env.REACT_APP_LOGOUT}><div className='log'>LOGOUT</div></a>}
                 />
                 <Drawer open={this.state.open}>
                     <AppBar 
+                        iconElementLeft={<IconButton><NavigationClose /></IconButton>}
                         onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}
                     />
-                    <MenuItem>MY CHARACTERS</MenuItem>
+                    <br/>
+                    <br/>
+                    <Link to='/home' ><MenuItem>MY CHARACTERS</MenuItem></Link>
                     <MenuItem>NEW CHARACTER</MenuItem>
                     <MenuItem>RACES</MenuItem>
                     <MenuItem>CLASSES</MenuItem>
