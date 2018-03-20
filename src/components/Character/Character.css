@@ -170,7 +170,7 @@
 }
 
 .Character .attacks {
-    grid-area: 9 / 3 / 14 / 4;
+    grid-area: 9 / 3 / 15 / 4;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -178,7 +178,7 @@
 }
 
 .Character .equipment {
-    grid-area: 14 / 3 / 19 / 4;
+    grid-area: 15 / 3 / 21 / 4;
     display: flex;
     flex-wrap: wrap;
     align-items: center;

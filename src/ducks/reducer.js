@@ -15,6 +15,9 @@ const GET_CHARACTERS = 'GET_CHARACTERS';
 const GET_CHARACTER = 'GET_CHARACTER';
 const SAVE_CHARACTER = 'SAVE_CHARACTER';
 const GET_WEAPONS = 'GET_WEAPONS';
+const SAVE_WEAPON = 'SAVE_WEAPON';
+const REMOVE_WEAPON = 'REMOVE_WEAPON';
+const EDIT_WEAPON = 'EDIT_WEAPON';
 
 
 //ACTION BUILDERS
@@ -59,6 +62,30 @@ export function getWeapons(id) {
     };
 }
 
+export function saveWeapon(weapon) {
+    let weapons = axios.post(`/api/weapons`, weapon).then(res => res.data);
+    return {
+        type: SAVE_WEAPON,
+        payload: weapons
+    };
+}
+
+export function removeWeapon(id) {
+    let weapons = axios.delete(`/api/weapons/${id}`).then(res => res.data);
+    return {
+        type: REMOVE_WEAPON,
+        payload: weapons
+    };
+}
+
+export function editWeapon(id, weapon) {
+    let weapons = axios.put(`/api/weapons/${id}`, weapon).then(res => res.data);
+    return {
+        type: EDIT_WEAPON,
+        payload: weapons
+    };
+}
+
 
 //REDUCER
 export default function reducer(state = initialState, action) {
@@ -79,6 +106,16 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, { character: action.payload });
 
         case GET_WEAPONS + '_FULFILLED':
+            console.log(action.payload);
+            return Object.assign({}, state, { character_weapons: action.payload });
+
+        case SAVE_WEAPON + '_FULFILLED':
+            return Object.assign({}, state, { character_weapons: action.payload });
+
+        case REMOVE_WEAPON + '_FULFILLED':
+            return Object.assign({}, state, { character_weapons: action.payload });
+
+        case EDIT_WEAPON + '_FULFILLED':
             return Object.assign({}, state, { character_weapons: action.payload });
 
         default:

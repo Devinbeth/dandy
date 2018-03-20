@@ -672,7 +672,7 @@ class Character extends Component {
                         </div>
                     </div>
                     <div className='box attacks'>
-                        <Attacks id={this.props.match.params.id} />
+                        <Attacks id={this.props.match.params.id}/>
                     </div>
                     <div className='box equipment'>
                         <div className='money'>

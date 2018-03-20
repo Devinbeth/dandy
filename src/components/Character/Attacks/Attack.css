@@ -1,12 +1,8 @@
-.Attack .weapons{
-    margin: 0 5%;
-}
-
-.Attack h3 {
-    margin-top: 5%;
+.Attack h5 {
     margin-bottom: 0;
 }
-    
-.Attack .attack_button {
-    margin: 10px;
+
+.Attack .newWeapon {
+    display: flex;
+    margin-top: 0;
 }
