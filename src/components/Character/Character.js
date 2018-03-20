@@ -7,7 +7,7 @@ import Race from './Race.js';
 import Class from './Class.js';
 import Alignment from './Alignment.js';
 import Background from './Background.js';
-import Attacks from './Attacks/Attacks.js';
+import Weapons from './Weapons/Weapons.js';
 import logo from '../../assets/D&D_5E_Logo.png';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -91,6 +91,10 @@ class Character extends Component {
         this.deathSaveFailures = this.deathSaveFailures.bind(this);
     }
 
+    componentDidMount() {
+        this.props.getCharacter(this.props.match.params.id);
+    }
+
     save() {
         this.props.saveCharacter(this.props.match.params.id, this.state);
     }
@@ -152,10 +156,6 @@ class Character extends Component {
         else {
             this.setState({ death_save_failures: this.state.death_save_failures - 1 });
         }
-    }
-
-    componentDidMount() {
-        this.props.getCharacter(this.props.match.params.id);
     }
 
     componentWillReceiveProps(newProps) {
@@ -220,7 +220,7 @@ class Character extends Component {
             gold: newProps.character[0].gold,
             electrum: newProps.character[0].electrum,
             silver: newProps.character[0].silver,
-            copper: newProps.character[0].copper,
+            copper: newProps.character[0].copper
         });
     }
 
@@ -671,8 +671,8 @@ class Character extends Component {
                             <h5>DEATH SAVES</h5>
                         </div>
                     </div>
-                    <div className='box attacks'>
-                        <Attacks id={this.props.match.params.id}/>
+                    <div className='box weapons'>
+                        <Weapons id={this.props.match.params.id}/>
                     </div>
                     <div className='box equipment'>
                         <div className='money'>

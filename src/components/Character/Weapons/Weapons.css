@@ -1,8 +1,8 @@
-.Attack h5 {
+.Weapons h5 {
     margin-bottom: 0;
 }
 
-.Attack .newWeapon {
+.Weapons .newWeapon {
     display: flex;
     margin-top: 0;
 }

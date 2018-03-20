@@ -1,6 +1,6 @@
 module.exports = {
     addWeapon: (req, res) => {
-        req.app.get('db').add_weapon([req.body.character_id, req.body.weapon_id]).then(weapons => {
+        req.app.get('db').add_weapon([req.body.character_id, req.body.weapon_id, req.body.attack_bonus, req.body.proficient, req.body.strdex]).then(weapons => {
             res.status(200).send(weapons);
         });
     },
