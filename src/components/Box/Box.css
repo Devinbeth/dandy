@@ -1,0 +1,11 @@
+.Box .paper_header {
+    position: fixed;
+    top: 15%;
+    left: 20%;
+    right: 20%;
+}
+
+.Box .paper_body {
+    margin-top: 5%;
+    padding: 5%;
+}

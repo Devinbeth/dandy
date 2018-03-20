@@ -7,11 +7,13 @@ import Race from './Race.js';
 import Class from './Class.js';
 import Alignment from './Alignment.js';
 import Background from './Background.js';
-import Weapons from './Weapons/Weapons.js';
+import Weapons from '../Weapons/Weapons.js';
 import logo from '../../assets/D&D_5E_Logo.png';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Checkbox from 'material-ui/Checkbox';
+import Save from 'material-ui/svg-icons/content/save';
+import Undo from 'material-ui/svg-icons/content/undo';
 
 class Character extends Component {
     constructor(props) {
@@ -78,6 +80,8 @@ class Character extends Component {
             electrum: 0,
             silver: 0,
             copper: 0,
+            features: '',
+            traits: ''
         }
         this.save = this.save.bind(this);
         this.updateRace = this.updateRace.bind(this);
@@ -342,11 +346,11 @@ class Character extends Component {
                     <div className='box inspiration'>
                         <TextField
                             id='text-field-controlled'
-                            value={this.state.inspiration ? this.state.inspiration : 0}
+                            value={this.state.inspiration ? this.state.inspiration : undefined}
                             onChange={(e) => this.setState({ inspiration: Number(e.target.value) })}
                             floatingLabelText='Inspiration'
                             type='number'
-                            style={{ width: '75%' }}
+                            style={{ width: '60%' }}
                         />
                     </div>
                     <div className='box proficiency'>
@@ -356,7 +360,7 @@ class Character extends Component {
                             onChange={(e) => this.setState({ proficiency_bonus: Number(e.target.value) })}
                             floatingLabelText='Proficieny Bonus'
                             type='number'
-                            style={{ width: '75%' }}
+                            style={{ width: '60%' }}
                         />
                     </div>
                     <div className='box saving_throws'>
@@ -672,7 +676,7 @@ class Character extends Component {
                         </div>
                     </div>
                     <div className='box weapons'>
-                        <Weapons id={this.props.match.params.id}/>
+                        <Weapons id={this.props.match.params.id} />
                     </div>
                     <div className='box equipment'>
                         <div className='money'>
@@ -719,7 +723,7 @@ class Character extends Component {
                         </div>
                         <h5>EQUIPMENT</h5>
                     </div>
-                    <div className='box personality'>
+                    <div className='box traits personality'>
                         <TextField
                             id='text-field-controlled'
                             value={this.state.personality_traits}
@@ -729,6 +733,9 @@ class Character extends Component {
                             multiLine={true}
                             rows={2}
                         />
+                        <h5>PERSONALITY TRAITS</h5>
+                    </div>
+                    <div className='box traits ideals'>
                         <TextField
                             id='text-field-controlled'
                             value={this.state.ideals}
@@ -738,6 +745,9 @@ class Character extends Component {
                             multiLine={true}
                             rows={2}
                         />
+                        <h5>IDEALS</h5>
+                    </div>
+                    <div className='box traits bonds'>
                         <TextField
                             id='text-field-controlled'
                             value={this.state.bonds}
@@ -747,6 +757,9 @@ class Character extends Component {
                             multiLine={true}
                             rows={2}
                         />
+                        <h5>BONDS</h5>
+                    </div>
+                    <div className='box traits flaws'>
                         <TextField
                             id='text-field-controlled'
                             value={this.state.flaws}
@@ -756,12 +769,34 @@ class Character extends Component {
                             multiLine={true}
                             rows={2}
                         />
+                        <h5>FLAWS</h5>
+                    </div>
+                    <div className='box spells'>
+                        <h5>SPELLS</h5>
                     </div>
                     <div className='box feature_traits'>
+                        <TextField
+                            id='text-field-controlled'
+                            value={this.state.features}
+                            onChange={(e) => this.setState({ features: e.target.value })}
+                            hintText='Features'
+                            floatingLabelText='Features'
+                            multiLine={true}
+                            rows={2}
+                        />
+                        <TextField
+                            id='text-field-controlled'
+                            value={this.state.traits}
+                            onChange={(e) => this.setState({ traits: e.target.value })}
+                            hintText='Traits'
+                            floatingLabelText='Traits'
+                            multiLine={true}
+                            rows={2}
+                        />
                         <h5>FEATURES & TRAITS</h5>
                     </div>
-                    <FloatingActionButton className='undo' children={'UNDO'} onClick={() => this.componentDidMount()} secondary={true} />
-                    <FloatingActionButton className='save' children={'SAVE'} onClick={() => this.save()} />
+                    <FloatingActionButton className='undo' children={<Undo />} onClick={() => this.componentDidMount()} secondary={true} />
+                    <FloatingActionButton className='save' children={<Save />} onClick={() => this.save()} />
                 </div>
             </div>
         )

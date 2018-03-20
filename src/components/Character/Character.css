@@ -1,17 +1,23 @@
 .Character .sheet {
+    position: absolute;
+    top: 65px;
     display: grid;
-    grid-gap: 1%;
+    grid-gap: 10px;
     grid-template-columns: 11% 18% 34% 34%;
     grid-template-rows: 200px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px;
-    margin: 0 1%;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 .Character .box {
     border: 1.5px;
-    border-radius: 5px;
+    border-radius: 7px;
     border-style: solid;
     border-color: #d1d1d1;
-    margin-top: 10px;
+    background-color: white;
+    -moz-box-shadow: 0 0 8px #aaa;
+    -webkit-box-shadow: 0 0 8px #aaa;
+    box-shadow: 0 0 8px #aaa;
 }
 
 .Character .logo {
@@ -62,6 +68,13 @@
 
 .Character .alignment {
     grid-area: 2 / 4 / 3 / 5;
+}
+
+.Character .abilities {
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+    align-items: center;
 }
 
 .Character .abilities h5 {
@@ -137,7 +150,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 10px;
+    padding: 2%;
 }
 
 .Character .other_prof_languages {
@@ -145,7 +158,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 10px;
     text-align: left;
 }
 
@@ -155,7 +167,7 @@
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    margin-top: 10px;
+    padding: 0 5%;
 }
 
 .Character .ac_hp .ac_hp_info {
@@ -193,23 +205,41 @@
     padding: 5%;
 }
 
-.Character .personality {
-    grid-area: 2 / 4 / 9 / 5;
+.Character .traits {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    margin-top: 10px;
     text-align: left;
 }
 
+.Character .personality {
+    grid-area: 2 / 4 / 4 / 5; 
+}
+
+.Character .ideals {
+    grid-area: 4 / 4 / 6 / 5;
+}
+
+.Character .bonds {
+    grid-area: 6 / 4 / 8 / 5;
+}
+
+.Character .flaws {
+    grid-area: 8 / 4 / 10 / 5;
+}
+
+.Character .spells {
+    grid-area: 10 / 4 / 15 / 5;
+}
+
 .Character .feature_traits {
-    grid-area: 9 / 4 / 21 / 5;
+    grid-area: 15 / 4 / 21 / 5;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    margin-top: 10px;
     text-align: left;
 }
 
@@ -227,4 +257,14 @@
 
 ::-webkit-scrollbar { 
     display: none; 
+}
+
+.shadow {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 4;
 }

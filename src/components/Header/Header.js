@@ -27,6 +27,7 @@ class Header extends Component {
                     title='DANDY'
                     onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}
                     iconElementRight={<a href={process.env.REACT_APP_LOGOUT}><div className='log'>LOGOUT</div></a>}
+                    style={{ position: 'fixed'}}
                 />
                 <Drawer open={this.state.open}>
                     <AppBar 

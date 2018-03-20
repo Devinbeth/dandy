@@ -46,7 +46,6 @@ export function getCharacter(id) {
 }
 
 export function saveCharacter(id, character) {
-    console.log(character);
     let savedCharacter = axios.put(`/api/character/${id}`, character).then(res => res.data);
     return {
         type: SAVE_CHARACTER,
@@ -102,11 +101,9 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, { character: action.payload });
 
         case SAVE_CHARACTER + '_FULFILLED':
-            console.log(action.payload);
             return Object.assign({}, state, { character: action.payload });
 
         case GET_WEAPONS + '_FULFILLED':
-            console.log(action.payload);
             return Object.assign({}, state, { character_weapons: action.payload });
 
         case SAVE_WEAPON + '_FULFILLED':
