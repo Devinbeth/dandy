@@ -3,8 +3,8 @@ create table if not exists characters (
     user_id integer not null references users(id),
     name varchar(180),
     image text,
-    race integer references races(id),
-    class integer references classes(id),
+    race varchar(20),
+    class varchar(20),
     level integer default 1,
     experience_points integer,
     background varchar(20),
@@ -61,5 +61,7 @@ create table if not exists characters (
     gold integer,
     electrum integer,
     silver integer,
-    copper integer
+    copper integer,
+    features varchar(180),
+    traits varchar(180) 
 );

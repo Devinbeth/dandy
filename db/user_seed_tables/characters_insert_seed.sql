@@ -1,2 +1,4 @@
-insert into characters (user_id, image, race, class) values (1, 'http://armatadeldrago.altervista.org/forumff/yeshua.jpg', 4, 7);
-insert into characters (user_id, image, race, class) values (1, 'https://vignette.wikia.nocookie.net/thetomeoflegends/images/c/c9/Wood_Elf_Ranger.jpg/revision/latest?cb=20140102145600', 2, 8);
+insert into characters (user_id, name, image, race, class) values (1, 'Iver', 'http://armatadeldrago.altervista.org/forumff/yeshua.jpg', 'Human', 'Paladin');
+insert into characters (user_id, name, image, race, class) values (1, 'Nienna', 'https://vignette.wikia.nocookie.net/thetomeoflegends/images/c/c9/Wood_Elf_Ranger.jpg/revision/latest?cb=20140102145600', 'Elf', 'Ranger');
+insert into characters (user_id, name, image, race, class) values (1, 'Illeania', 'https://vignette.wikia.nocookie.net/pathfinder/images/e/eb/NatureWarden.jpg/revision/latest?cb=20100729224642', 'Elf', 'Druid');
+insert into characters (user_id, name, image, race, class) values (1, 'Skovard', 'https://res.cloudinary.com/teepublic/image/private/s--0YRU0gWa--/t_Preview/b_rgb:ffffff,c_limit,f_jpg,h_630,q_90,w_630/v1511190049/production/designs/2079828_1.jpg', 'Dwarf', 'Fighter');

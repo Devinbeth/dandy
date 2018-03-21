@@ -19,7 +19,11 @@ export default class Login extends Component {
                         onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}
                         iconElementRight={<a href={ process.env.REACT_APP_LOGIN }><div className='log'>LOGIN</div></a>}
                 />
-                <Drawer open={this.state.open}>
+                <Drawer
+                    docked={false}
+                    open={this.state.open}
+                    onRequestChange={(open) => this.setState({open})}
+                >
                     <AppBar 
                         iconElementLeft={<IconButton><NavigationClose /></IconButton>}
                         onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}

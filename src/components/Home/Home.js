@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUser, getCharacters } from '../../ducks/reducer.js';
+import './Home.css';
 import Header from '../Header/Header.js';
 import { Card, CardActions, CardHeader, CardTitle } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -34,7 +35,9 @@ class Home extends Component {
         return (
             <div className='Home'>
                 <Header />
-                {characterCards}
+                <div className='characters'>
+                    {characterCards}
+                </div>
             </div>
         )
     }

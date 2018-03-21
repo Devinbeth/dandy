@@ -22,14 +22,18 @@ class Header extends Component {
     render() {
 
         return (
-            <div className='Home'>
+            <div className='Header'>
                 <AppBar 
                     title='DANDY'
                     onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}
                     iconElementRight={<a href={process.env.REACT_APP_LOGOUT}><div className='log'>LOGOUT</div></a>}
                     style={{ position: 'fixed'}}
                 />
-                <Drawer open={this.state.open}>
+                <Drawer 
+                    docked={false}
+                    open={this.state.open}
+                    onRequestChange={(open) => this.setState({open})}
+                >
                     <AppBar 
                         iconElementLeft={<IconButton><NavigationClose /></IconButton>}
                         onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}

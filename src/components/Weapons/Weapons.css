@@ -1,3 +1,17 @@
+.Weapons .main {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.Weapons .weapon_table {
+    align-self: flex-start;
+}
+
+.Weapons .add_weapon {
+    align-self: flex-end;
+}
+
 .Weapons .new_weapon {
-    padding: 5%;
+    margin-top: 10%;
 }

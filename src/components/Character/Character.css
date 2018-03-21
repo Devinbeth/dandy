@@ -3,7 +3,7 @@
     top: 65px;
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: 11% 18% 34% 34%;
+    grid-template-columns: 11% 16% 35% 35%;
     grid-template-rows: 200px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px;
     margin-top: 10px;
     margin-left: 10px;
@@ -127,7 +127,7 @@
 }
 
 .Character .saving_throws h5 {
-    font-size: 100%;
+    font-size: 110%;
 }
 
 .Character .skills {
@@ -142,7 +142,7 @@
 }
 
 .Character .skills h5 {
-    font-size: 100%;
+    font-size: 110%;
 }
 
 .Character .passive_wisdom {
@@ -183,10 +183,7 @@
 
 .Character .weapons {
     grid-area: 9 / 3 / 15 / 4;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
+    padding-top: 1%;
 }
 
 .Character .equipment {
@@ -257,14 +254,4 @@
 
 ::-webkit-scrollbar { 
     display: none; 
-}
-
-.shadow {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.1);
-    z-index: 4;
 }

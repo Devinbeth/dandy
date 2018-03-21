@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getWeapons, saveWeapon, removeWeapon, editWeapon } from '../../ducks/reducer.js';
 import './Weapons.css';
+import Box from '../Box/Box.js';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import AppBar from 'material-ui/AppBar';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -11,7 +11,6 @@ import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Check from 'material-ui/svg-icons/navigation/check';
 import Close from 'material-ui/svg-icons/navigation/close';
-import Paper from 'material-ui/Paper';
 
 class Weapons extends Component {
     constructor(props) {
@@ -205,84 +204,65 @@ class Weapons extends Component {
         return (
             <div className='Weapons'>
                 {this.weaponsList()}
-                <br />
-                <RaisedButton label='Add Weapon' primary={true} onClick={() => this.setState({ toggle: !this.state.toggle })} />
-                <div className='shadow' style={{display: `${this.state.toggle ? '' : 'none'}`}} onClick={() => this.setState({ toggle: !this.state.toggle })}>
-                    <Paper
-                        onClick={(e) => e.stopPropagation()}
-                        zDepth={5}
-                        style={{
-                            textAlign: 'center',
-                            position: 'fixed',
-                            top: '20%',
-                            bottom: '20%',
-                            left: '35%',
-                            right: '35%',
-                            zIndex: 5,
-                            overflow: 'scroll'
-                        }}
-                    >
-                        <AppBar
-                            title='ADD NEW WEAPON'
-                            showMenuIconButton={false}
-                            iconElementRight={<IconButton><Close /></IconButton>}
-                            onRightIconButtonClick={() => this.setState({
-                                category: 1,
-                                newWeapon: 0,
-                                proficient: false,
-                                strDex: '',
-                                attack_bonus: 0,
-                                toggle: false
-                            })}
-                        />
-                        <div className='new_weapon'>
-                            <SelectField
-                                floatingLabelText='Category'
-                                value={this.state.category}
-                                onChange={(event, index, value) => this.setState({ category: value })}
-                                style={{ width: '230px', textAlign: 'left' }}
-                            >
-                                <MenuItem value={1} primaryText='Select' />
-                                <MenuItem value={2} primaryText='Simple Melee Weapon' />
-                                <MenuItem value={3} primaryText='Simple Ranged Weapon' />
-                                <MenuItem value={4} primaryText='Martial Melee Weapon' />
-                                <MenuItem value={5} primaryText='Martial Ranged Weapon' />
-                            </SelectField>
-                            {this.weaponDropDown()}
-                            {this.state.newWeapon ? (
-                                <div>
-                                    <SelectField
-                                        floatingLabelText='Proficient?'
-                                        value={this.state.proficient}
-                                        onChange={(event, index, value) => this.setState({
-                                            proficient: value,
-                                            attack_bonus: this.state.attack_bonus + (value ? this.props.character[0].proficiency_bonus : 0)
-                                        })}
-                                        style={{ width: '230px', textAlign: 'left' }}
-                                    >
-                                        <MenuItem value={false} primaryText='No' />
-                                        <MenuItem value={true} primaryText='Yes' />
-                                    </SelectField>
-                                    <SelectField
-                                        floatingLabelText='Use Strength or Dexterity?'
-                                        value={this.state.strDex}
-                                        onChange={(event, index, value) => this.setState({
-                                            strDex: value,
-                                            attack_bonus: this.state.attack_bonus + (value === 'Strength' ? this.abilityModifiers(this.props.character[0].strength) : this.abilityModifiers(this.props.character[0].dexterity))
-                                        })}
-                                        style={{ width: '230px', textAlign: 'left' }}
-                                    >
-                                        <MenuItem value='Strength' primaryText='Strength' />
-                                        <MenuItem value='Dexterity' primaryText='Dexterity' />
-                                    </SelectField>
-                                </div>
-                            ) : null}
-                            <br />
-                            {this.state.newWeapon ? <RaisedButton label='Add Weapon' primary={true} onClick={() => this.addWeapon()} /> : null}
-                        </div>
-                    </Paper>
+                <div className='add_weapon'>
+                    <RaisedButton label='Add Weapon' primary={true} onClick={() => this.setState({ toggle: !this.state.toggle })} />
+                    <h5>WEAPONS</h5>
                 </div>
-                <h5>WEAPONS</h5>
+                <Box
+                    toggle={this.state.toggle}
+                    switch={() => this.setState({ category: 1, newWeapon: 0, proficient: false, strDex: '', attack_bonus: 0, toggle: false })}
+                    top={'20%'}
+                    bottom={'20%'}
+                    right={'34%'}
+                    left={'34%'}
+                    title={'ADD NEW WEAPON'}
+                >
+                    <div className='new_weapon'>
+                        <SelectField
+                            floatingLabelText='Category'
+                            value={this.state.category}
+                            onChange={(event, index, value) => this.setState({ category: value })}
+                            style={{ width: '230px', textAlign: 'left' }}
+                        >
+                            <MenuItem value={1} primaryText='Select' />
+                            <MenuItem value={2} primaryText='Simple Melee Weapon' />
+                            <MenuItem value={3} primaryText='Simple Ranged Weapon' />
+                            <MenuItem value={4} primaryText='Martial Melee Weapon' />
+                            <MenuItem value={5} primaryText='Martial Ranged Weapon' />
+                        </SelectField>
+                        {this.weaponDropDown()}
+                        {this.state.newWeapon ? (
+                            <div>
+                                <SelectField
+                                    floatingLabelText='Proficient?'
+                                    value={this.state.proficient}
+                                    onChange={(event, index, value) => this.setState({
+                                        proficient: value,
+                                        attack_bonus: this.state.attack_bonus + (value ? this.props.character[0].proficiency_bonus : 0)
+                                    })}
+                                    style={{ width: '230px', textAlign: 'left' }}
+                                >
+                                    <MenuItem value={false} primaryText='No' />
+                                    <MenuItem value={true} primaryText='Yes' />
+                                </SelectField>
+                                <SelectField
+                                    floatingLabelText='Use Strength or Dexterity?'
+                                    value={this.state.strDex}
+                                    onChange={(event, index, value) => this.setState({
+                                        strDex: value,
+                                        attack_bonus: this.state.attack_bonus + (value === 'Strength' ? this.abilityModifiers(this.props.character[0].strength) : this.abilityModifiers(this.props.character[0].dexterity))
+                                    })}
+                                    style={{ width: '230px', textAlign: 'left' }}
+                                >
+                                    <MenuItem value='Strength' primaryText='Strength' />
+                                    <MenuItem value='Dexterity' primaryText='Dexterity' />
+                                </SelectField>
+                            </div>
+                        ) : null}
+                        <br />
+                        {this.state.newWeapon ? <RaisedButton label='Add Weapon' primary={true} onClick={() => this.addWeapon()} /> : null}
+                    </div>
+                </Box>
             </div>
         );
     }

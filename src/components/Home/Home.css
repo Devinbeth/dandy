@@ -1,0 +1,8 @@
+.characters {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 0 25%;
+    padding: 7% 0;
+}

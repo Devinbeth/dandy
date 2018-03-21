@@ -21,7 +21,7 @@ class Character extends Component {
         this.state = {
             name: '',
             image: '',
-            race: 0,
+            race: '',
             class: '',
             level: 0,
             experience_points: 0,
@@ -346,8 +346,8 @@ class Character extends Component {
                     <div className='box inspiration'>
                         <TextField
                             id='text-field-controlled'
-                            value={this.state.inspiration ? this.state.inspiration : undefined}
-                            onChange={(e) => this.setState({ inspiration: Number(e.target.value) })}
+                            value={this.state.inspiration}
+                            onChange={(e) => this.setState({ inspiration: e.target.value })}
                             floatingLabelText='Inspiration'
                             type='number'
                             style={{ width: '60%' }}
@@ -357,7 +357,7 @@ class Character extends Component {
                         <TextField
                             id='text-field-controlled'
                             value={this.state.proficiency_bonus ? this.state.proficiency_bonus : undefined}
-                            onChange={(e) => this.setState({ proficiency_bonus: Number(e.target.value) })}
+                            onChange={(e) => this.setState({ proficiency_bonus: e.target.value })}
                             floatingLabelText='Proficieny Bonus'
                             type='number'
                             style={{ width: '60%' }}
@@ -572,7 +572,7 @@ class Character extends Component {
                         />
                         <TextField className='ac_hp_info'
                             id='text-field-controlled'
-                            value={this.state.initiative ? this.state.initiative : 0}
+                            value={this.state.initiative}
                             onChange={(e) => this.setState({ initiative: e.target.value })}
                             floatingLabelText='Initiative'
                             type='number'
@@ -596,7 +596,7 @@ class Character extends Component {
                         />
                         <TextField className='ac_hp_info'
                             id='text-field-controlled'
-                            value={this.state.current_hit_points ? this.state.current_hit_points : 0}
+                            value={this.state.current_hit_points ? this.state.current_hit_points : undefined}
                             onChange={(e) => this.setState({ current_hit_points: e.target.value })}
                             floatingLabelText='Current HP'
                             type='number'
@@ -604,7 +604,7 @@ class Character extends Component {
                         />
                         <TextField className='ac_hp_info'
                             id='text-field-controlled'
-                            value={this.state.temp_hit_points ? this.state.temp_hit_points : 0}
+                            value={this.state.temp_hit_points}
                             onChange={(e) => this.setState({ temp_hit_points: e.target.value })}
                             floatingLabelText='Temporary HP'
                             type='number'
@@ -621,7 +621,7 @@ class Character extends Component {
                         <TextField
                             className='ac_hp_info'
                             id='text-field-controlled'
-                            value={this.state.current_hit_dice ? this.state.current_hit_dice : 0}
+                            value={this.state.current_hit_dice ? this.state.current_hit_dice : undefined}
                             onChange={(e) => this.setState({ current_hit_dice: e.target.value })}
                             floatingLabelText='Current Hit Dice'
                             type='number'
@@ -682,7 +682,7 @@ class Character extends Component {
                         <div className='money'>
                             <TextField
                                 id='text-field-controlled'
-                                value={this.state.copper ? this.state.copper : 0}
+                                value={this.state.copper}
                                 onChange={(e) => this.setState({ copper: e.target.value })}
                                 floatingLabelText='CP'
                                 type='number'
@@ -690,7 +690,7 @@ class Character extends Component {
                             />
                             <TextField
                                 id='text-field-controlled'
-                                value={this.state.silver ? this.state.silver : 0}
+                                value={this.state.silver}
                                 onChange={(e) => this.setState({ silver: e.target.value })}
                                 floatingLabelText='SP'
                                 type='number'
@@ -698,7 +698,7 @@ class Character extends Component {
                             />
                             <TextField
                                 id='text-field-controlled'
-                                value={this.state.electrum ? this.state.electrum : 0}
+                                value={this.state.electrum}
                                 onChange={(e) => this.setState({ electrum: e.target.value })}
                                 floatingLabelText='EP'
                                 type='number'
@@ -706,7 +706,7 @@ class Character extends Component {
                             />
                             <TextField
                                 id='text-field-controlled'
-                                value={this.state.gold ? this.state.gold : 0}
+                                value={this.state.gold}
                                 onChange={(e) => this.setState({ gold: e.target.value })}
                                 floatingLabelText='GP'
                                 type='number'
@@ -714,7 +714,7 @@ class Character extends Component {
                             />
                             <TextField
                                 id='text-field-controlled'
-                                value={this.state.platinum ? this.state.platinum : 0}
+                                value={this.state.platinum}
                                 onChange={(e) => this.setState({ platinum: e.target.value })}
                                 floatingLabelText='PP'
                                 type='number'
