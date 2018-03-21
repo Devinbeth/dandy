@@ -24,7 +24,7 @@ class Character extends Component {
             race: '',
             class: '',
             level: 0,
-            experience_points: 0,
+            xp: 0,
             background: '',
             alignment: '',
             strength: 0,
@@ -96,11 +96,18 @@ class Character extends Component {
     }
 
     componentDidMount() {
-        this.props.getCharacter(this.props.match.params.id);
+        if (this.props.match.params.id != 0 ) {
+            this.props.getCharacter(this.props.match.params.id);
+        }
     }
 
     save() {
-        this.props.saveCharacter(this.props.match.params.id, this.state);
+        if (this.props.match.params.id === 0) {
+            this.props.saveCharacter(this.state);
+        }
+        else {
+            this.props.saveCharacter(this.props.match.params.id, this.state);
+        }
     }
 
     updateRace(newRace) {
@@ -169,7 +176,7 @@ class Character extends Component {
             race: newProps.character[0].race,
             class: newProps.character[0].class,
             level: newProps.character[0].level,
-            experience_points: newProps.character[0].experience_points,
+            xp: newProps.character[0].xp,
             background: newProps.character[0].background,
             alignment: newProps.character[0].alignment,
             strength: newProps.character[0].strength,
@@ -263,8 +270,8 @@ class Character extends Component {
                         <TextField
                             className='xp'
                             id='text-field-controlled'
-                            value={this.state.experience_points ? this.state.experience_points : undefined}
-                            onChange={(e) => this.setState({ experience_points: e.target.value })}
+                            value={this.state.xp}
+                            onChange={(e) => this.setState({ xp: e.target.value })}
                             floatingLabelText='XP'
                             type='number'
                             style={{ width: '90%' }}

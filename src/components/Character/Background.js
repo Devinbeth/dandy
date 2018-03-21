@@ -29,13 +29,18 @@ export default class Background extends Component {
                     style={{ width: '220px', textAlign: 'left' }}
                 >
                     <MenuItem value={'Acolyte'} primaryText='Acolyte' />
+                    <MenuItem value={'Charlatan'} primaryText='Charlatan' />
                     <MenuItem value={'Criminal'} primaryText='Criminal' />
-                    <MenuItem value={'Spy'} primaryText='Spy' />
+                    <MenuItem value={'Entertainer'} primaryText='Entertainer' />
                     <MenuItem value={'Folk Hero'} primaryText='Folk Hero' />
-                    <MenuItem value={'Haunted One'} primaryText='Haunted One' />
+                    <MenuItem value={'Guild Artisan'} primaryText='Guild Artisan' />
+                    <MenuItem value={'Hermit'} primaryText='Hermit' />
                     <MenuItem value={'Noble'} primaryText='Noble' />
+                    <MenuItem value={'Outlander'} primaryText='Outlander' />
                     <MenuItem value={'Sage'} primaryText='Sage' />
+                    <MenuItem value={'Sailor'} primaryText='Sailor' />
                     <MenuItem value={'Soldier'} primaryText='Soldier' />
+                    <MenuItem value={'Urchin'} primaryText='Urchin' />
                 </SelectField>
                 <IconButton tooltip='Background Details' onClick={() => this.setState({ toggle: !this.state.toggle })}>
                     <ActionInfo />

@@ -40,8 +40,8 @@ class Header extends Component {
                     />
                     <br/>
                     <br/>
-                    <Link to='/home' ><MenuItem>MY CHARACTERS</MenuItem></Link>
-                    <MenuItem>NEW CHARACTER</MenuItem>
+                    <Link to='/home'><MenuItem>MY CHARACTERS</MenuItem></Link>
+                    <Link to='/character/0'><MenuItem>NEW CHARACTER</MenuItem></Link>
                     <MenuItem>RACES</MenuItem>
                     <MenuItem>CLASSES</MenuItem>
                     <MenuItem>WEAPONS</MenuItem>

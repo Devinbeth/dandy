@@ -1,6 +1,16 @@
 module.exports = {
     createCharacter: (req, res) => {
-    
+        console.log(req.body);
+        const db = req.app.get('db');
+        db.characters.insert(req.body).then(character => {
+            console.log(character);
+            if (req.user.id === character[0].user_id) {
+                res.status(200).send(character);
+            }
+            else {
+                res.status(401).send('Nice try suckaaaaaa!!!!!!');
+            }
+        });
     },
     readCharacters: (req, res) => {
         const db = req.app.get('db');

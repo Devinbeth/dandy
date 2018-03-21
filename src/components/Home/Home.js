@@ -20,7 +20,7 @@ class Home extends Component {
                     <Card>
                         <CardHeader
                             title={`Level: ${e.level}`}
-                            subtitle={`Experience: ${e.experience_points}`}
+                            subtitle={`Experience: ${e.xp}`}
                             avatar={e.image}
                         />
                         <CardTitle title={e.name} subtitle={`${e.race} ${e.class}`} />
