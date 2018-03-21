@@ -1,10 +1,11 @@
 module.exports = {
     createCharacter: (req, res) => {
-        console.log(req.body);
         const db = req.app.get('db');
+        delete req.body.id;
+        req.body.user_id = req.user.id;
         db.characters.insert(req.body).then(character => {
             console.log(character);
-            if (req.user.id === character[0].user_id) {
+            if (req.user.id === character.user_id) {
                 res.status(200).send(character);
             }
             else {
@@ -21,9 +22,9 @@ module.exports = {
     },
     readCharacter: (req, res) => {
         const db = req.app.get('db');
-        db.get_character([req.params.id]).then(characters => {
-            if (req.user.id === characters[0].user_id) {
-                res.status(200).send(characters);
+        db.get_character([req.params.id]).then(character => {
+            if (req.user.id === character[0].user_id) {
+                res.status(200).send(character[0]);
             }
             else {
                 res.status(401).send('Nice try suckaaaaaa!!!!!!');
@@ -32,9 +33,10 @@ module.exports = {
     },
     updateCharacter: (req, res) => {
         const db = req.app.get('db');
-        db.characters.update({id: req.params.id}, req.body).then(characters => {
+        db.characters.update({ id: req.params.id }, req.body).then(characters => {
+            console.log(characters);
             if (req.user.id === characters[0].user_id) {
-                res.status(200).send(characters);
+                res.status(200).send(characters[0]);
             }
             else {
                 res.status(401).send('Nice try suckaaaaaa!!!!!!');
@@ -42,6 +44,6 @@ module.exports = {
         });
     },
     deleteCharacter: (req, res) => {
-    
+
     },
 }

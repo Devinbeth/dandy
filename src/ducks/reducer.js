@@ -4,7 +4,7 @@ import axios from 'axios';
 const initialState = {
     user: {},
     characters: [{}],
-    character: [{}],
+    character: { id: 0 },
     character_weapons: [{}]
 };
 
@@ -14,6 +14,8 @@ const GET_USER = 'GET_USER';
 const GET_CHARACTERS = 'GET_CHARACTERS';
 const GET_CHARACTER = 'GET_CHARACTER';
 const SAVE_CHARACTER = 'SAVE_CHARACTER';
+const CREATE_CHARACTER = 'CREATE_CHARACTER';
+const RESET_CHARACTER = 'RESET_CHARACTER';
 const GET_WEAPONS = 'GET_WEAPONS';
 const SAVE_WEAPON = 'SAVE_WEAPON';
 const REMOVE_WEAPON = 'REMOVE_WEAPON';
@@ -50,6 +52,22 @@ export function saveCharacter(id, character) {
     return {
         type: SAVE_CHARACTER,
         payload: savedCharacter
+    };
+}
+
+export function createCharacter(character) {
+    console.log(character);
+    let createdCharacter = axios.post(`/api/character`, character).then(res => res.data);
+    return {
+        type: CREATE_CHARACTER,
+        payload: createdCharacter
+    };
+}
+
+export function resetCharacter() {
+    return {
+        type: RESET_CHARACTER,
+        payload: {}
     };
 }
 
@@ -101,6 +119,13 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, { character: action.payload });
 
         case SAVE_CHARACTER + '_FULFILLED':
+            return Object.assign({}, state, { character: action.payload });
+
+        case CREATE_CHARACTER + '_FULFILLED':
+            console.log(action.payload);
+            return Object.assign({}, state, { character: action.payload });
+
+        case RESET_CHARACTER:
             return Object.assign({}, state, { character: action.payload });
 
         case GET_WEAPONS + '_FULFILLED':

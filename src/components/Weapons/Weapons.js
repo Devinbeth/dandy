@@ -182,7 +182,7 @@ class Weapons extends Component {
                                     {weapon.attack_bonus}
                                 </TableRowColumn>
                                 <TableRowColumn style={{ width: '35%', textAlign: 'center', margin: 0, padding: '2%' }}>
-                                    {`${weapon.damage} + ${weapon.strdex === 'Strength' ? this.abilityModifiers(this.props.character[0].strength) : this.abilityModifiers(this.props.character[0].dexterity)}`}
+                                    {`${weapon.damage} + ${weapon.strdex === 'Strength' ? this.abilityModifiers(this.props.character.strength) : this.abilityModifiers(this.props.character.dexterity)}`}
                                 </TableRowColumn>
                                 <TableRowColumn style={{ width: '20%', alignItems: 'left', margin: 0, padding: '2%' }}>
                                     <IconButton onClick={() => this.editWeapon(weapon.id, weapon.attack_bonus)} style={{ margin: 0, padding: 0 }}>
@@ -238,7 +238,7 @@ class Weapons extends Component {
                                     value={this.state.proficient}
                                     onChange={(event, index, value) => this.setState({
                                         proficient: value,
-                                        attack_bonus: this.state.attack_bonus + (value ? this.props.character[0].proficiency_bonus : 0)
+                                        attack_bonus: this.state.attack_bonus + (value ? this.props.character.proficiency_bonus : 0)
                                     })}
                                     style={{ width: '230px', textAlign: 'left' }}
                                 >
@@ -250,7 +250,7 @@ class Weapons extends Component {
                                     value={this.state.strDex}
                                     onChange={(event, index, value) => this.setState({
                                         strDex: value,
-                                        attack_bonus: this.state.attack_bonus + (value === 'Strength' ? this.abilityModifiers(this.props.character[0].strength) : this.abilityModifiers(this.props.character[0].dexterity))
+                                        attack_bonus: this.state.attack_bonus + (value === 'Strength' ? this.abilityModifiers(this.props.character.strength) : this.abilityModifiers(this.props.character.dexterity))
                                     })}
                                     style={{ width: '230px', textAlign: 'left' }}
                                 >

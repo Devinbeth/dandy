@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUser, getCharacter, saveCharacter } from '../../ducks/reducer.js';
+import { getUser, getCharacter, saveCharacter, createCharacter, resetCharacter } from '../../ducks/reducer.js';
 import './Character.css';
 import Header from '../Header/Header.js';
 import Race from './Race.js';
@@ -19,6 +19,7 @@ class Character extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: this.props.match.params.id,
             name: '',
             image: '',
             race: '',
@@ -96,17 +97,21 @@ class Character extends Component {
     }
 
     componentDidMount() {
-        if (this.props.match.params.id != 0 ) {
+        if (Number(this.props.match.params.id)) {
             this.props.getCharacter(this.props.match.params.id);
+        }
+        else {
+            this.props.resetCharacter();
         }
     }
 
     save() {
-        if (this.props.match.params.id === 0) {
-            this.props.saveCharacter(this.state);
+        if (Number(this.props.match.params.id)) {
+            this.props.saveCharacter(this.props.match.params.id, this.state);
         }
         else {
-            this.props.saveCharacter(this.props.match.params.id, this.state);
+            console.log(this.state);
+            this.props.createCharacter(this.state);
         }
     }
 
@@ -170,68 +175,74 @@ class Character extends Component {
     }
 
     componentWillReceiveProps(newProps) {
+        console.log(newProps);
+        if (newProps.character.id !== this.state.id) {
+            this.props.history.push(`/character/${newProps.character.id}`);
+        }
         this.setState({
-            name: newProps.character[0].name,
-            image: newProps.character[0].image,
-            race: newProps.character[0].race,
-            class: newProps.character[0].class,
-            level: newProps.character[0].level,
-            xp: newProps.character[0].xp,
-            background: newProps.character[0].background,
-            alignment: newProps.character[0].alignment,
-            strength: newProps.character[0].strength,
-            dexterity: newProps.character[0].dexterity,
-            constitution: newProps.character[0].constitution,
-            intelligence: newProps.character[0].intelligence,
-            wisdom: newProps.character[0].wisdom,
-            charisma: newProps.character[0].charisma,
-            inspiration: newProps.character[0].inspiration,
-            proficiency_bonus: newProps.character[0].proficiency_bonus,
-            strength_saving_throw: newProps.character[0].strength_saving_throw,
-            dexterity_saving_throw: newProps.character[0].dexterity_saving_throw,
-            constitution_saving_throw: newProps.character[0].constitution_saving_throw,
-            intelligence_saving_throw: newProps.character[0].intelligence_saving_throw,
-            wisdom_saving_throw: newProps.character[0].wisdom_saving_throw,
-            charisma_saving_throw: newProps.character[0].charisma_saving_throw,
-            acrobatics: newProps.character[0].acrobatics,
-            animal_handling: newProps.character[0].animal_handling,
-            arcana: newProps.character[0].arcana,
-            athletics: newProps.character[0].athletics,
-            deception: newProps.character[0].deception,
-            history: newProps.character[0].history,
-            insight: newProps.character[0].insight,
-            intimidation: newProps.character[0].intimidation,
-            investigation: newProps.character[0].investigation,
-            medicine: newProps.character[0].medicine,
-            nature: newProps.character[0].nature,
-            perception: newProps.character[0].perception,
-            performance: newProps.character[0].performance,
-            persuasion: newProps.character[0].persuasion,
-            religion: newProps.character[0].religion,
-            sleight_of_hand: newProps.character[0].sleight_of_hand,
-            stealth: newProps.character[0].stealth,
-            survival: newProps.character[0].survival,
-            languages: newProps.character[0].languages,
-            other_proficiencies: newProps.character[0].other_proficiencies,
-            armor_class: newProps.character[0].armor_class,
-            initiative: newProps.character[0].initiative,
-            speed: newProps.character[0].speed,
-            max_hit_points: newProps.character[0].max_hit_points,
-            current_hit_points: newProps.character[0].current_hit_points,
-            temp_hit_points: newProps.character[0].temp_hit_points,
-            total_hit_dice: newProps.character[0].total_hit_dice,
-            current_hit_dice: newProps.character[0].current_hit_dice,
-            death_save_successes: newProps.character[0].death_save_successes,
-            death_save_failures: newProps.character[0].death_save_failures,
-            personality_traits: newProps.character[0].personality_traits,
-            ideals: newProps.character[0].ideals,
-            bonds: newProps.character[0].bonds,
-            flaws: newProps.character[0].flaws,
-            platinum: newProps.character[0].platinum,
-            gold: newProps.character[0].gold,
-            electrum: newProps.character[0].electrum,
-            silver: newProps.character[0].silver,
-            copper: newProps.character[0].copper
+            name: newProps.character.name,
+            image: newProps.character.image,
+            race: newProps.character.race,
+            class: newProps.character.class,
+            level: newProps.character.level,
+            xp: newProps.character.xp,
+            background: newProps.character.background,
+            alignment: newProps.character.alignment,
+            strength: newProps.character.strength,
+            dexterity: newProps.character.dexterity,
+            constitution: newProps.character.constitution,
+            intelligence: newProps.character.intelligence,
+            wisdom: newProps.character.wisdom,
+            charisma: newProps.character.charisma,
+            inspiration: newProps.character.inspiration,
+            proficiency_bonus: newProps.character.proficiency_bonus,
+            strength_saving_throw: newProps.character.strength_saving_throw,
+            dexterity_saving_throw: newProps.character.dexterity_saving_throw,
+            constitution_saving_throw: newProps.character.constitution_saving_throw,
+            intelligence_saving_throw: newProps.character.intelligence_saving_throw,
+            wisdom_saving_throw: newProps.character.wisdom_saving_throw,
+            charisma_saving_throw: newProps.character.charisma_saving_throw,
+            acrobatics: newProps.character.acrobatics,
+            animal_handling: newProps.character.animal_handling,
+            arcana: newProps.character.arcana,
+            athletics: newProps.character.athletics,
+            deception: newProps.character.deception,
+            history: newProps.character.history,
+            insight: newProps.character.insight,
+            intimidation: newProps.character.intimidation,
+            investigation: newProps.character.investigation,
+            medicine: newProps.character.medicine,
+            nature: newProps.character.nature,
+            perception: newProps.character.perception,
+            performance: newProps.character.performance,
+            persuasion: newProps.character.persuasion,
+            religion: newProps.character.religion,
+            sleight_of_hand: newProps.character.sleight_of_hand,
+            stealth: newProps.character.stealth,
+            survival: newProps.character.survival,
+            languages: newProps.character.languages,
+            other_proficiencies: newProps.character.other_proficiencies,
+            armor_class: newProps.character.armor_class,
+            initiative: newProps.character.initiative,
+            speed: newProps.character.speed,
+            max_hit_points: newProps.character.max_hit_points,
+            current_hit_points: newProps.character.current_hit_points,
+            temp_hit_points: newProps.character.temp_hit_points,
+            total_hit_dice: newProps.character.total_hit_dice,
+            current_hit_dice: newProps.character.current_hit_dice,
+            death_save_successes: newProps.character.death_save_successes,
+            death_save_failures: newProps.character.death_save_failures,
+            personality_traits: newProps.character.personality_traits,
+            ideals: newProps.character.ideals,
+            bonds: newProps.character.bonds,
+            flaws: newProps.character.flaws,
+            platinum: newProps.character.platinum,
+            gold: newProps.character.gold,
+            electrum: newProps.character.electrum,
+            silver: newProps.character.silver,
+            copper: newProps.character.copper,
+            features: newProps.character.features,
+            traits: newProps.character.traits
         });
     }
 
@@ -579,7 +590,7 @@ class Character extends Component {
                         />
                         <TextField className='ac_hp_info'
                             id='text-field-controlled'
-                            value={this.state.initiative}
+                            value={this.state.initiative ? this.state.initiative : undefined}
                             onChange={(e) => this.setState({ initiative: e.target.value })}
                             floatingLabelText='Initiative'
                             type='number'
@@ -817,4 +828,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { getUser, getCharacter, saveCharacter })(Character);
+export default connect(mapStateToProps, { getUser, getCharacter, saveCharacter, createCharacter, resetCharacter })(Character);
