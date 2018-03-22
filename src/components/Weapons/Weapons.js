@@ -177,7 +177,7 @@ class Weapons extends Component {
                         {this.state.weapons.map((weapon, index) => (
                             <TableRow key={index}>
                                 <TableRowColumn style={{ width: '30%', textAlign: 'left', margin: 0, padding: '2%' }}>
-                                    <FlatButton>{weapon.name}</FlatButton>
+                                    <FlatButton label={weapon.name ? weapon.name : 'None'} />
                                 </TableRowColumn>
                                 <TableRowColumn style={{ width: '10%', alignContent: 'left', margin: 0, padding: '2%' }}>
                                     {weapon.attack_bonus}

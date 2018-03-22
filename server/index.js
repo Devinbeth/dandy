@@ -34,7 +34,7 @@ passport.use(new Auth0Strategy({
     clientSecret: CLIENT_SECRET,
     callbackURL: CALLBACK_URL,
     scope: 'openid profile'
-}, function (accessToken, refreshToken, extraParams, profile, done) {
+}, function(accessToken, refreshToken, extraParams, profile, done) {
     const db = app.get('db');
     db.find_user([profile.id]).then(users => {
         if (!users[0]) {
@@ -59,8 +59,8 @@ passport.deserializeUser((id, done) => {
 // AUTH ENDPOINTS
 app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: '/#/home',
-    failueRedirect: '/'
+    successRedirect: 'http://localhost:3000/#/home',
+    failueRedirect: 'http://localhost:3000/'
 }));
 app.get('/auth/me', (req, res) => {
     if (req.user) {
@@ -72,7 +72,7 @@ app.get('/auth/me', (req, res) => {
 });
 app.get('/auth/logout', (req, res) => {
     req.logOut();
-    res.redirect('/')
+    res.redirect('http://localhost:3000/')
 });
 
 

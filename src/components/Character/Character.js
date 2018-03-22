@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUser, getCharacter, saveCharacter, createCharacter, resetCharacter } from '../../ducks/reducer.js';
+import { getCharacter, saveCharacter, createCharacter, resetCharacter } from '../../ducks/reducer.js';
 import './Character.css';
 import Header from '../Header/Header.js';
 import Race from './Race.js';
@@ -95,7 +95,7 @@ class Character extends Component {
         this.deathSaveSuccesses = this.deathSaveSuccesses.bind(this);
         this.deathSaveFailures = this.deathSaveFailures.bind(this);
     }
-    
+
     componentDidMount() {
         if (Number(this.props.match.params.id)) {
             this.props.getCharacter(this.props.match.params.id);
@@ -110,7 +110,6 @@ class Character extends Component {
             this.props.saveCharacter(this.props.match.params.id, this.state);
         }
         else {
-            console.log(this.state);
             this.props.createCharacter(this.state);
         }
     }
@@ -272,8 +271,8 @@ class Character extends Component {
                         <TextField
                             className='level'
                             id='text-field-controlled'
-                            value={this.state.level ? this.state.level : undefined}
-                            onChange={(e) => this.setState({ level: e.target.value })}
+                            value={this.state.level ? this.state.level : ''}
+                            onChange={(e) => this.setState({ level: Number(e.target.value) })}
                             floatingLabelText='Level'
                             type='number'
                             style={{ width: '90%' }}
@@ -281,8 +280,8 @@ class Character extends Component {
                         <TextField
                             className='xp'
                             id='text-field-controlled'
-                            value={this.state.xp}
-                            onChange={(e) => this.setState({ xp: e.target.value })}
+                            value={this.state.xp ? this.state.xp : ''}
+                            onChange={(e) => this.setState({ xp: Number(e.target.value) })}
                             floatingLabelText='XP'
                             type='number'
                             style={{ width: '90%' }}
@@ -298,7 +297,7 @@ class Character extends Component {
                         <h5>STRENGTH</h5>
                         <TextField
                             id='text-field-controlled'
-                            value={this.state.strength ? this.state.strength : undefined}
+                            value={this.state.strength ? this.state.strength : ''}
                             onChange={(e) => this.setState({ strength: Number(e.target.value) })}
                             style={{ width: '75%' }}
                             inputStyle={{ textAlign: 'center' }}
@@ -309,7 +308,7 @@ class Character extends Component {
                         <h5>DEXTERITY</h5>
                         <TextField
                             id='text-field-controlled'
-                            value={this.state.dexterity ? this.state.dexterity : undefined}
+                            value={this.state.dexterity ? this.state.dexterity : ''}
                             onChange={(e) => this.setState({ dexterity: Number(e.target.value) })}
                             style={{ width: '75%' }}
                             inputStyle={{ textAlign: 'center' }}
@@ -321,7 +320,7 @@ class Character extends Component {
                         </h5>
                         <TextField
                             id='text-field-controlled'
-                            value={this.state.constitution ? this.state.constitution : undefined}
+                            value={this.state.constitution ? this.state.constitution : ''}
                             onChange={(e) => this.setState({ constitution: Number(e.target.value) })}
                             style={{ width: '75%' }}
                             inputStyle={{ textAlign: 'center' }}
@@ -332,7 +331,7 @@ class Character extends Component {
                         <h5>INTELLIGENCE</h5>
                         <TextField
                             id='text-field-controlled'
-                            value={this.state.intelligence ? this.state.intelligence : undefined}
+                            value={this.state.intelligence ? this.state.intelligence : ''}
                             onChange={(e) => this.setState({ intelligence: Number(e.target.value) })}
                             style={{ width: '75%' }}
                             inputStyle={{ textAlign: 'center' }}
@@ -343,7 +342,7 @@ class Character extends Component {
                         <h5>WISDOM</h5>
                         <TextField
                             id='text-field-controlled'
-                            value={this.state.wisdom ? this.state.wisdom : undefined}
+                            value={this.state.wisdom ? this.state.wisdom : ''}
                             onChange={(e) => this.setState({ wisdom: Number(e.target.value) })}
                             style={{ width: '75%' }}
                             inputStyle={{ textAlign: 'center' }}
@@ -354,7 +353,7 @@ class Character extends Component {
                         <h5>CHARISMA</h5>
                         <TextField
                             id='text-field-controlled'
-                            value={this.state.charisma ? this.state.charisma : undefined}
+                            value={this.state.charisma ? this.state.charisma : ''}
                             onChange={(e) => this.setState({ charisma: Number(e.target.value) })}
                             style={{ width: '75%' }}
                             inputStyle={{ textAlign: 'center' }}
@@ -364,8 +363,8 @@ class Character extends Component {
                     <div className='box inspiration'>
                         <TextField
                             id='text-field-controlled'
-                            value={this.state.inspiration}
-                            onChange={(e) => this.setState({ inspiration: e.target.value })}
+                            value={this.state.inspiration ? this.state.inspiration : ''}
+                            onChange={(e) => this.setState({ inspiration: Number(e.target.value) })}
                             floatingLabelText='Inspiration'
                             type='number'
                             style={{ width: '60%' }}
@@ -374,8 +373,8 @@ class Character extends Component {
                     <div className='box proficiency'>
                         <TextField
                             id='text-field-controlled'
-                            value={this.state.proficiency_bonus ? this.state.proficiency_bonus : undefined}
-                            onChange={(e) => this.setState({ proficiency_bonus: e.target.value })}
+                            value={this.state.proficiency_bonus ? this.state.proficiency_bonus : ''}
+                            onChange={(e) => this.setState({ proficiency_bonus: Number(e.target.value) })}
                             floatingLabelText='Proficieny Bonus'
                             type='number'
                             style={{ width: '60%' }}
@@ -561,7 +560,7 @@ class Character extends Component {
                     <div className='box other_prof_languages'>
                         <TextField
                             id='text-field-controlled'
-                            value={this.state.languages}
+                            value={this.state.languages ? this.state.languages : ''}
                             onChange={(e) => this.setState({ languages: e.target.value })}
                             hintText='Languages'
                             floatingLabelText='Languages'
@@ -570,7 +569,7 @@ class Character extends Component {
                         />
                         <TextField
                             id='text-field-controlled'
-                            value={this.state.other_proficiencies}
+                            value={this.state.other_proficiencies ? this.state.other_proficiencies : ''}
                             onChange={(e) => this.setState({ other_proficiencies: e.target.value })}
                             hintText='Other Proficiencies'
                             floatingLabelText='Other Proficiencies'
@@ -582,48 +581,48 @@ class Character extends Component {
                     <div className='box ac_hp'>
                         <TextField className='ac_hp_info'
                             id='text-field-controlled'
-                            value={this.state.armor_class ? this.state.armor_class : undefined}
-                            onChange={(e) => this.setState({ armor_class: e.target.value })}
+                            value={this.state.armor_class ? this.state.armor_class : ''}
+                            onChange={(e) => this.setState({ armor_class: Number(e.target.value) })}
                             floatingLabelText='Armor Class'
                             type='number'
                             style={{ width: '25%' }}
                         />
                         <TextField className='ac_hp_info'
                             id='text-field-controlled'
-                            value={this.state.initiative ? this.state.initiative : undefined}
-                            onChange={(e) => this.setState({ initiative: e.target.value })}
+                            value={this.state.initiative ? this.state.initiative : ''}
+                            onChange={(e) => this.setState({ initiative: Number(e.target.value) })}
                             floatingLabelText='Initiative'
                             type='number'
                             style={{ width: '25%' }}
                         />
                         <TextField className='ac_hp_info'
                             id='text-field-controlled'
-                            value={this.state.speed ? this.state.speed : undefined}
-                            onChange={(e) => this.setState({ speed: e.target.value })}
+                            value={this.state.speed ? this.state.speed : ''}
+                            onChange={(e) => this.setState({ speed: Number(e.target.value) })}
                             floatingLabelText='Speed'
                             type='number'
                             style={{ width: '25%' }}
                         />
                         <TextField className='ac_hp_info'
                             id='text-field-controlled'
-                            value={this.state.max_hit_points ? this.state.max_hit_points : undefined}
-                            onChange={(e) => this.setState({ max_hit_points: e.target.value })}
+                            value={this.state.max_hit_points ? this.state.max_hit_points : ''}
+                            onChange={(e) => this.setState({ max_hit_points: Number(e.target.value) })}
                             floatingLabelText='Max HP'
                             type='number'
                             style={{ width: '25%' }}
                         />
                         <TextField className='ac_hp_info'
                             id='text-field-controlled'
-                            value={this.state.current_hit_points ? this.state.current_hit_points : undefined}
-                            onChange={(e) => this.setState({ current_hit_points: e.target.value })}
+                            value={this.state.current_hit_points ? this.state.current_hit_points : ''}
+                            onChange={(e) => this.setState({ current_hit_points: Number(e.target.value) })}
                             floatingLabelText='Current HP'
                             type='number'
                             style={{ width: '25%' }}
                         />
                         <TextField className='ac_hp_info'
                             id='text-field-controlled'
-                            value={this.state.temp_hit_points}
-                            onChange={(e) => this.setState({ temp_hit_points: e.target.value })}
+                            value={this.state.temp_hit_points ? this.state.temp_hit_points : ''}
+                            onChange={(e) => this.setState({ temp_hit_points: Number(e.target.value) })}
                             floatingLabelText='Temporary HP'
                             type='number'
                             style={{ width: '30%' }}
@@ -639,8 +638,8 @@ class Character extends Component {
                         <TextField
                             className='ac_hp_info'
                             id='text-field-controlled'
-                            value={this.state.current_hit_dice ? this.state.current_hit_dice : undefined}
-                            onChange={(e) => this.setState({ current_hit_dice: e.target.value })}
+                            value={this.state.current_hit_dice ? this.state.current_hit_dice : ''}
+                            onChange={(e) => this.setState({ current_hit_dice: Number(e.target.value) })}
                             floatingLabelText='Current Hit Dice'
                             type='number'
                             style={{ width: '40%' }}
@@ -700,40 +699,40 @@ class Character extends Component {
                         <div className='money'>
                             <TextField
                                 id='text-field-controlled'
-                                value={this.state.copper}
-                                onChange={(e) => this.setState({ copper: e.target.value })}
+                                value={this.state.copper ? this.state.copper : ''}
+                                onChange={(e) => this.setState({ copper: Number(e.target.value) })}
                                 floatingLabelText='CP'
                                 type='number'
                                 style={{ width: '30%' }}
                             />
                             <TextField
                                 id='text-field-controlled'
-                                value={this.state.silver}
-                                onChange={(e) => this.setState({ silver: e.target.value })}
+                                value={this.state.silver ? this.state.silver : ''}
+                                onChange={(e) => this.setState({ silver: Number(e.target.value) })}
                                 floatingLabelText='SP'
                                 type='number'
                                 style={{ width: '30%' }}
                             />
                             <TextField
                                 id='text-field-controlled'
-                                value={this.state.electrum}
-                                onChange={(e) => this.setState({ electrum: e.target.value })}
+                                value={this.state.electrum ? this.state.electrum : ''}
+                                onChange={(e) => this.setState({ electrum: Number(e.target.value) })}
                                 floatingLabelText='EP'
                                 type='number'
                                 style={{ width: '30%' }}
                             />
                             <TextField
                                 id='text-field-controlled'
-                                value={this.state.gold}
-                                onChange={(e) => this.setState({ gold: e.target.value })}
+                                value={this.state.gold ? this.state.gold : ''}
+                                onChange={(e) => this.setState({ gold: Number(e.target.value) })}
                                 floatingLabelText='GP'
                                 type='number'
                                 style={{ width: '30%' }}
                             />
                             <TextField
                                 id='text-field-controlled'
-                                value={this.state.platinum}
-                                onChange={(e) => this.setState({ platinum: e.target.value })}
+                                value={this.state.platinum ? this.state.platinum : ''}
+                                onChange={(e) => this.setState({ platinum: Number(e.target.value) })}
                                 floatingLabelText='PP'
                                 type='number'
                                 style={{ width: '30%' }}
@@ -828,4 +827,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { getUser, getCharacter, saveCharacter, createCharacter, resetCharacter })(Character);
+export default connect(mapStateToProps, { getCharacter, saveCharacter, createCharacter, resetCharacter })(Character);

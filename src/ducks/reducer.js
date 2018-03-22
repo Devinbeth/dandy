@@ -198,7 +198,6 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, { character: action.payload });
 
         case CREATE_CHARACTER + '_FULFILLED':
-            console.log(action.payload);
             return Object.assign({}, state, { character: action.payload });
 
         case RESET_CHARACTER:

@@ -1,8 +1,14 @@
-.characters {
+.Home .characters {
     position: relative;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     margin: 0 25%;
     padding: 7% 0;
+}
+
+.Home .new {
+    position: fixed;
+    bottom: 3%;
+    right: 2%;
 }
