@@ -19,7 +19,7 @@ class Character extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.match.params.id,
+            id: Number(this.props.match.params.id),
             name: '',
             image: '',
             race: '',
@@ -95,7 +95,7 @@ class Character extends Component {
         this.deathSaveSuccesses = this.deathSaveSuccesses.bind(this);
         this.deathSaveFailures = this.deathSaveFailures.bind(this);
     }
-
+    
     componentDidMount() {
         if (Number(this.props.match.params.id)) {
             this.props.getCharacter(this.props.match.params.id);
@@ -175,11 +175,11 @@ class Character extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        console.log(newProps);
         if (newProps.character.id !== this.state.id) {
             this.props.history.push(`/character/${newProps.character.id}`);
         }
         this.setState({
+            id: newProps.character.id,
             name: newProps.character.name,
             image: newProps.character.image,
             race: newProps.character.race,

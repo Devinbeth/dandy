@@ -4,7 +4,72 @@ import axios from 'axios';
 const initialState = {
     user: {},
     characters: [{}],
-    character: { id: 0 },
+    character: {
+        id: 0,
+        name: '',
+        image: '',
+        race: '',
+        class: '',
+        level: 0,
+        xp: 0,
+        background: '',
+        alignment: '',
+        strength: 0,
+        dexterity: 0,
+        constitution: 0,
+        intelligence: 0,
+        wisdom: 0,
+        charisma: 0,
+        inspiration: 0,
+        proficiency_bonus: 0,
+        strength_saving_throw: false,
+        dexterity_saving_throw: false,
+        constitution_saving_throw: false,
+        intelligence_saving_throw: false,
+        wisdom_saving_throw: false,
+        charisma_saving_throw: false,
+        acrobatics: false,
+        animal_handling: false,
+        arcana: false,
+        athletics: false,
+        deception: false,
+        history: false,
+        insight: false,
+        intimidation: false,
+        investigation: false,
+        medicine: false,
+        nature: false,
+        perception: false,
+        performance: false,
+        persuasion: false,
+        religion: false,
+        sleight_of_hand: false,
+        stealth: false,
+        survival: false,
+        languages: '',
+        other_proficiencies: '',
+        armor_class: 0,
+        initiative: 0,
+        speed: 0,
+        max_hit_points: 0,
+        current_hit_points: 0,
+        death_save_successes: 0,
+        death_save_failures: 0,
+        temp_hit_points: 0,
+        total_hit_dice: '',
+        current_hit_dice: 0,
+        personality_traits: '',
+        ideals: '',
+        bonds: '',
+        flaws: '',
+        platinum: 0,
+        gold: 0,
+        electrum: 0,
+        silver: 0,
+        copper: 0,
+        features: '',
+        traits: ''
+    },
     character_weapons: [{}]
 };
 
@@ -13,6 +78,7 @@ const initialState = {
 const GET_USER = 'GET_USER';
 const GET_CHARACTERS = 'GET_CHARACTERS';
 const GET_CHARACTER = 'GET_CHARACTER';
+const REMOVE_CHARACTER = 'REMOVE_CHARACTER';
 const SAVE_CHARACTER = 'SAVE_CHARACTER';
 const CREATE_CHARACTER = 'CREATE_CHARACTER';
 const RESET_CHARACTER = 'RESET_CHARACTER';
@@ -47,6 +113,14 @@ export function getCharacter(id) {
     };
 }
 
+export function removeCharacter(id) {
+    let removedData = axios.delete(`/api/character/${id}`).then(res => res.data);
+    return {
+        type: REMOVE_CHARACTER,
+        payload: removedData
+    };
+}
+
 export function saveCharacter(id, character) {
     let savedCharacter = axios.put(`/api/character/${id}`, character).then(res => res.data);
     return {
@@ -56,7 +130,6 @@ export function saveCharacter(id, character) {
 }
 
 export function createCharacter(character) {
-    console.log(character);
     let createdCharacter = axios.post(`/api/character`, character).then(res => res.data);
     return {
         type: CREATE_CHARACTER,
@@ -67,7 +140,7 @@ export function createCharacter(character) {
 export function resetCharacter() {
     return {
         type: RESET_CHARACTER,
-        payload: {}
+        payload: initialState.character
     };
 }
 
@@ -117,6 +190,9 @@ export default function reducer(state = initialState, action) {
 
         case GET_CHARACTER + '_FULFILLED':
             return Object.assign({}, state, { character: action.payload });
+
+        case REMOVE_CHARACTER + '_FULFILLED':
+            return Object.assign({}, state, { characters: action.payload });
 
         case SAVE_CHARACTER + '_FULFILLED':
             return Object.assign({}, state, { character: action.payload });

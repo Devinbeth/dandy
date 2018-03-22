@@ -63,6 +63,7 @@ class Weapons extends Component {
             attack_bonus: 0,
             toggle: false
         });
+        this.weaponsList = this.weaponsList.bind(this);
     }
 
     editWeapon(id, attack_bonus) {

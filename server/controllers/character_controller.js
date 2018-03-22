@@ -4,7 +4,6 @@ module.exports = {
         delete req.body.id;
         req.body.user_id = req.user.id;
         db.characters.insert(req.body).then(character => {
-            console.log(character);
             if (req.user.id === character.user_id) {
                 res.status(200).send(character);
             }
@@ -34,7 +33,6 @@ module.exports = {
     updateCharacter: (req, res) => {
         const db = req.app.get('db');
         db.characters.update({ id: req.params.id }, req.body).then(characters => {
-            console.log(characters);
             if (req.user.id === characters[0].user_id) {
                 res.status(200).send(characters[0]);
             }
@@ -44,6 +42,10 @@ module.exports = {
         });
     },
     deleteCharacter: (req, res) => {
-
+        const db = req.app.get('db');
+        db.delete_character([req.params.id, req.user.id]).then(characters => {
+            characters.sort((a, b) => a.id < b.id);
+            res.status(200).send(characters);
+        });
     },
 }

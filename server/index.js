@@ -79,6 +79,7 @@ app.get('/api/characters', character_controller.readCharacters);
 app.get('/api/character/:id', character_controller.readCharacter);
 app.post('/api/character', character_controller.createCharacter);
 app.put('/api/character/:id', character_controller.updateCharacter);
+app.delete('/api/character/:id', character_controller.deleteCharacter);
 
 
 // WEAPONS ENDPOINTS
