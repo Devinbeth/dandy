@@ -14,6 +14,8 @@ const app = express();
 
 massive(CONNECTION_STRING).then(db => app.set('db', db));
 
+app.use(express.static(`${__dirname}/../build`));
+
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -32,7 +34,7 @@ passport.use(new Auth0Strategy({
     clientSecret: CLIENT_SECRET,
     callbackURL: CALLBACK_URL,
     scope: 'openid profile'
-}, function(accessToken, refreshToken, extraParams, profile, done) {
+}, function (accessToken, refreshToken, extraParams, profile, done) {
     const db = app.get('db');
     db.find_user([profile.id]).then(users => {
         if (!users[0]) {
@@ -57,8 +59,8 @@ passport.deserializeUser((id, done) => {
 // AUTH ENDPOINTS
 app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3000/#/home',
-    failueRedirect: 'http://localhost:3000/'
+    successRedirect: '/#/home',
+    failueRedirect: '/'
 }));
 app.get('/auth/me', (req, res) => {
     if (req.user) {
@@ -70,7 +72,7 @@ app.get('/auth/me', (req, res) => {
 });
 app.get('/auth/logout', (req, res) => {
     req.logOut();
-    res.redirect('http://localhost:3000/')
+    res.redirect('/')
 });
 
 
