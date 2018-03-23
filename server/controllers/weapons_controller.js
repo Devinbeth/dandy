@@ -4,8 +4,13 @@ module.exports = {
             res.status(200).send(weapons);
         });
     },
-    readWeapon: (req, res) => {
+    readWeapons: (req, res) => {
         req.app.get('db').get_weapons([req.params.id]).then(weapons => {
+            res.status(200).send(weapons);
+        });
+    },
+    readAllWeapons: (req, res) => {
+        req.app.get('db').get_all_weapons([req.params.id]).then(weapons => {
             res.status(200).send(weapons);
         });
     },

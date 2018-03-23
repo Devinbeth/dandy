@@ -99,7 +99,8 @@ app.delete('/api/character/:id', character_controller.deleteCharacter);
 
 
 // WEAPONS ENDPOINTS
-app.get('/api/weapons/:id', weapons_controller.readWeapon);
+app.get('/api/weapons/:id', weapons_controller.readWeapons);
+app.get('/api/weapons', weapons_controller.readAllWeapons);
 app.post('/api/weapons', weapons_controller.addWeapon);
 app.delete('/api/weapons/:id', weapons_controller.deleteWeapon);
 app.put('/api/weapons/:id', weapons_controller.editWeapon);

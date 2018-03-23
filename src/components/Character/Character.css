@@ -4,7 +4,7 @@
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 11% 16% 35% 35%;
-    grid-template-rows: 200px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px;
+    grid-template-rows: 200px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px;
     margin-top: 10px;
     margin-left: 10px;
 }
@@ -154,7 +154,7 @@
 }
 
 .Character .other_prof_languages {
-    grid-area: 15 / 1 / 21 / 3;
+    grid-area: 15 / 1 / 20 / 3;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -187,7 +187,7 @@
 }
 
 .Character .equipment {
-    grid-area: 15 / 3 / 21 / 4;
+    grid-area: 15 / 3 / 20 / 4;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -231,7 +231,7 @@
 }
 
 .Character .feature_traits {
-    grid-area: 15 / 4 / 21 / 5;
+    grid-area: 15 / 4 / 20 / 5;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;

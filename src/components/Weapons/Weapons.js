@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getWeapons, saveWeapon, removeWeapon, editWeapon } from '../../ducks/reducer.js';
+import { getWeapons, saveWeapon, removeWeapon, getAllWeapons } from '../../ducks/reducer.js';
 import './Weapons.css';
 import Box from '../Box/Box.js';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
@@ -9,8 +9,8 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
-import Check from 'material-ui/svg-icons/navigation/check';
 import Close from 'material-ui/svg-icons/navigation/close';
+import Info from 'material-ui/svg-icons/action/info';
 
 class Weapons extends Component {
     constructor(props) {
@@ -22,17 +22,20 @@ class Weapons extends Component {
             proficient: false,
             strDex: '',
             attack_bonus: 0,
-            toggle: false
+            newToggle: false,
+            infoToggle: false,
+            weaponToggle: false
         }
         this.abilityModifiers = this.abilityModifiers.bind(this);
         this.addWeapon = this.addWeapon.bind(this);
-        this.editWeapon = this.editWeapon.bind(this);
         this.removeWeapon = this.removeWeapon.bind(this);
         this.weaponDropDown = this.weaponDropDown.bind(this);
+        this.weaponsList = this.weaponsList.bind(this);
     }
 
     componentDidMount() {
         this.props.getWeapons(this.props.id);
+        this.props.getAllWeapons();
     }
 
     componentWillReceiveProps(newProps) {
@@ -61,13 +64,8 @@ class Weapons extends Component {
             proficient: false,
             strDex: '',
             attack_bonus: 0,
-            toggle: false
+            newToggle: false
         });
-        this.weaponsList = this.weaponsList.bind(this);
-    }
-
-    editWeapon(id, attack_bonus) {
-        this.props.editWeapon(id, { character_id: this.props.id, attack_bonus: attack_bonus })
     }
 
     removeWeapon(id) {
@@ -163,55 +161,67 @@ class Weapons extends Component {
 
     weaponsList() {
         return (
-            <div className='weapon_table'>
-                <Table fixedHeader={true} fixedFooter={true}>
-                    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                        <TableRow>
-                            <TableHeaderColumn tooltip='Name'>NAME</TableHeaderColumn>
-                            <TableHeaderColumn tooltip='Bonus'>ATK BONUS</TableHeaderColumn>
-                            <TableHeaderColumn tooltip='Damage'>DAMAGE</TableHeaderColumn>
-                            <TableHeaderColumn tooltip='Save/Delete'>SAVE/DELETE</TableHeaderColumn>
+            <Table fixedHeader={true} fixedFooter={true}>
+                <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+                    <TableRow>
+                        <TableHeaderColumn tooltip='Name'>NAME</TableHeaderColumn>
+                        <TableHeaderColumn tooltip='Bonus'>ATK BONUS</TableHeaderColumn>
+                        <TableHeaderColumn tooltip='Damage'>DAMAGE</TableHeaderColumn>
+                        <TableHeaderColumn tooltip='Save/Delete'>DELETE</TableHeaderColumn>
+                    </TableRow>
+                </TableHeader>
+                <TableBody displayRowCheckbox={false} showRowHover={true} stripedRows={false}>
+                    {this.state.weapons.map((weapon, index) => (
+                        <TableRow key={index}>
+                            <TableRowColumn style={{ width: '30%', textAlign: 'left', margin: 0, padding: '2%' }}>
+                                <FlatButton
+                                    label={weapon.name ? weapon.name : 'No Weapons'}
+                                    onClick={() => {
+                                        this.setState({ infoToggle: true });
+                                        this.weaponInfoBox(weapon.weapon_id);
+                                    }}
+                                />
+                            </TableRowColumn>
+                            <TableRowColumn style={{ width: '10%', alignContent: 'left', margin: 0, padding: '2%' }}>
+                                {weapon.attack_bonus}
+                            </TableRowColumn>
+                            <TableRowColumn style={{ width: '35%', textAlign: 'center', margin: 0, padding: '2%' }}>
+                                {`${weapon.damage} + ${weapon.strdex === 'Strength' ? this.abilityModifiers(this.props.character.strength) : this.abilityModifiers(this.props.character.dexterity)}`}
+                            </TableRowColumn>
+                            <TableRowColumn style={{ width: '20%', alignItems: 'left', margin: 0, padding: '2%' }}>
+                                <IconButton onClick={() => this.removeWeapon(weapon.id)} style={{ margin: 0, padding: 0 }}>
+                                    <Close />
+                                </IconButton>
+                            </TableRowColumn>
                         </TableRow>
-                    </TableHeader>
-                    <TableBody displayRowCheckbox={false} showRowHover={true} stripedRows={false}>
-                        {this.state.weapons.map((weapon, index) => (
-                            <TableRow key={index}>
-                                <TableRowColumn style={{ width: '30%', textAlign: 'left', margin: 0, padding: '2%' }}>
-                                    <FlatButton label={weapon.name ? weapon.name : 'None'} />
-                                </TableRowColumn>
-                                <TableRowColumn style={{ width: '10%', alignContent: 'left', margin: 0, padding: '2%' }}>
-                                    {weapon.attack_bonus}
-                                </TableRowColumn>
-                                <TableRowColumn style={{ width: '35%', textAlign: 'center', margin: 0, padding: '2%' }}>
-                                    {`${weapon.damage} + ${weapon.strdex === 'Strength' ? this.abilityModifiers(this.props.character.strength) : this.abilityModifiers(this.props.character.dexterity)}`}
-                                </TableRowColumn>
-                                <TableRowColumn style={{ width: '20%', alignItems: 'left', margin: 0, padding: '2%' }}>
-                                    <IconButton onClick={() => this.editWeapon(weapon.id, weapon.attack_bonus)} style={{ margin: 0, padding: 0 }}>
-                                        <Check />
-                                    </IconButton>
-                                    <IconButton onClick={() => this.removeWeapon(weapon.id)} style={{ margin: 0, padding: 0 }}>
-                                        <Close />
-                                    </IconButton>
-                                </TableRowColumn>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </div>
+                    ))}
+                </TableBody>
+            </Table>
         );
     }
 
     render() {
         return (
             <div className='Weapons'>
-                {this.weaponsList()}
+                <div className='weapon_table'>
+                    {this.weaponsList()}
+                </div>
                 <div className='add_weapon'>
-                    <RaisedButton label='Add Weapon' primary={true} onClick={() => this.setState({ toggle: !this.state.toggle })} />
-                    <h5>WEAPONS</h5>
+                    <RaisedButton label='Add Weapon' primary={true} onClick={() => this.setState({ newToggle: !this.state.newToggle })} />
+                    <div className='all_weapons'>
+                        <h5>WEAPONS</h5>
+                        <IconButton
+                            tooltip='All Weapons'
+                            onClick={() => this.setState({ infoToggle: !this.state.infoToggle })}
+                            style={{ margin: '0' }}
+                        >
+                            <Info />
+                        </IconButton>
+                    </div>
                 </div>
                 <Box
-                    toggle={this.state.toggle}
-                    switch={() => this.setState({ category: 1, newWeapon: 0, proficient: false, strDex: '', attack_bonus: 0, toggle: false })}
+                    toggle={this.state.newToggle}
+                    switch={() => this.setState({ category: 1, newWeapon: 0, proficient: false, strDex: '', attack_bonus: 0, newToggle: false })}
                     top={'15%'}
                     bottom={'15%'}
                     right={'34%'}
@@ -264,6 +274,40 @@ class Weapons extends Component {
                         {this.state.newWeapon ? <RaisedButton label='Add Weapon' primary={true} onClick={() => this.addWeapon()} /> : null}
                     </div>
                 </Box>
+                <Box
+                    toggle={this.state.infoToggle}
+                    switch={() => this.setState({ infoToggle: false })}
+                    top={'10%'}
+                    bottom={'5%'}
+                    right={'12%'}
+                    left={'12%'}
+                    title={'ALL WEAPONS'}
+                >
+                    <Table fixedHeader={true} fixedFooter={true} style={{ tableLayout: 'auto'}}>
+                        <TableHeader displaySelectAll={false} adjustForCheckbox={false} style={{ tableLayout: 'auto'}}>
+                            <TableRow>
+                                <TableHeaderColumn tooltip='Category'>CATERGORY</TableHeaderColumn>
+                                <TableHeaderColumn tooltip='Name'>NAME</TableHeaderColumn>
+                                <TableHeaderColumn tooltip='Cost'>COST</TableHeaderColumn>
+                                <TableHeaderColumn tooltip='Damage'>DAMAGE</TableHeaderColumn>
+                                <TableHeaderColumn tooltip='Weight'>WEIGHT</TableHeaderColumn>
+                                <TableHeaderColumn tooltip='Properties'>PROPERTIES</TableHeaderColumn>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody displayRowCheckbox={false} showRowHover={true} stripedRows={false}>
+                            {this.props.allWeapons.map((weapon, index) => (
+                                <TableRow key={index}>
+                                    <TableRowColumn>{weapon.category}</TableRowColumn>
+                                    <TableRowColumn>{weapon.name}</TableRowColumn>
+                                    <TableRowColumn>{weapon.cost}</TableRowColumn>
+                                    <TableRowColumn>{weapon.damage}</TableRowColumn>
+                                    <TableRowColumn>{weapon.weight}</TableRowColumn>
+                                    <TableRowColumn>{weapon.properties}</TableRowColumn>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Box>
             </div>
         );
     }
@@ -272,8 +316,9 @@ class Weapons extends Component {
 function mapStateToProps(state) {
     return {
         character: state.character,
-        character_weapons: state.character_weapons
+        character_weapons: state.character_weapons,
+        allWeapons: state.allWeapons
     };
 }
 
-export default connect(mapStateToProps, { getWeapons, saveWeapon, removeWeapon, editWeapon })(Weapons);
+export default connect(mapStateToProps, { getWeapons, saveWeapon, removeWeapon, getAllWeapons })(Weapons);

@@ -1,15 +1,23 @@
-.Weapons .main {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
+.Weapons {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 100%;
+    grid-template-rows: 390px 60px;
 }
 
 .Weapons .weapon_table {
-    align-self: flex-start;
+    grid-area: 1 / 1 / 2 / 2;
+    overflow: scroll;
 }
 
 .Weapons .add_weapon {
-    align-self: flex-end;
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+.Weapons .all_weapons {
+    display: flex;
+    align-items: center;
+    margin: 0 40%;
 }
 
 .Weapons .new_weapon {

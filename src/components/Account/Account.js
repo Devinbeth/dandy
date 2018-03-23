@@ -62,6 +62,7 @@ class Account extends Component {
                     <br />
                     <DatePicker
                         floatingLabelText='Birthday'
+                        locale='en-US'
                         value={this.state.birthday}
                         onChange={(event, date) => this.setState({ birthday: date })}
                     />

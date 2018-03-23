@@ -70,7 +70,8 @@ const initialState = {
         features: '',
         traits: ''
     },
-    character_weapons: [{}]
+    character_weapons: [{}],
+    allWeapons: [{}]
 };
 
 
@@ -83,6 +84,7 @@ const REMOVE_CHARACTER = 'REMOVE_CHARACTER';
 const SAVE_CHARACTER = 'SAVE_CHARACTER';
 const CREATE_CHARACTER = 'CREATE_CHARACTER';
 const RESET_CHARACTER = 'RESET_CHARACTER';
+const GET_ALL_WEAPONS = 'GET_ALL_WEAPONS';
 const GET_WEAPONS = 'GET_WEAPONS';
 const SAVE_WEAPON = 'SAVE_WEAPON';
 const REMOVE_WEAPON = 'REMOVE_WEAPON';
@@ -161,6 +163,14 @@ export function getWeapons(id) {
     };
 }
 
+export function getAllWeapons(id) {
+    let allWeapons = axios.get(`/api/weapons`).then(res => res.data);
+    return {
+        type: GET_ALL_WEAPONS,
+        payload: allWeapons
+    };
+}
+
 export function saveWeapon(weapon) {
     let weapons = axios.post(`/api/weapons`, weapon).then(res => res.data);
     return {
@@ -217,6 +227,9 @@ export default function reducer(state = initialState, action) {
 
         case GET_WEAPONS + '_FULFILLED':
             return Object.assign({}, state, { character_weapons: action.payload });
+
+        case GET_ALL_WEAPONS + '_FULFILLED':
+            return Object.assign({}, state, { allWeapons: action.payload });
 
         case SAVE_WEAPON + '_FULFILLED':
             return Object.assign({}, state, { character_weapons: action.payload });
