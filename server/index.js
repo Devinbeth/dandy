@@ -74,6 +74,20 @@ app.get('/auth/logout', (req, res) => {
     req.logOut();
     res.redirect('http://localhost:3000/')
 });
+app.put('/user', (req, res) => {
+    const db = req.app.get('db');
+    console.log(req.user.id);
+    console.log(req.body);
+    db.users.update({ id: req.user.id }, req.body).then(user => {
+        console.log(user);
+        if (req.user.id === user[0].id) {
+            res.status(200).send(user[0]);
+        }
+        else {
+            res.status(401).send('Nice try suckaaaaaa!!!!!!');
+        }
+    });
+})
 
 
 // CHARACTER ENDPOINTS

@@ -212,8 +212,8 @@ class Weapons extends Component {
                 <Box
                     toggle={this.state.toggle}
                     switch={() => this.setState({ category: 1, newWeapon: 0, proficient: false, strDex: '', attack_bonus: 0, toggle: false })}
-                    top={'20%'}
-                    bottom={'20%'}
+                    top={'15%'}
+                    bottom={'15%'}
                     right={'34%'}
                     left={'34%'}
                     title={'ADD NEW WEAPON'}

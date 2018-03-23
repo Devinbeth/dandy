@@ -76,6 +76,7 @@ const initialState = {
 
 //CONSTANTS
 const GET_USER = 'GET_USER';
+const SAVE_USER = 'SAVE_USER';
 const GET_CHARACTERS = 'GET_CHARACTERS';
 const GET_CHARACTER = 'GET_CHARACTER';
 const REMOVE_CHARACTER = 'REMOVE_CHARACTER';
@@ -94,6 +95,14 @@ export function getUser() {
     return {
         type: GET_USER,
         payload: userData
+    };
+}
+
+export function saveUser(user) {
+    let updatedUser = axios.put('/user', user).then(res => res.data);
+    return {
+        type: SAVE_USER,
+        payload: updatedUser
     };
 }
 
@@ -183,6 +192,9 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
 
         case GET_USER + '_FULFILLED':
+            return Object.assign({}, state, { user: action.payload });
+
+        case SAVE_USER + '_FULFILLED':
             return Object.assign({}, state, { user: action.payload });
 
         case GET_CHARACTERS + '_FULFILLED':

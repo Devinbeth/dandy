@@ -1,0 +1,19 @@
+.Account .user {
+    position: fixed;
+    top: 10%;
+    left: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.Account .undo {
+    position: fixed;
+    bottom: 3%;
+    right: 8%;
+}
+
+.Account .save {
+    position: fixed;
+    bottom: 3%;
+    right: 2%;
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
@@ -17,8 +18,9 @@ export default class Login extends Component {
             <div className='Login'>
                 <AppBar title='DANDY'
                         onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}
-                        iconElementRight={<a href={ process.env.REACT_APP_LOGIN }><div className='log'>LOGIN</div></a>}
-                />
+                >
+                    <a href={process.env.REACT_APP_LOGIN}><FlatButton label='LOGIN' style={{ color: 'white', marginTop: '15%' }} /></a>
+                </AppBar>
                 <Drawer
                     docked={false}
                     open={this.state.open}
