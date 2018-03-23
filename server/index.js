@@ -9,6 +9,7 @@ const massive = require('massive');
 const { SERVER_PORT, SESSION_SECRET, DOMAIN, CLIENT_ID, CLIENT_SECRET, CALLBACK_URL, CONNECTION_STRING } = process.env
 const character_controller = require('./controllers/character_controller.js');
 const weapons_controller = require('./controllers/weapons_controller.js');
+const armor_controller = require('./controllers/armor_controller.js');
 const info_controller = require('./controllers/info_controller.js');
 
 const app = express();
