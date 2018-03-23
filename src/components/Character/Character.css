@@ -181,8 +181,17 @@
     padding: 5%;
 }
 
+.Character .money {
+    grid-area: 9 / 3 / 10 / 4;
+    display: flex;
+    justify-content: space-around;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+}
+
 .Character .weapons {
-    grid-area: 9 / 3 / 15 / 4;
+    grid-area: 10 / 3 / 15 / 4;
     padding-top: 1%;
 }
 
@@ -191,15 +200,6 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    
-}
-
-.Character .money {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-content: center;
-    padding: 5%;
 }
 
 .Character .traits {

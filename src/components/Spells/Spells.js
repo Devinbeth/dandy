@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getWeapons, saveWeapon, removeWeapon, getAllWeapons } from '../../ducks/reducer.js';
-import './Weapons.css';
+import './Spells.css';
 import Box from '../Box/Box.js';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import SelectField from 'material-ui/SelectField';
@@ -12,7 +12,7 @@ import IconButton from 'material-ui/IconButton';
 import Close from 'material-ui/svg-icons/navigation/close';
 import Info from 'material-ui/svg-icons/action/info';
 
-class Weapons extends Component {
+class Spells extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -50,6 +50,7 @@ class Weapons extends Component {
     }
 
     addWeapon() {
+        console.log(this.state.attack_bonus);
         this.props.saveWeapon({
             character_id: this.props.id,
             weapon_id: this.state.newWeapon,
@@ -78,7 +79,7 @@ class Weapons extends Component {
             case 2:
                 return (
                     <SelectField
-                        floatingLabelText='Simple Melee Weapons'
+                        floatingLabelText='Weapon'
                         value={this.state.newWeapon}
                         onChange={(event, index, value) => this.setState({ newWeapon: value })}
                         style={{ width: '230px', textAlign: 'left' }}
@@ -99,7 +100,7 @@ class Weapons extends Component {
             case 3:
                 return (
                     <SelectField
-                        floatingLabelText='Simple Ranged Weapons'
+                        floatingLabelText='Weapon'
                         value={this.state.newWeapon}
                         onChange={(event, index, value) => this.setState({ newWeapon: value })}
                         style={{ width: '230px', textAlign: 'left' }}
@@ -113,7 +114,7 @@ class Weapons extends Component {
             case 4:
                 return (
                     <SelectField
-                        floatingLabelText='Martial Melee Weapons'
+                        floatingLabelText='Weapon'
                         value={this.state.newWeapon}
                         onChange={(event, index, value) => this.setState({ newWeapon: value })}
                         style={{ width: '230px', textAlign: 'left' }}
@@ -141,7 +142,7 @@ class Weapons extends Component {
             case 5:
                 return (
                     <SelectField
-                        floatingLabelText='Martial Ranged Weapons'
+                        floatingLabelText='Weapon'
                         value={this.state.newWeapon}
                         onChange={(event, index, value) => this.setState({ newWeapon: value })}
                         style={{ width: '230px', textAlign: 'left' }}
@@ -201,16 +202,16 @@ class Weapons extends Component {
 
     render() {
         return (
-            <div className='Weapons'>
-                <div className='weapon_table'>
+            <div className='Spells'>
+                <div className='spell_table'>
                     {this.weaponsList()}
                 </div>
-                <div className='add_weapon'>
-                    <RaisedButton label='Add Weapon' primary={true} onClick={() => this.setState({ newToggle: !this.state.newToggle })} />
-                    <div className='all_weapons'>
-                        <h5>WEAPONS</h5>
+                <div className='add_spell'>
+                    <RaisedButton label='Add Spell' primary={true} onClick={() => this.setState({ newToggle: !this.state.newToggle })} />
+                    <div className='all_spells'>
+                        <h5>SPELLS</h5>
                         <IconButton
-                            tooltip='All Weapons'
+                            tooltip='All SPELLS'
                             onClick={() => this.setState({ infoToggle: !this.state.infoToggle })}
                             style={{ margin: '0' }}
                         >
@@ -320,4 +321,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { getWeapons, saveWeapon, removeWeapon, getAllWeapons })(Weapons);
+export default connect(mapStateToProps, { getWeapons, saveWeapon, removeWeapon, getAllWeapons })(Spells);

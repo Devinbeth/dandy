@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-
+// STATE
 const initialState = {
     user: {},
     characters: [{}],
@@ -71,24 +71,39 @@ const initialState = {
         traits: ''
     },
     character_weapons: [{}],
-    allWeapons: [{}]
+    character_armor: [{}],
+    character_spells: [{}],
+    allWeapons: [{}],
+    allArmor: [{}],
+    allSpells: [{}]
 };
 
 
 //CONSTANTS
+// USER CONSTANTS
 const GET_USER = 'GET_USER';
 const SAVE_USER = 'SAVE_USER';
+// CHARACTER CONSTANTS
 const GET_CHARACTERS = 'GET_CHARACTERS';
 const GET_CHARACTER = 'GET_CHARACTER';
 const REMOVE_CHARACTER = 'REMOVE_CHARACTER';
 const SAVE_CHARACTER = 'SAVE_CHARACTER';
 const CREATE_CHARACTER = 'CREATE_CHARACTER';
 const RESET_CHARACTER = 'RESET_CHARACTER';
-const GET_ALL_WEAPONS = 'GET_ALL_WEAPONS';
+// WEAPONS CONSTANTS
 const GET_WEAPONS = 'GET_WEAPONS';
 const SAVE_WEAPON = 'SAVE_WEAPON';
 const REMOVE_WEAPON = 'REMOVE_WEAPON';
 const EDIT_WEAPON = 'EDIT_WEAPON';
+// ARMOR CONSTANTS
+const GET_ARMOR = 'GET_ARMOR';
+const SAVE_ARMOR = 'SAVE_ARMOR';
+const REMOVE_ARMOR = 'REMOVE_ARMOR';
+const EDIT_ARMOR = 'EDIT_ARMOR';
+// INFO CONSTANTS
+const GET_ALL_WEAPONS = 'GET_ALL_WEAPONS';
+const GET_ALL_ARMOR = 'GET_ALL_ARMOR';
+const GET_ALL_SPELLS = 'GET_ALL_SPELLS';
 
 
 //ACTION BUILDERS
@@ -108,6 +123,7 @@ export function saveUser(user) {
     };
 }
 
+// CHARACTER ACTION BUILDERS
 export function getCharacters() {
     let charactersData = axios.get('/api/characters').then(res => res.data);
     return {
@@ -155,19 +171,12 @@ export function resetCharacter() {
     };
 }
 
+// WEAPON ACTION BUILDERS
 export function getWeapons(id) {
     let weapons = axios.get(`/api/weapons/${id}`).then(res => res.data);
     return {
         type: GET_WEAPONS,
         payload: weapons
-    };
-}
-
-export function getAllWeapons(id) {
-    let allWeapons = axios.get(`/api/weapons`).then(res => res.data);
-    return {
-        type: GET_ALL_WEAPONS,
-        payload: allWeapons
     };
 }
 
@@ -195,6 +204,56 @@ export function editWeapon(id, weapon) {
     };
 }
 
+// ARMOR ACTION BUILDERS
+export function getArmor(id) {
+    let armor = axios.get(`/api/armor/${id}`).then(res => res.data);
+    return {
+        type: GET_ARMOR,
+        payload: armor
+    };
+}
+
+export function saveArmor(armor) {
+    let savedArmor = axios.post(`/api/armor`, armor).then(res => res.data);
+    return {
+        type: SAVE_ARMOR,
+        payload: savedArmor
+    };
+}
+
+export function removeArmor(id) {
+    let removedArmor = axios.delete(`/api/armor/${id}`).then(res => res.data);
+    return {
+        type: REMOVE_ARMOR,
+        payload: removedArmor
+    };
+}
+
+// INFO ACTION BUILDERS
+export function getAllWeapons() {
+    let allWeapons = axios.get(`/api/info/weapons`).then(res => res.data);
+    return {
+        type: GET_ALL_WEAPONS,
+        payload: allWeapons
+    };
+}
+
+export function getAllArmor() {
+    let allArmor = axios.get(`/api/info/armor`).then(res => res.data);
+    return {
+        type: GET_ALL_ARMOR,
+        payload: allArmor
+    };
+}
+
+export function getAllSpells() {
+    let allSpells = axios.get(`/api/info/spells`).then(res => res.data);
+    return {
+        type: GET_ALL_SPELLS,
+        payload: allSpells
+    };
+}
+
 
 //REDUCER
 export default function reducer(state = initialState, action) {
@@ -207,6 +266,7 @@ export default function reducer(state = initialState, action) {
         case SAVE_USER + '_FULFILLED':
             return Object.assign({}, state, { user: action.payload });
 
+        // CHARACTER REDUCER
         case GET_CHARACTERS + '_FULFILLED':
             return Object.assign({}, state, { characters: action.payload });
 
@@ -225,11 +285,9 @@ export default function reducer(state = initialState, action) {
         case RESET_CHARACTER:
             return Object.assign({}, state, { character: action.payload });
 
+        // WEAPONS REDUCER
         case GET_WEAPONS + '_FULFILLED':
             return Object.assign({}, state, { character_weapons: action.payload });
-
-        case GET_ALL_WEAPONS + '_FULFILLED':
-            return Object.assign({}, state, { allWeapons: action.payload });
 
         case SAVE_WEAPON + '_FULFILLED':
             return Object.assign({}, state, { character_weapons: action.payload });
@@ -239,6 +297,26 @@ export default function reducer(state = initialState, action) {
 
         case EDIT_WEAPON + '_FULFILLED':
             return Object.assign({}, state, { character_weapons: action.payload });
+
+        // ARMOR REDUCER
+        case GET_ARMOR + '_FULFILLED':
+            return Object.assign({}, state, { character_armor: action.payload });
+
+        case SAVE_ARMOR + '_FULFILLED':
+            return Object.assign({}, state, { character_armor: action.payload });
+
+        case REMOVE_ARMOR + '_FULFILLED':
+            return Object.assign({}, state, { character_armor: action.payload });
+
+        // INFO REDUCER
+        case GET_ALL_WEAPONS + '_FULFILLED':
+            return Object.assign({}, state, { allWeapons: action.payload });
+
+        case GET_ALL_ARMOR + '_FULFILLED':
+            return Object.assign({}, state, { allArmor: action.payload });
+
+        case GET_ALL_SPELLS + '_FULFILLED':
+            return Object.assign({}, state, { allSpells: action.payload });
 
         default:
             return state;

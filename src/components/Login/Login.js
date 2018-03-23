@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getAllWeapons, getAllArmor, getAllSpells } from '../../ducks/reducer.js';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import Drawer from 'material-ui/Drawer';
@@ -6,13 +8,20 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
-export default class Login extends Component {
+class Login extends Component {
     constructor() {
         super();
         this.state = {
             open: false
         }
     }
+
+    componentDidMount() {
+        this.props.getAllWeapons();
+        this.props.getAllArmor();
+        this.props.getAllSpells();
+    }
+
     render() {
         return (
             <div className='Login'>
@@ -44,3 +53,10 @@ export default class Login extends Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+    };
+}
+
+export default connect(mapStateToProps, { getAllWeapons, getAllArmor, getAllSpells })(Login);

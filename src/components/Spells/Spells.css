@@ -1,25 +1,25 @@
-.Weapons {
+.Spells {
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 100%;
     grid-template-rows: 310px 65px;
 }
 
-.Weapons .weapon_table {
+.Spells .spell_table {
     grid-area: 1 / 1 / 2 / 2;
     overflow: scroll;
 }
 
-.Weapons .add_weapon {
+.Spells .add_spell {
     grid-area: 2 / 1 / 3 / 2;
 }
 
-.Weapons .all_weapons {
+.Spells .all_spells {
     display: flex;
     align-items: center;
     margin: 0 40%;
 }
 
-.Weapons .new_weapon {
+.Spells .new_spell {
     margin-top: 10%;
 }

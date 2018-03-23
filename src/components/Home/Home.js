@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getUser, getCharacters, removeCharacter, resetCharacter, getAllWeapons } from '../../ducks/reducer.js';
+import { getUser, getCharacters, removeCharacter, resetCharacter } from '../../ducks/reducer.js';
 import './Home.css';
 import Header from '../Header/Header.js';
 import { Card, CardActions, CardHeader, CardTitle } from 'material-ui/Card';
@@ -23,7 +23,6 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.getCharacters();
-        this.props.getAllWeapons();
     }
 
     render() {
@@ -98,4 +97,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { getUser, getCharacters, removeCharacter, resetCharacter, getAllWeapons })(Home);
+export default connect(mapStateToProps, { getUser, getCharacters, removeCharacter, resetCharacter })(Home);

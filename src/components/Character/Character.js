@@ -8,6 +8,8 @@ import Class from './Class.js';
 import Alignment from './Alignment.js';
 import Background from './Background.js';
 import Weapons from '../Weapons/Weapons.js';
+import Equipment from '../Equipment/Equipment.js';
+import Spells from '../Spells/Spells.js';
 import logo from '../../assets/D&D_5E_Logo.png';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -692,53 +694,53 @@ class Character extends Component {
                             <h5>DEATH SAVES</h5>
                         </div>
                     </div>
+                    <div className='box money'>
+                        <TextField
+                            id='text-field-controlled'
+                            value={this.state.copper ? this.state.copper : ''}
+                            onChange={(e) => this.setState({ copper: Number(e.target.value) })}
+                            floatingLabelText='CP'
+                            type='number'
+                            style={{ width: '15%' }}
+                        />
+                        <TextField
+                            id='text-field-controlled'
+                            value={this.state.silver ? this.state.silver : ''}
+                            onChange={(e) => this.setState({ silver: Number(e.target.value) })}
+                            floatingLabelText='SP'
+                            type='number'
+                            style={{ width: '15%' }}
+                        />
+                        <TextField
+                            id='text-field-controlled'
+                            value={this.state.electrum ? this.state.electrum : ''}
+                            onChange={(e) => this.setState({ electrum: Number(e.target.value) })}
+                            floatingLabelText='EP'
+                            type='number'
+                            style={{ width: '15%' }}
+                        />
+                        <TextField
+                            id='text-field-controlled'
+                            value={this.state.gold ? this.state.gold : ''}
+                            onChange={(e) => this.setState({ gold: Number(e.target.value) })}
+                            floatingLabelText='GP'
+                            type='number'
+                            style={{ width: '15%' }}
+                        />
+                        <TextField
+                            id='text-field-controlled'
+                            value={this.state.platinum ? this.state.platinum : ''}
+                            onChange={(e) => this.setState({ platinum: Number(e.target.value) })}
+                            floatingLabelText='PP'
+                            type='number'
+                            style={{ width: '15%' }}
+                        />
+                    </div>
                     <div className='box weapons'>
                         <Weapons id={this.props.match.params.id} />
                     </div>
                     <div className='box equipment'>
-                        <div className='money'>
-                            <TextField
-                                id='text-field-controlled'
-                                value={this.state.copper ? this.state.copper : ''}
-                                onChange={(e) => this.setState({ copper: Number(e.target.value) })}
-                                floatingLabelText='CP'
-                                type='number'
-                                style={{ width: '30%' }}
-                            />
-                            <TextField
-                                id='text-field-controlled'
-                                value={this.state.silver ? this.state.silver : ''}
-                                onChange={(e) => this.setState({ silver: Number(e.target.value) })}
-                                floatingLabelText='SP'
-                                type='number'
-                                style={{ width: '30%' }}
-                            />
-                            <TextField
-                                id='text-field-controlled'
-                                value={this.state.electrum ? this.state.electrum : ''}
-                                onChange={(e) => this.setState({ electrum: Number(e.target.value) })}
-                                floatingLabelText='EP'
-                                type='number'
-                                style={{ width: '30%' }}
-                            />
-                            <TextField
-                                id='text-field-controlled'
-                                value={this.state.gold ? this.state.gold : ''}
-                                onChange={(e) => this.setState({ gold: Number(e.target.value) })}
-                                floatingLabelText='GP'
-                                type='number'
-                                style={{ width: '30%' }}
-                            />
-                            <TextField
-                                id='text-field-controlled'
-                                value={this.state.platinum ? this.state.platinum : ''}
-                                onChange={(e) => this.setState({ platinum: Number(e.target.value) })}
-                                floatingLabelText='PP'
-                                type='number'
-                                style={{ width: '30%' }}
-                            />
-                        </div>
-                        <h5>EQUIPMENT</h5>
+                        <Equipment id={this.props.match.params.id} />
                     </div>
                     <div className='box traits personality'>
                         <TextField
@@ -789,7 +791,7 @@ class Character extends Component {
                         <h5>FLAWS</h5>
                     </div>
                     <div className='box spells'>
-                        <h5>SPELLS</h5>
+                        <Spells id={this.props.match.params.id} />
                     </div>
                     <div className='box feature_traits'>
                         <TextField
@@ -815,8 +817,8 @@ class Character extends Component {
                     <FloatingActionButton className='undo' children={<Undo />} onClick={() => this.componentDidMount()} secondary={true} />
                     <FloatingActionButton className='save' children={<Save />} onClick={() => this.save()} />
                 </div>
-            </div>
-        )
+            </div >
+        );
     }
 }
 

@@ -1,25 +1,25 @@
-.Weapons {
+.Equipment {
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 100%;
     grid-template-rows: 310px 65px;
 }
 
-.Weapons .weapon_table {
+.Equipment .equipment_table {
     grid-area: 1 / 1 / 2 / 2;
     overflow: scroll;
 }
 
-.Weapons .add_weapon {
+.Equipment .add_equipment {
     grid-area: 2 / 1 / 3 / 2;
 }
 
-.Weapons .all_weapons {
+.Equipment .all_equipment {
     display: flex;
     align-items: center;
     margin: 0 40%;
 }
 
-.Weapons .new_weapon {
+.Equipment .new_armor {
     margin-top: 10%;
 }

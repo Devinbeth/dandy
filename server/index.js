@@ -9,6 +9,7 @@ const massive = require('massive');
 const { SERVER_PORT, SESSION_SECRET, DOMAIN, CLIENT_ID, CLIENT_SECRET, CALLBACK_URL, CONNECTION_STRING } = process.env
 const character_controller = require('./controllers/character_controller.js');
 const weapons_controller = require('./controllers/weapons_controller.js');
+const info_controller = require('./controllers/info_controller.js');
 
 const app = express();
 
@@ -100,10 +101,22 @@ app.delete('/api/character/:id', character_controller.deleteCharacter);
 
 // WEAPONS ENDPOINTS
 app.get('/api/weapons/:id', weapons_controller.readWeapons);
-app.get('/api/weapons', weapons_controller.readAllWeapons);
 app.post('/api/weapons', weapons_controller.addWeapon);
 app.delete('/api/weapons/:id', weapons_controller.deleteWeapon);
 app.put('/api/weapons/:id', weapons_controller.editWeapon);
+
+
+// ARMOR ENDPOINTS
+app.get('/api/armor/:id', armor_controller.readArmor);
+app.post('/api/armor', armor_controller.addArmor);
+app.delete('/api/armor/:id', armor_controller.deleteArmor);
+app.put('/api/armor/:id', armor_controller.editArmor);
+
+
+// INFO ENDPOINTS
+app.get('/api/info/weapons', info_controller.readAllWeapons);
+app.get('/api/info/armor', info_controller.readAllArmor);
+app.get('/api/info/spells', info_controller.readAllSpells);
 
 
 app.listen(SERVER_PORT, () => console.log(`Server is listening on port: ${SERVER_PORT}`));

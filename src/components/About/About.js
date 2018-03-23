@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUser } from '../ducks/reducer.js';
-import Header from './Header/Header.js';
+import { getUser } from '../../ducks/reducer.js';
+import Header from '../Header/Header.js';
 import TextField from 'material-ui/TextField';
 
 class About extends Component {

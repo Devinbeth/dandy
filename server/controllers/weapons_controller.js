@@ -9,11 +9,6 @@ module.exports = {
             res.status(200).send(weapons);
         });
     },
-    readAllWeapons: (req, res) => {
-        req.app.get('db').get_all_weapons([req.params.id]).then(weapons => {
-            res.status(200).send(weapons);
-        });
-    },
     editWeapon: (req, res) => {
         req.app.get('db').edit_weapon([req.body.character_id, req.params.id, req.body.attack_bonus]).then(weapons => {
             res.status(200).send(weapons);
