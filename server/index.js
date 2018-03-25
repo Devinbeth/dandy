@@ -10,6 +10,7 @@ const { SERVER_PORT, SESSION_SECRET, DOMAIN, CLIENT_ID, CLIENT_SECRET, CALLBACK_
 const character_controller = require('./controllers/character_controller.js');
 const weapons_controller = require('./controllers/weapons_controller.js');
 const armor_controller = require('./controllers/armor_controller.js');
+const spells_controller = require('./controllers/spells_controller.js');
 const info_controller = require('./controllers/info_controller.js');
 
 const app = express();
@@ -112,6 +113,13 @@ app.get('/api/armor/:id', armor_controller.readArmor);
 app.post('/api/armor', armor_controller.addArmor);
 app.delete('/api/armor/:id', armor_controller.deleteArmor);
 app.put('/api/armor/:id', armor_controller.editArmor);
+
+
+// SPELL ENDPOINTS
+app.get('/api/spells/:id', spells_controller.readSpells);
+app.post('/api/spells', spells_controller.addSpell);
+app.delete('/api/spells/:id', spells_controller.deleteSpell);
+app.put('/api/spells/:id', spells_controller.editSpell);
 
 
 // INFO ENDPOINTS

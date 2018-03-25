@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllWeapons, getAllArmor, getAllSpells } from '../../ducks/reducer.js';
+import './Login.css';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import Drawer from 'material-ui/Drawer';
@@ -49,6 +50,8 @@ class Login extends Component {
                     <MenuItem>SPELLS</MenuItem>
                     <MenuItem>MONSTERS</MenuItem>
                 </Drawer>
+                <div className='image'>
+                </div>
             </div> 
         )
     }

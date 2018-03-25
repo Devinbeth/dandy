@@ -270,7 +270,7 @@ class Weapons extends Component {
                             </div>
                         ) : null}
                         <br />
-                        {this.state.newWeapon ? <RaisedButton label='Add Weapon' primary={true} onClick={() => this.addWeapon()} /> : null}
+                        {this.state.newWeapon ? <RaisedButton label='Add Weapon' primary={true} onClick={() => this.addWeapon()} style={{ marginTop: '10%'}}/> : null}
                     </div>
                 </Box>
                 <Box

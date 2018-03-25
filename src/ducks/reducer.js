@@ -100,6 +100,11 @@ const GET_ARMOR = 'GET_ARMOR';
 const SAVE_ARMOR = 'SAVE_ARMOR';
 const REMOVE_ARMOR = 'REMOVE_ARMOR';
 const EDIT_ARMOR = 'EDIT_ARMOR';
+// SPELLS CONSTANTS
+const GET_SPELLS = 'GET_SPELLS';
+const SAVE_SPELL = 'SAVE_SPELL';
+const REMOVE_SPELL = 'REMOVE_SPELL';
+const EDIT_SPELL = 'EDIT_SPELL';
 // INFO CONSTANTS
 const GET_ALL_WEAPONS = 'GET_ALL_WEAPONS';
 const GET_ALL_ARMOR = 'GET_ALL_ARMOR';
@@ -229,6 +234,31 @@ export function removeArmor(id) {
     };
 }
 
+// SPELL ACTION BUILDERS
+export function getSpells(id) {
+    let spells = axios.get(`/api/spells/${id}`).then(res => res.data);
+    return {
+        type: GET_SPELLS,
+        payload: spells
+    };
+}
+
+export function saveSpell(spell) {
+    let savedSpell = axios.post(`/api/spells`, spell).then(res => res.data);
+    return {
+        type: SAVE_SPELL,
+        payload: savedSpell
+    };
+}
+
+export function removeSpell(id) {
+    let removedSpell = axios.delete(`/api/spells/${id}`).then(res => res.data);
+    return {
+        type: REMOVE_SPELL,
+        payload: removedSpell
+    };
+}
+
 // INFO ACTION BUILDERS
 export function getAllWeapons() {
     let allWeapons = axios.get(`/api/info/weapons`).then(res => res.data);
@@ -307,6 +337,16 @@ export default function reducer(state = initialState, action) {
 
         case REMOVE_ARMOR + '_FULFILLED':
             return Object.assign({}, state, { character_armor: action.payload });
+
+        // SPELL REDUCER
+        case GET_SPELLS + '_FULFILLED':
+            return Object.assign({}, state, { character_spells: action.payload });
+
+        case SAVE_SPELL + '_FULFILLED':
+            return Object.assign({}, state, { character_spells: action.payload });
+
+        case REMOVE_SPELL + '_FULFILLED':
+            return Object.assign({}, state, { character_spells: action.payload });
 
         // INFO REDUCER
         case GET_ALL_WEAPONS + '_FULFILLED':

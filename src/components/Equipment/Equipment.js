@@ -39,7 +39,7 @@ class Equipment extends Component {
     }
 
     addArmor() {
-        this.props.saveWeapon({ character_id: this.props.id, armor_id: this.state.newArmor });
+        this.props.saveArmor({ character_id: this.props.id, armor_id: this.state.newArmor });
         this.setState({ category: 1, newArmor: 0, newToggle: false });
     }
 
@@ -171,7 +171,7 @@ class Equipment extends Component {
                 </div>
                 <Box
                     toggle={this.state.newToggle}
-                    switch={() => this.setState({ category: 1, newWeapon: 0, proficient: false, strDex: '', attack_bonus: 0, newToggle: false })}
+                    switch={() => this.setState({ category: 1, newArmor: 0, newToggle: false })}
                     top={'15%'}
                     bottom={'15%'}
                     right={'34%'}
@@ -192,7 +192,7 @@ class Equipment extends Component {
                             <MenuItem value={5} primaryText='Shield' />
                         </SelectField>
                         {this.armorDropDown()}
-                        {this.state.newArmor ? <RaisedButton label='Add Armor' primary={true} onClick={() => this.addArmor()} /> : null}
+                        {this.state.newArmor ? <RaisedButton label='Add Armor' primary={true} onClick={() => this.addArmor()} style={{ marginTop: '10%'}}/> : null}
                     </div>
                 </Box>
                 <Box
