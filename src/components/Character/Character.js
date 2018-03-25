@@ -254,7 +254,8 @@ class Character extends Component {
                 <div className='sheet'>
                     <div className=' box character_name'>
                         <img className='logo' src={logo} alt='' />
-                        <TextField className='basic_info_text'
+                        <TextField 
+                            className='basic_info_text'
                             id='text-field-controlled'
                             value={this.state.name}
                             onChange={(e) => this.setState({ name: e.target.value })}
