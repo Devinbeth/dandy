@@ -22,7 +22,7 @@
 }
 
 .Character .logo {
-    height: 15vh;
+    height: 10vh;
 }
 
 .Character .character_name {
@@ -286,7 +286,7 @@
 @media (max-width: 1200px) {
     .Character {
         grid-template-columns: 15% 15% 15% 15% 35%;
-        grid-template-rows: 190px 190px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 50px;
+        grid-template-rows: 190px 190px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 50px;
     }
     
     .Character .character_name {
@@ -395,26 +395,27 @@
     }
     
     .Character .other_prof {
-        grid-area: 25 / 1 / 26 / 3;
+        grid-area: 25 / 1 / 29 / 4;
+    }
+
+        
+    .Character .feature_traits {
+        grid-area: 29 / 1 / 33 / 4;
     }
     
     .Character .personality {
-        grid-area: 28 / 1 / 30 / 3; 
+        grid-area: 25 / 4 / 27 / 6; 
     }
     
     .Character .ideals {
-        grid-area: 30 / 1 / 32 / 3;
+        grid-area: 27 / 4 / 29 / 6;
     }
     
     .Character .bonds {
-        grid-area: 32 / 1 / 34 / 3;
+        grid-area: 29 / 4 / 31 / 6;
     }
     
     .Character .flaws {
-        grid-area: 34 / 1 / 36 / 3;
-    }
-    
-    .Character .feature_traits {
-        grid-area: 36 / 1 / 38 / 3;
+        grid-area: 31 / 4 / 33 / 6;
     }
 }

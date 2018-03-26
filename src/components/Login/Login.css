@@ -1,8 +1,12 @@
+.Login {
+    background-color: rgb(45, 49, 71);
+}
+
 .Login .image{
     height: 100vh;
-    background-image: url('../../assets/dnd.jpg');
-    background-size: 1370px;
+    background-image: url('../../assets/svg_logos/color_logo_with_background.svg');
+    background-size: 100vh;
     background-position: center;
-    /* background-attachment: fixed; */
-    /* background-repeat: no-repeat; */
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }

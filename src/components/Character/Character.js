@@ -9,7 +9,7 @@ import Background from './Background.js';
 import Weapons from '../Weapons/Weapons.js';
 import Equipment from '../Equipment/Equipment.js';
 import Spells from '../Spells/Spells.js';
-import logo from '../../assets/D&D_5E_Logo.png';
+import logo from '../../assets/svg_logos/dark_logo_transparent.svg';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -250,7 +250,7 @@ class Character extends Component {
         return (
             <div className='Character'>
                 <div className=' box character_name'>
-                    {/* <img className='logo' src={logo} alt='' /> */}
+                    <img className='logo' src={logo} alt='' />
                     <TextField
                         className='basic_info_text'
                         id='text-field-controlled'
