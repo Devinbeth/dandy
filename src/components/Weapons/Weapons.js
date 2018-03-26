@@ -281,7 +281,7 @@ class Weapons extends Component {
                     bottom={'5%'}
                     right={'10%'}
                     left={'10%'}
-                    title={'ALL WEAPONS'}
+                    title={' WEAPONS'}
                 >
                     <AllWeapons />
                 </Box>

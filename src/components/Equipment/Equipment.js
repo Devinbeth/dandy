@@ -203,7 +203,7 @@ class Equipment extends Component {
                     bottom={'5%'}
                     right={'10%'}
                     left={'10%'}
-                    title={'ALL ARMOR'}
+                    title={'ARMOR'}
                 >
                     <AllArmor />
                 </Box>

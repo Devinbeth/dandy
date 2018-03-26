@@ -1,6 +1,8 @@
 .AllSpells {
     padding: 6% 5%;
     background: #efefef;
+    height: 100%;
+    min-height: 100vh;
 }
 
 .AllSpells .spell_filters {

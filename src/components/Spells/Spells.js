@@ -178,7 +178,7 @@ class Spells extends Component {
                     bottom={'5%'}
                     right={'10%'}
                     left={'10%'}
-                    title={'ALL SPELLS'}
+                    title={'SPELLS'}
                 >
                     <AllSpells />
                 </Box>

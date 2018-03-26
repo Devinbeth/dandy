@@ -1,6 +1,8 @@
 .AllWeapons {
     padding: 84px 5%;
     background: #efefef;
+    height: 100%;
+    min-height: 100vh;
 }
 
 .AllWeapons .weapon_filters {
