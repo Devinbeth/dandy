@@ -1,8 +1,23 @@
 .AllArmor {
-    padding: 6% 5%;
+    padding: 85px 5%;
     background: #efefef;
     height: 100%;
     min-height: 100vh;
+}
+
+.AllArmor .armor_filters {
+    border: 1.5px;
+    border-radius: 7px;
+    border-style: solid;
+    border-color: #d1d1d1;
+    background-color: white;
+    -moz-box-shadow: 0 0 8px #aaa;
+    -webkit-box-shadow: 0 0 8px #aaa;
+    box-shadow: 0 0 8px #aaa;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2% 5%;
 }
 
 .AllArmor .armor_table {
@@ -15,4 +30,6 @@
     -webkit-box-shadow: 0 0 8px #aaa;
     box-shadow: 0 0 8px #aaa;
     padding: 2% 3%;
+    margin-top: 20px;
+    overflow: scroll;
 }

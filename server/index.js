@@ -6,7 +6,8 @@ const Auth0Strategy = require('passport-auth0');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const massive = require('massive');
-const { SERVER_PORT, SESSION_SECRET, DOMAIN, CLIENT_ID, CLIENT_SECRET, CALLBACK_URL, CONNECTION_STRING } = process.env
+const { SERVER_PORT, SESSION_SECRET, DOMAIN, CLIENT_ID, CLIENT_SECRET, CALLBACK_URL, CONNECTION_STRING, STRIPE_PRIVATE_KEY } = process.env;
+const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 const character_controller = require('./controllers/character_controller.js');
 const weapons_controller = require('./controllers/weapons_controller.js');
 const armor_controller = require('./controllers/armor_controller.js');
@@ -62,8 +63,8 @@ passport.deserializeUser((id, done) => {
 // AUTH ENDPOINTS
 app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: '/#/home',
-    failueRedirect: '/'
+    successRedirect: 'http://localhost:3000/#/home',
+    failueRedirect: 'http://localhost:3000/'
 }));
 app.get('/auth/me', (req, res) => {
     if (req.user) {
@@ -75,7 +76,7 @@ app.get('/auth/me', (req, res) => {
 });
 app.get('/auth/logout', (req, res) => {
     req.logOut();
-    res.redirect('/')
+    res.redirect('http://localhost:3000/')
 });
 app.put('/user', (req, res) => {
     const db = req.app.get('db');
@@ -126,6 +127,22 @@ app.put('/api/spells/:id', spells_controller.editSpell);
 app.get('/api/info/weapons', info_controller.readAllWeapons);
 app.get('/api/info/armor', info_controller.readAllArmor);
 app.get('/api/info/spells', info_controller.readAllSpells);
+
+app.post('/api/payment', (req, res, next) => {
+    
+    const charge = stripe.charges.create(
+      {
+        source: req.body.token.id,
+        amount: req.body.amount,
+        currency: 'usd',
+        description: 'Stripe test charge'
+      },
+      function(err, charge) {
+          if (err) return res.sendStatus(500);
+          else return res.sendStatus(200);
+      }
+    );
+  });
 
 
 app.listen(SERVER_PORT, () => console.log(`Server is listening on port: ${SERVER_PORT}`));

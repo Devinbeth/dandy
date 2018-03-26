@@ -81,12 +81,13 @@ class AllWeapons extends Component {
                 </div>
                 <div className='weapons_table'>
                     <Table
-                        style={{ tableLayout: 'auto', overflow: 'auto' }}
-                        wrapperStyle={{ overflow: 'auto' }}
+                        onRowSelection={(selectedRows) => console.log(selectedRows)}
+                        multiSelectable={true}
+                        style={{ tableLayout: 'auto' }}
                     >
                         <TableHeader
                             displaySelectAll={false}
-                            adjustForCheckbox={false}
+                            adjustForCheckbox={true}
                         >
                             <TableRow>
                                 <TableHeaderColumn tooltip='Category'>CATERGORY</TableHeaderColumn>
@@ -98,10 +99,9 @@ class AllWeapons extends Component {
                             </TableRow>
                         </TableHeader>
                         <TableBody
-                            displayRowCheckbox={false}
+                            displayRowCheckbox={true}
                             showRowHover={true}
                             stripedRows={false}
-                            style={{ overflow: 'auto' }}
                         >
                             {this.state.weaponsList.map((weapon, index) => (
                                 <TableRow key={index}>
@@ -115,6 +115,11 @@ class AllWeapons extends Component {
                             ))}
                         </TableBody>
                     </Table>
+                    <RaisedButton
+                        label='Add Weapons'
+                        primary={true}
+                        onClick={() => this.setState({ weaponsList: this.props.allWeapons, category: '', class: '' })}
+                    />
                 </div>
             </div>
         );

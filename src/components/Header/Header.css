@@ -1,3 +1,17 @@
-.Header .header_links {
+.Header .links {
     margin: 1%;
+}
+
+.Header .ham {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .Header .links {
+        display: none;
+    }
+    .Header .ham {
+        display: inline;
+        margin: 1%;
+    }
 }

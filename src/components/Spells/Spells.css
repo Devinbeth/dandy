@@ -2,7 +2,7 @@
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 100%;
-    grid-template-rows: 310px 65px;
+    grid-template-rows: 270px 70px 50px;
 }
 
 .Spells .spell_table {
@@ -10,18 +10,22 @@
     overflow: scroll;
 }
 
-.Spells .add_spell {
+.Spells .spell_notes {
     grid-area: 2 / 1 / 3 / 2;
+    display: flex;
+    align-items: center;
+    margin: 0 40%;
 }
 
 .Spells .all_spells {
+    grid-area: 3 / 1 / 4 / 2;
     display: flex;
     align-items: center;
     margin: 0 40%;
 }
 
 .Spells .new_spell {
-    margin-top: 10%;
+    margin-top: 85px;
     display: flex;
     flex-direction: column;
     align-items: center;

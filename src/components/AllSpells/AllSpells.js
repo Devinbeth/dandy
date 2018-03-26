@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllSpells } from '../../ducks/reducer.js';
+import { getAllSpells, saveSpell } from '../../ducks/reducer.js';
 import './AllSpells.css';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import SelectField from 'material-ui/SelectField';
@@ -17,6 +17,7 @@ class AllSpells extends Component {
             class: '',
             level: '',
         }
+        this.saveSpell = this.saveSpell.bind(this);
         this.filteredSpells = this.filteredSpells.bind(this);
     }
 
@@ -26,6 +27,10 @@ class AllSpells extends Component {
 
     componentWillReceiveProps(newProps) {
         this.setState({ spellList: newProps.allSpells });
+    }
+
+    saveSpell(spell) {
+        this.props.saveSpell(spell);
     }
 
     filteredSpells(value) {
@@ -99,7 +104,10 @@ class AllSpells extends Component {
                         <br />
                         <h3>{spell.name}</h3>
                         <Table>
-                            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+                            <TableHeader
+                                displaySelectAll={false}
+                                adjustForCheckbox={false}
+                            >
                                 <TableRow>
                                     <TableHeaderColumn tooltip='LEVEL'>LEVEL</TableHeaderColumn>
                                     <TableHeaderColumn tooltip='COMPONENTS'>COMPONENTS</TableHeaderColumn>
@@ -122,7 +130,10 @@ class AllSpells extends Component {
                             </TableBody>
                         </Table>
                         <Table>
-                            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+                            <TableHeader
+                                displaySelectAll={false}
+                                adjustForCheckbox={false}
+                            >
                                 <TableRow>
                                     <TableHeaderColumn tooltip='RANGE'>RANGE</TableHeaderColumn>
                                     <TableHeaderColumn tooltip='SAVE'>SAVE</TableHeaderColumn>
@@ -150,7 +161,19 @@ class AllSpells extends Component {
                             <p>{spell.higher_levels}</p>
                             <h4>Material: </h4>
                             <p>{spell.material}</p>
+                            {this.props.id && !this.props.characterSpells.find((e) => e.id === spell.id) ? 
+                                <RaisedButton
+                                    label='Add Spell'
+                                    primary={true}
+                                    onClick={() => {
+                                        this.saveSpell({character_id: this.props.id, spell_id: spell.id});
+                                        this.props.switch();
+                                        this.setState({ school: '', class: '', level: '' })
+                                    }}
+                                />
+                            : null}
                         </div>
+                        
                         <br />
                         <br />
                     </div>
@@ -166,4 +189,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { getAllSpells })(AllSpells);
+export default connect(mapStateToProps, { getAllSpells, saveSpell })(AllSpells);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getWeapons, saveWeapon, removeWeapon, getAllWeapons } from '../../ducks/reducer.js';
+import { getWeapons, saveWeapon, removeWeapon } from '../../ducks/reducer.js';
 import './Weapons.css';
 import Box from '../Box/Box.js';
 import AllWeapons from '../AllWeapons/AllWeapons.js';
@@ -36,7 +36,6 @@ class Weapons extends Component {
 
     componentDidMount() {
         this.props.getWeapons(this.props.id);
-        this.props.getAllWeapons();
     }
 
     componentWillReceiveProps(newProps) {
@@ -161,8 +160,14 @@ class Weapons extends Component {
 
     weaponsList() {
         return (
-            <Table fixedHeader={true} fixedFooter={true}>
-                <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+            <Table
+                fixedHeader={true}
+                fixedFooter={true}
+            >
+                <TableHeader
+                    displaySelectAll={false}
+                    adjustForCheckbox={false}
+                >
                     <TableRow>
                         <TableHeaderColumn tooltip='Name'>NAME</TableHeaderColumn>
                         <TableHeaderColumn tooltip='Bonus'>ATK BONUS</TableHeaderColumn>
@@ -170,7 +175,11 @@ class Weapons extends Component {
                         <TableHeaderColumn tooltip='Save/Delete'>DELETE</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
-                <TableBody displayRowCheckbox={false} showRowHover={true} stripedRows={false}>
+                <TableBody 
+                    displayRowCheckbox={false}
+                    showRowHover={true}
+                    stripedRows={false}
+                >
                     {this.state.weapons.map((weapon, index) => (
                         <TableRow key={index}>
                             <TableRowColumn style={{ width: '30%', textAlign: 'left', margin: 0, padding: '2%' }}>
@@ -189,7 +198,10 @@ class Weapons extends Component {
                                 {`${weapon.damage} + ${weapon.strdex === 'Strength' ? this.abilityModifiers(this.props.character.strength) : this.abilityModifiers(this.props.character.dexterity)}`}
                             </TableRowColumn>
                             <TableRowColumn style={{ width: '20%', alignItems: 'left', margin: 0, padding: '2%' }}>
-                                <IconButton onClick={() => this.removeWeapon(weapon.id)} style={{ margin: 0, padding: 0 }}>
+                                <IconButton 
+                                    onClick={() => this.removeWeapon(weapon.id)}
+                                    style={{ margin: 0, padding: 0 }}
+                                >
                                     <Close />
                                 </IconButton>
                             </TableRowColumn>
@@ -281,7 +293,7 @@ class Weapons extends Component {
                     bottom={'5%'}
                     right={'10%'}
                     left={'10%'}
-                    title={' WEAPONS'}
+                    title={'WEAPONS'}
                 >
                     <AllWeapons />
                 </Box>
@@ -294,8 +306,7 @@ function mapStateToProps(state) {
     return {
         character: state.character,
         character_weapons: state.character_weapons,
-        allWeapons: state.allWeapons
     };
 }
 
-export default connect(mapStateToProps, { getWeapons, saveWeapon, removeWeapon, getAllWeapons })(Weapons);
+export default connect(mapStateToProps, { getWeapons, saveWeapon, removeWeapon })(Weapons);

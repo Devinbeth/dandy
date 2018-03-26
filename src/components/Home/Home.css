@@ -1,13 +1,25 @@
 .Home {
     background: #efefef;
+    height: 100%;
+    min-height: 100vh;
 }
 
 .Home .characters {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    margin: 0 25%;
-    padding: 7% 0;
+    justify-content: center;
+    align-content: center;
+    padding-top: 75px;
+}
+
+.Home .character_cards {
+    padding: 10px 20% 10px 20%;
+}
+
+@media (max-width: 900px) {
+    .Home .character_cards {
+        padding: 10px 20px;
+    }
 }
 
 .Home .new {

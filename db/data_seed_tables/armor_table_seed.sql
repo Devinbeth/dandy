@@ -6,5 +6,6 @@ create table if not exists armor (
     ac varchar(100) not null,
     strength varchar(100) not null,
     stealth varchar(100) not null,
-    weight varchar(100) not null
+    weight varchar(100) not null,
+    classes varchar(180) not null
 );

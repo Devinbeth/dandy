@@ -8,13 +8,15 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: false
+            open: false,
         }
     }
 
@@ -23,7 +25,7 @@ class Header extends Component {
     }
 
     render() {
-        const menuItem = { paddingLeft:'20%', textAlign: 'left' };
+        const menuItem = { paddingLeft: '20%', textAlign: 'left' };
         const link = { color: 'white' };
         return (
             <div className='Header'>
@@ -33,11 +35,24 @@ class Header extends Component {
                     onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}
                     style={{ position: 'fixed' }}
                 >
-                    <div className='header_links'>
+                    <div className='links'>
                         <Link to='/about'><FlatButton label='About' style={link} /></Link>
-                        {this.props.user.id ? <Link to='/account'><FlatButton label='My Account' style={link} /></Link> : null}
                         <Link to='/donate'><FlatButton label='Donate' style={link} /></Link>
+                        {this.props.user.id ? <Link to='/account'><FlatButton label='My Account' style={link} /></Link> : null}
                         <a href={this.props.user.id ? process.env.REACT_APP_LOGOUT : process.env.REACT_APP_LOGIN}><FlatButton label={this.props.user.id ? 'Logout' : 'Login'} style={link} /></a>
+                    </div>
+                    <div className='ham'>
+                        <IconMenu
+                            iconButtonElement={
+                                <IconButton><MoreVertIcon /></IconButton>
+                            }
+                            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                            >
+                            <MenuItem primaryText="Refresh" />
+                            <MenuItem primaryText="Help" />
+                            <MenuItem primaryText="Sign out" />
+                        </IconMenu>
                     </div>
                 </AppBar>
                 <Drawer

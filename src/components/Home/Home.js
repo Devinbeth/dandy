@@ -27,7 +27,7 @@ class Home extends Component {
     render() {
         let characterCards = this.props.characters.map((e, i) => {
             return (
-                <div key={i + '' + e.id}>
+                <div className='character_cards' key={i + '' + e.id}>
                     <Card>
                         <CardHeader
                             title={`Level: ${e.level}`}

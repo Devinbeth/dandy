@@ -31,7 +31,7 @@ export default function Box(props) {
                                 showMenuIconButton={false}
                                 iconElementRight={<IconButton><Close /></IconButton>}
                                 onRightIconButtonClick={props.switch}
-                                style={{ paddingLeft: '7%'}}
+                                style={{ paddingLeft: '7%', zIndex: 27 }}
                             />
                         </div>
                         <div className='paper_body'>

@@ -21,7 +21,7 @@
 }
 
 .Weapons .new_weapon {
-    margin-top: 10%;
+    margin-top: 85px;
     display: flex;
     flex-direction: column;
     align-items: center;
