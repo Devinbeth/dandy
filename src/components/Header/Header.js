@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUser, resetCharacter } from '../../ducks/reducer.js';
+import './Header.css';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -22,6 +23,8 @@ class Header extends Component {
     }
 
     render() {
+        const menuItem = { paddingLeft:'20%', textAlign: 'left' };
+        const link = { color: 'white' };
         return (
             <div className='Header'>
                 <AppBar
@@ -30,10 +33,11 @@ class Header extends Component {
                     onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}
                     style={{ position: 'fixed' }}
                 >
-                    <div>
-                        <Link to='/about'><FlatButton label='About' style={{ color: 'white', marginTop: '4%' }} /></Link>
-                        <Link to='/account'><FlatButton label='My Account' style={{ color: 'white' }} /></Link>
-                        <a href={process.env.REACT_APP_LOGOUT}><FlatButton label='Logout' style={{ color: 'white' }} /></a>
+                    <div className='header_links'>
+                        <Link to='/about'><FlatButton label='About' style={link} /></Link>
+                        {this.props.user.id ? <Link to='/account'><FlatButton label='My Account' style={link} /></Link> : null}
+                        <Link to='/donate'><FlatButton label='Donate' style={link} /></Link>
+                        <a href={this.props.user.id ? process.env.REACT_APP_LOGOUT : process.env.REACT_APP_LOGIN}><FlatButton label={this.props.user.id ? 'Logout' : 'Login'} style={link} /></a>
                     </div>
                 </AppBar>
                 <Drawer
@@ -47,20 +51,43 @@ class Header extends Component {
                         onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}
                         style={{ paddingRight: '25%' }}
                     />
-                    <br />
-                    <br />
-                    <Link to='/home'><MenuItem style={{ padding: '2% 0' }} onClick={() => this.setState({ open: false })}>My Characters</MenuItem></Link>
-                    <Link to='/character/0'><MenuItem style={{ padding: '2% 0' }} onClick={() => {
-                        this.setState({ open: false });
-                        this.props.resetCharacter();
-                    }}>New Character</MenuItem></Link>
-                    <MenuItem style={{ padding: '2% 0' }}>Races</MenuItem>
-                    <MenuItem style={{ padding: '2% 0' }}>Classes</MenuItem>
-                    <MenuItem style={{ padding: '2% 0' }}>Weapons</MenuItem>
-                    <MenuItem style={{ padding: '2% 0' }}>Armor</MenuItem>
-                    <MenuItem style={{ padding: '2% 0' }}>Equipment</MenuItem>
-                    <MenuItem style={{ padding: '2% 0' }}>Spells</MenuItem>
-                    <MenuItem style={{ padding: '2% 0' }}>Monsters</MenuItem>
+                    <div className='menu_items'>
+                        <br />
+                        {this.props.user.id ?
+                            <Link to='/home'>
+                                <MenuItem style={menuItem} onClick={() => this.setState({ open: false })}>My Characters</MenuItem>
+                            </Link>
+                            : null}
+                        {this.props.user.id ?
+                            <Link to='/character/0'>
+                                <MenuItem style={menuItem} onClick={() => {
+                                    this.setState({ open: false });
+                                    this.props.resetCharacter();
+                                }}>New Character</MenuItem>
+                            </Link>
+                            : null}
+                        <Link to='/races'>
+                            <MenuItem style={menuItem}>Races</MenuItem>
+                        </Link>
+                        <Link to='/classes'>
+                            <MenuItem style={menuItem}>Classes</MenuItem>
+                        </Link>
+                        <Link to='/weapons'>
+                            <MenuItem style={menuItem}>Weapons</MenuItem>
+                        </Link>
+                        <Link to='/armor'>
+                            <MenuItem style={menuItem}>Armor</MenuItem>
+                        </Link>
+                        <Link to='/equipment'>
+                            <MenuItem style={menuItem}>Equipment</MenuItem>
+                        </Link>
+                        <Link to='/spells'>
+                            <MenuItem style={menuItem}>Spells</MenuItem>
+                        </Link>
+                        <Link to='/monsters'>
+                            <MenuItem style={menuItem}>Monsters</MenuItem>
+                        </Link>
+                    </div>
                 </Drawer>
             </div>
         )

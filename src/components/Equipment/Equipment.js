@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getArmor, saveArmor, removeArmor, getAllArmor } from '../../ducks/reducer.js';
 import './Equipment.css';
 import Box from '../Box/Box.js';
+import AllArmor from '../AllArmor/AllArmor.js';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -204,32 +205,7 @@ class Equipment extends Component {
                     left={'10%'}
                     title={'ALL ARMOR'}
                 >
-                    <Table fixedHeader={true} fixedFooter={true} style={{ tableLayout: 'auto' }}>
-                        <TableHeader displaySelectAll={false} adjustForCheckbox={false} style={{ tableLayout: 'auto' }}>
-                            <TableRow>
-                                <TableHeaderColumn tooltip='Category'>CATERGORY</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Name'>NAME</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Cost'>COST</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Armor Class'>AC</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Strength'>STRENGTH</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Stealth'>STEALTH</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Weight'>WEIGHT</TableHeaderColumn>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody displayRowCheckbox={false} showRowHover={true} stripedRows={false}>
-                            {this.props.allArmor.map((armor, index) => (
-                                <TableRow key={index}>
-                                    <TableRowColumn>{armor.category}</TableRowColumn>
-                                    <TableRowColumn>{armor.name}</TableRowColumn>
-                                    <TableRowColumn>{armor.cost}</TableRowColumn>
-                                    <TableRowColumn>{armor.ac}</TableRowColumn>
-                                    <TableRowColumn>{armor.strength}</TableRowColumn>
-                                    <TableRowColumn>{armor.stealth}</TableRowColumn>
-                                    <TableRowColumn>{armor.weight}</TableRowColumn>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    <AllArmor />
                 </Box>
             </div>
         );

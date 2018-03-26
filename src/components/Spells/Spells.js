@@ -1,30 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getSpells, saveSpell, removeSpell, getAllSpells } from '../../ducks/reducer.js';
+import { getSpells, saveSpell, removeSpell } from '../../ducks/reducer.js';
 import './Spells.css';
 import Box from '../Box/Box.js';
+import AllSpells from '../AllSpells/AllSpells.js';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Close from 'material-ui/svg-icons/navigation/close';
 import Info from 'material-ui/svg-icons/action/info';
-import Divider from 'material-ui/Divider';
 
 class Spells extends Component {
     constructor(props) {
         super(props);
         this.state = {
             spells: [{}],
-            spellList: this.props.allSpells,
             category: 1,
             newSpell: 0,
-            school: '',
-            class: '',
-            level: '',
             newToggle: false,
             infoToggle: false,
             spellToggle: false
@@ -34,16 +29,14 @@ class Spells extends Component {
         this.removeSpell = this.removeSpell.bind(this);
         this.spellDropDown = this.spellDropDown.bind(this);
         this.spellList = this.spellList.bind(this);
-        this.filteredSpells = this.filteredSpells.bind(this);
     }
 
     componentDidMount() {
         this.props.getSpells(this.props.id);
-        this.props.getAllSpells();
     }
 
     componentWillReceiveProps(newProps) {
-        this.setState({ spells: newProps.character_spells, filteredSpells: newProps.allSpells });
+        this.setState({ spells: newProps.character_spells });
     }
 
     abilityModifiers(ability) {
@@ -125,6 +118,7 @@ class Spells extends Component {
     }
 
     filteredSpells(value) {
+        console.log(this.state.spellList);
         let filteredList = this.state.spellList.filter((spell, index) => {
             return spell.school.includes(value) || spell.classes.includes(value) || spell.level === value;
         });
@@ -179,120 +173,14 @@ class Spells extends Component {
                 </Box>
                 <Box
                     toggle={this.state.infoToggle}
-                    switch={() => this.setState({ infoToggle: false })}
+                    switch={() => this.setState({ infoToggle: false, spellList: this.props.allSpells, school: '', class: '', level: '' })}
                     top={'10%'}
                     bottom={'5%'}
                     right={'10%'}
                     left={'10%'}
                     title={'ALL SPELLS'}
                 >
-                    <div>
-                        <div className='spell_filters'>
-                            <h4>Filter Spells: </h4>
-                            <SelectField
-                                floatingLabelText='School'
-                                value={this.state.school}
-                                onChange={(event, index, value) => {
-                                    this.setState({ school: value });
-                                    this.filteredSpells(value)
-                                }}
-                                style={{ width: '160px', textAlign: 'left' }}
-                            >
-                                <MenuItem value={''} primaryText='' />
-                                <MenuItem value={'Abjuration'} primaryText='Abjuration' />
-                                <MenuItem value={'Conjuration'} primaryText='Conjuration' />
-                                <MenuItem value={'Divination'} primaryText='Divination' />
-                                <MenuItem value={'Enchantment'} primaryText='Enchantment' />
-                                <MenuItem value={'Illusion'} primaryText='Illusion' />
-                                <MenuItem value={'Necromancy'} primaryText='Necromancy' />
-                                <MenuItem value={'Transmutation'} primaryText='Transmutation' />
-                            </SelectField>
-                            <SelectField
-                                floatingLabelText='Class'
-                                value={this.state.class}
-                                onChange={(event, index, value) => {
-                                    this.setState({ class: value });
-                                    this.filteredSpells(value);
-                                }}
-                                style={{ width: '140px', textAlign: 'left' }}
-                            >
-                                <MenuItem value={''} primaryText='' />
-                                <MenuItem value={'Barbarian'} primaryText='Barbarian' />
-                                <MenuItem value={'Bard'} primaryText='Bard' />
-                                <MenuItem value={'Cleric'} primaryText='Cleric' />
-                                <MenuItem value={'Druid'} primaryText='Druid' />
-                                <MenuItem value={'Fighter'} primaryText='Fighter' />
-                                <MenuItem value={'Monk'} primaryText='Monk' />
-                                <MenuItem value={'Paladin'} primaryText='Paladin' />
-                                <MenuItem value={'Ranger'} primaryText='Ranger' />
-                                <MenuItem value={'Sorcerer'} primaryText='Sorcerer' />
-                                <MenuItem value={'Warlock'} primaryText='Warlock' />
-                                <MenuItem value={'Wizard'} primaryText='Wizard' />
-                            </SelectField>
-                            <TextField
-                                id='text-field-controlled'
-                                value={this.state.level}
-                                floatingLabelText='Level'
-                                onChange={(e) => {
-                                    this.setState({ level: e.target.value });
-                                    this.filteredSpells(e.target.value);
-                                }}
-                                style={{ width: '100px' }}
-                            />
-                            <RaisedButton label='Reset Filter' primary={true} onClick={() => this.setState({ filteredSpells: this.props.allSpells, school: '', class: '', level: '' })} />
-                        </div>
-                        {this.state.spellList.map((spell, index) => (
-                            <div key={index + spell.id + spell.name}>
-                                <Divider />
-                                <h3>{spell.name}</h3>
-                                <Table>
-                                    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                                        <TableRow>
-                                            <TableHeaderColumn tooltip='Cost'>LEVEL</TableHeaderColumn>
-                                            <TableHeaderColumn tooltip='Damage'>COMPONENTS</TableHeaderColumn>
-                                            <TableHeaderColumn tooltip='Properties'>CASTING TIME</TableHeaderColumn>
-                                            <TableHeaderColumn tooltip='Weight'>DURATION</TableHeaderColumn>
-                                        </TableRow>
-                                    </TableHeader>
-                                    <TableBody displayRowCheckbox={false} showRowHover={true} stripedRows={false} style={{ tableLayout: 'auto' }}>
-                                        <TableRow key={index}>
-                                            <TableRowColumn>{spell.level}</TableRowColumn>
-                                            <TableRowColumn>{spell.components}</TableRowColumn>
-                                            <TableRowColumn>{spell.casting_time}</TableRowColumn>
-                                            <TableRowColumn>{spell.duration}</TableRowColumn>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-                                <Table>
-                                    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                                        <TableRow>
-                                            <TableHeaderColumn tooltip='Weight'>RANGE</TableHeaderColumn>
-                                            <TableHeaderColumn tooltip='Weight'>SAVE</TableHeaderColumn>
-                                            <TableHeaderColumn tooltip='Weight'>SCHOOL</TableHeaderColumn>
-                                            <TableHeaderColumn tooltip='Weight'>CLASSES</TableHeaderColumn>
-                                        </TableRow>
-                                    </TableHeader>
-                                    <TableBody displayRowCheckbox={false} showRowHover={true} stripedRows={false} style={{ tableLayout: 'auto' }}>
-                                        <TableRow key={index}>
-                                            <TableRowColumn>{spell.range}</TableRowColumn>
-                                            <TableRowColumn>{spell.save}</TableRowColumn>
-                                            <TableRowColumn>{spell.school}</TableRowColumn>
-                                            <TableRowColumn>{spell.classes}</TableRowColumn>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-                                <div className='spell_descriptions'>
-                                    <p>{spell.description}</p>
-                                    <h4>At Higher Levels: </h4>
-                                    <p>{spell.higher_levels}</p>
-                                    <h4>Material: </h4>
-                                    <p>{spell.material}</p>
-                                </div>
-                                <br />
-                                <br />
-                            </div>
-                        ))}
-                    </div>
+                    <AllSpells />
                 </Box>
             </div>
         );
@@ -303,8 +191,7 @@ function mapStateToProps(state) {
     return {
         character: state.character,
         character_spells: state.character_spells,
-        allSpells: state.allSpells
     };
 }
 
-export default connect(mapStateToProps, { getSpells, saveSpell, removeSpell, getAllSpells })(Spells);
+export default connect(mapStateToProps, { getSpells, saveSpell, removeSpell })(Spells);

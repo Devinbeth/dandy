@@ -1,0 +1,35 @@
+.AllSpells {
+    padding: 6% 10%;
+}
+
+.AllSpells .spell_filters {
+    border: 1.5px;
+    border-radius: 7px;
+    border-style: solid;
+    border-color: #d1d1d1;
+    background-color: white;
+    -moz-box-shadow: 0 0 8px #aaa;
+    -webkit-box-shadow: 0 0 8px #aaa;
+    box-shadow: 0 0 8px #aaa;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2% 5%;
+}
+
+.AllSpells .spell_list {
+    border: 1.5px;
+    border-radius: 7px;
+    border-style: solid;
+    border-color: #d1d1d1;
+    background-color: white;
+    -moz-box-shadow: 0 0 8px #aaa;
+    -webkit-box-shadow: 0 0 8px #aaa;
+    box-shadow: 0 0 8px #aaa;
+    padding: 2% 5%;
+    margin-top: 20px;
+}
+
+.AllSpells .spell_descriptions {
+    text-align: left;
+}
