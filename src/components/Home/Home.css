@@ -16,7 +16,7 @@
     padding: 10px 20% 10px 20%;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 700px) {
     .Home .character_cards {
         padding: 10px 20px;
     }

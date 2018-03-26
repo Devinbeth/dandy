@@ -1,7 +1,10 @@
-.Donate .donations {
-    padding: 60px 0;
+.Donate {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    align-content: space-between;
+    padding-top: 85px;
+}
+
+.Donate .pay {
+    padding: 20%;
 }

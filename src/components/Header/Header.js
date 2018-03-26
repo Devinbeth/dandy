@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUser, resetCharacter } from '../../ducks/reducer.js';
 import './Header.css';
+import Box from '../Box/Box.js';
+import Donate from '../Donate/Donate.js';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -17,6 +19,7 @@ class Header extends Component {
         super(props);
         this.state = {
             open: false,
+            donate: false
         }
     }
 
@@ -31,27 +34,27 @@ class Header extends Component {
             <div className='Header'>
                 <AppBar
                     title='DANDY'
-                    titleStyle={{ marginLeft: '19%' }}
                     onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}
                     style={{ position: 'fixed' }}
                 >
                     <div className='links'>
                         <Link to='/about'><FlatButton label='About' style={link} /></Link>
-                        <Link to='/donate'><FlatButton label='Donate' style={link} /></Link>
+                        <FlatButton label='Donate' style={link} onClick={() => this.setState({ donate: !this.state.donate })}/>
                         {this.props.user.id ? <Link to='/account'><FlatButton label='My Account' style={link} /></Link> : null}
                         <a href={this.props.user.id ? process.env.REACT_APP_LOGOUT : process.env.REACT_APP_LOGIN}><FlatButton label={this.props.user.id ? 'Logout' : 'Login'} style={link} /></a>
                     </div>
                     <div className='ham'>
                         <IconMenu
                             iconButtonElement={
-                                <IconButton><MoreVertIcon /></IconButton>
+                                <IconButton><MoreVertIcon color='white'/></IconButton>
                             }
-                            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                            >
-                            <MenuItem primaryText="Refresh" />
-                            <MenuItem primaryText="Help" />
-                            <MenuItem primaryText="Sign out" />
+                            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+                            anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                        >
+                            <Link to='/about'><MenuItem primaryText="About" /></Link>
+                            <MenuItem primaryText="Donate" onClick={() => this.setState({ donate: !this.state.donate })}/>
+                            {this.props.user.id ? <Link to='/account'><MenuItem primaryText='My Account'/></Link> : null}
+                            <a href={this.props.user.id ? process.env.REACT_APP_LOGOUT : process.env.REACT_APP_LOGIN}><MenuItem primaryText={this.props.user.id ? 'Logout' : 'Login'} /></a>
                         </IconMenu>
                     </div>
                 </AppBar>
@@ -104,6 +107,17 @@ class Header extends Component {
                         </Link>
                     </div>
                 </Drawer>
+                <Box
+                    toggle={this.state.donate}
+                    switch={() => this.setState({ donate: false })}
+                    top={'20%'}
+                    bottom={'35%'}
+                    right={'39%'}
+                    left={'39%'}
+                    title={'DONATE'}
+                >
+                    <Donate switch={() => this.setState({ donate: false })}/>
+                </Box>
             </div>
         )
     }

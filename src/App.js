@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
+import './App.css';
 import Login from './components/Login/Login.js';
 import Header from './components/Header/Header.js';
 import About from './components/About/About.js';
@@ -10,7 +11,6 @@ import Character from './components/Character/Character.js';
 import AllWeapons from './components/AllWeapons/AllWeapons.js';
 import AllArmor from './components/AllArmor/AllArmor.js';
 import AllSpells from './components/AllSpells/AllSpells.js';
-import './App.css';
 
 class App extends Component {
   render() {

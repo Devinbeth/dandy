@@ -24,20 +24,22 @@ export default class Donate extends Component {
     render() {
         return (
             <div className='Donate'>
-                <div className='donations'>
+                <div className='amount'>
                     <TextField
                         id='text-field-controlled'
                         value={this.state.amount}
                         onChange={(e) => this.setState({ amount: e.target.value })}
                         floatingLabelText='Amount'
                         type='number'
-                        style={{ width: '50px' }}
+                        style={{ width: '50%' }}
                     />
-                    <StripeCheckout
-                        token={this.onToken}
-                        stripeKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}
-                        amount={this.state.amount * 100}
-                    />
+                </div>
+                <div className='pay' onClick={() => this.props.switch()}>
+                        <StripeCheckout
+                            token={this.onToken}
+                            stripeKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}
+                            amount={this.state.amount * 100}
+                        />
                 </div>
             </div>
         );

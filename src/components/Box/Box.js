@@ -18,20 +18,21 @@ export default function Box(props) {
                             textAlign: 'center',
                             overflow: 'scroll',
                             position: 'fixed',
-                            borderRadius: '5px',
                             top: props.top,
                             bottom: props.bottom,
                             left: props.left,
                             right: props.right,
                         }}
                     >
-                        <div className='paper_header' style={{ position: 'fixed', top: props.top, left: props.left, right: props.right }}>
+                        <div 
+                            className='paper_header'
+                            style={{ position: 'fixed', top: props.top, left: props.left, right: props.right }}
+                        >
                             <AppBar
                                 title={props.title}
                                 showMenuIconButton={false}
                                 iconElementRight={<IconButton><Close /></IconButton>}
                                 onRightIconButtonClick={props.switch}
-                                style={{ paddingLeft: '7%', zIndex: 27 }}
                             />
                         </div>
                         <div className='paper_body'>

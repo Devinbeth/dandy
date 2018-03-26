@@ -250,7 +250,7 @@ class Character extends Component {
         return (
             <div className='Character'>
                 <div className=' box character_name'>
-                    <img className='logo' src={logo} alt='' />
+                    {/* <img className='logo' src={logo} alt='' /> */}
                     <TextField
                         className='basic_info_text'
                         id='text-field-controlled'
@@ -261,7 +261,7 @@ class Character extends Component {
                     />
                 </div>
                 <div className='box basic_info'>
-                    <img className='character_image' src={this.state.image} alt='' />
+                    {/* <img className='character_image' src={this.state.image} alt='' /> */}
                     <div className='race'>
                         <Race race={this.state.race} updateRace={this.updateRace} />
                     </div>
@@ -359,71 +359,6 @@ class Character extends Component {
                         inputStyle={{ textAlign: 'center' }}
                     /><br />
                     {this.abilityModifiers(this.state.charisma)}
-                </div>
-                <div className='box inspiration'>
-                    <TextField
-                        id='text-field-controlled'
-                        value={this.state.inspiration ? this.state.inspiration : ''}
-                        onChange={(e) => this.setState({ inspiration: Number(e.target.value) })}
-                        floatingLabelText='Inspiration'
-                        type='number'
-                        style={{ width: '60%' }}
-                    />
-                </div>
-                <div className='box proficiency'>
-                    <TextField
-                        id='text-field-controlled'
-                        value={this.state.proficiency_bonus ? this.state.proficiency_bonus : ''}
-                        onChange={(e) => this.setState({ proficiency_bonus: Number(e.target.value) })}
-                        floatingLabelText='Proficieny Bonus'
-                        type='number'
-                        style={{ width: '60%' }}
-                    />
-                </div>
-                <div className='box saving_throws'>
-                    <Checkbox
-                        label={` ${this.modifiers(this.state.strength, this.state.strength_saving_throw)}  Strength`}
-                        checked={this.state.strength_saving_throw}
-                        onCheck={() => this.setState({ strength_saving_throw: !this.state.strength_saving_throw })}
-                        iconStyle={{ margin: '0 3%' }}
-                        labelStyle={{ width: '150px' }}
-                    />
-                    <Checkbox
-                        label={` ${this.modifiers(this.state.dexterity, this.state.dexterity_saving_throw)}  Dexterity`}
-                        checked={this.state.dexterity_saving_throw}
-                        onCheck={() => this.setState({ dexterity_saving_throw: !this.state.dexterity_saving_throw })}
-                        iconStyle={{ margin: '0 3%' }}
-                        labelStyle={{ width: '150px' }}
-                    />
-                    <Checkbox
-                        label={` ${this.modifiers(this.state.constitution, this.state.constitution_saving_throw)}  Constitution`}
-                        checked={this.state.constitution_saving_throw}
-                        onCheck={() => this.setState({ constitution_saving_throw: !this.state.constitution_saving_throw })}
-                        iconStyle={{ margin: '0 3%' }}
-                        labelStyle={{ width: '150px' }}
-                    />
-                    <Checkbox
-                        label={` ${this.modifiers(this.state.wisdom, this.state.wisdom_saving_throw)}  Wisdom`}
-                        checked={this.state.wisdom_saving_throw}
-                        onCheck={() => this.setState({ wisdom_saving_throw: !this.state.wisdom_saving_throw })}
-                        iconStyle={{ margin: '0 3%' }}
-                        labelStyle={{ width: '150px' }}
-                    />
-                    <Checkbox
-                        label={` ${this.modifiers(this.state.intelligence, this.state.intelligence_saving_throw)}  Intelligence`}
-                        checked={this.state.intelligence_saving_throw}
-                        onCheck={() => this.setState({ intelligence_saving_throw: !this.state.intelligence_saving_throw })}
-                        iconStyle={{ margin: '0 3%' }}
-                        labelStyle={{ width: '150px' }}
-                    />
-                    <Checkbox
-                        label={` ${this.modifiers(this.state.charisma, this.state.charisma_saving_throw)}  Charisma`}
-                        checked={this.state.charisma_saving_throw}
-                        onCheck={() => this.setState({ charisma_saving_throw: !this.state.charisma_saving_throw })}
-                        iconStyle={{ margin: '0 3%' }}
-                        labelStyle={{ width: '150px' }}
-                    />
-                    <h5>SAVING THROWS</h5>
                 </div>
                 <div className='box skills'>
                     <Checkbox
@@ -554,10 +489,75 @@ class Character extends Component {
                     />
                     <h5>SKILLS</h5>
                 </div>
+                <div className='box proficiency'>
+                    <TextField
+                        id='text-field-controlled'
+                        value={this.state.proficiency_bonus ? this.state.proficiency_bonus : ''}
+                        onChange={(e) => this.setState({ proficiency_bonus: Number(e.target.value) })}
+                        floatingLabelText='Proficieny Bonus'
+                        type='number'
+                        style={{ width: '60%' }}
+                    />
+                </div>
+                <div className='box inspiration'>
+                    <TextField
+                        id='text-field-controlled'
+                        value={this.state.inspiration ? this.state.inspiration : ''}
+                        onChange={(e) => this.setState({ inspiration: Number(e.target.value) })}
+                        floatingLabelText='Inspiration'
+                        type='number'
+                        style={{ width: '60%' }}
+                    />
+                </div>
+                <div className='box saving_throws'>
+                    <Checkbox
+                        label={` ${this.modifiers(this.state.strength, this.state.strength_saving_throw)}  Strength`}
+                        checked={this.state.strength_saving_throw}
+                        onCheck={() => this.setState({ strength_saving_throw: !this.state.strength_saving_throw })}
+                        iconStyle={{ margin: '0 3%' }}
+                        labelStyle={{ width: '150px' }}
+                    />
+                    <Checkbox
+                        label={` ${this.modifiers(this.state.dexterity, this.state.dexterity_saving_throw)}  Dexterity`}
+                        checked={this.state.dexterity_saving_throw}
+                        onCheck={() => this.setState({ dexterity_saving_throw: !this.state.dexterity_saving_throw })}
+                        iconStyle={{ margin: '0 3%' }}
+                        labelStyle={{ width: '150px' }}
+                    />
+                    <Checkbox
+                        label={` ${this.modifiers(this.state.constitution, this.state.constitution_saving_throw)}  Constitution`}
+                        checked={this.state.constitution_saving_throw}
+                        onCheck={() => this.setState({ constitution_saving_throw: !this.state.constitution_saving_throw })}
+                        iconStyle={{ margin: '0 3%' }}
+                        labelStyle={{ width: '150px' }}
+                    />
+                    <Checkbox
+                        label={` ${this.modifiers(this.state.wisdom, this.state.wisdom_saving_throw)}  Wisdom`}
+                        checked={this.state.wisdom_saving_throw}
+                        onCheck={() => this.setState({ wisdom_saving_throw: !this.state.wisdom_saving_throw })}
+                        iconStyle={{ margin: '0 3%' }}
+                        labelStyle={{ width: '150px' }}
+                    />
+                    <Checkbox
+                        label={` ${this.modifiers(this.state.intelligence, this.state.intelligence_saving_throw)}  Intelligence`}
+                        checked={this.state.intelligence_saving_throw}
+                        onCheck={() => this.setState({ intelligence_saving_throw: !this.state.intelligence_saving_throw })}
+                        iconStyle={{ margin: '0 3%' }}
+                        labelStyle={{ width: '150px' }}
+                    />
+                    <Checkbox
+                        label={` ${this.modifiers(this.state.charisma, this.state.charisma_saving_throw)}  Charisma`}
+                        checked={this.state.charisma_saving_throw}
+                        onCheck={() => this.setState({ charisma_saving_throw: !this.state.charisma_saving_throw })}
+                        iconStyle={{ margin: '0 3%' }}
+                        labelStyle={{ width: '150px' }}
+                    />
+                    <h5>SAVING THROWS</h5>
+                </div>
                 <div className='box passive_wisdom'>
                     <h5>PASSIVE WISDOM (PERCEPTION): {this.passiveWisdom()}</h5>
                 </div>
-                <div className='box other_prof_languages'>
+                <div className='box other_prof'>
                     <TextField
                         id='text-field-controlled'
                         value={this.state.languages ? this.state.languages : ''}
@@ -578,119 +578,91 @@ class Character extends Component {
                     />
                     <h5>OTHER PROFICIENCIES & LANGUAGES</h5>
                 </div>
-                <div className='box ac_hp'>
-                    <TextField className='ac_hp_info'
+                <div className='box ac'>
+                    <h5>ARMOR CLASS</h5>
+                    <TextField
                         id='text-field-controlled'
                         value={this.state.armor_class ? this.state.armor_class : ''}
                         onChange={(e) => this.setState({ armor_class: Number(e.target.value) })}
-                        floatingLabelText='Armor Class'
-                        type='number'
-                        style={{ width: '25%' }}
+                        style={{ width: '50%' }}
+                        inputStyle={{ textAlign: 'center' }}
                     />
-                    <TextField className='ac_hp_info'
+                </div>
+                <div className='box initiative'>
+                    <h5>INITIATIVE</h5>
+                    <TextField
                         id='text-field-controlled'
                         value={this.state.initiative ? this.state.initiative : ''}
                         onChange={(e) => this.setState({ initiative: Number(e.target.value) })}
-                        floatingLabelText='Initiative'
-                        type='number'
-                        style={{ width: '25%' }}
+                        style={{ width: '50%' }}
+                        inputStyle={{ textAlign: 'center' }}
                     />
-                    <TextField className='ac_hp_info'
+                </div>
+                <div className='box speed'>
+                    <h5>SPEED</h5>
+                    <TextField
                         id='text-field-controlled'
                         value={this.state.speed ? this.state.speed : ''}
                         onChange={(e) => this.setState({ speed: Number(e.target.value) })}
-                        floatingLabelText='Speed'
-                        type='number'
-                        style={{ width: '25%' }}
+                        style={{ width: '50%' }}
+                        inputStyle={{ textAlign: 'center' }}
                     />
-                    <TextField className='ac_hp_info'
+                </div>
+                <div className='box max_hp'>
+                    <h5>MAX HIT POINTS</h5>
+                    <TextField
                         id='text-field-controlled'
                         value={this.state.max_hit_points ? this.state.max_hit_points : ''}
                         onChange={(e) => this.setState({ max_hit_points: Number(e.target.value) })}
-                        floatingLabelText='Max HP'
-                        type='number'
-                        style={{ width: '25%' }}
+                        style={{ width: '50%' }}
+                        inputStyle={{ textAlign: 'center' }}
                     />
-                    <TextField className='ac_hp_info'
+                </div>
+                <div className='box current_hp'>
+                    <h5>CURRENT HP</h5>
+                    <TextField
                         id='text-field-controlled'
                         value={this.state.current_hit_points ? this.state.current_hit_points : ''}
                         onChange={(e) => this.setState({ current_hit_points: Number(e.target.value) })}
-                        floatingLabelText='Current HP'
-                        type='number'
-                        style={{ width: '25%' }}
+                        style={{ width: '50%' }}
+                        inputStyle={{ textAlign: 'center' }}
                     />
-                    <TextField className='ac_hp_info'
+                </div>
+                <div className='box temp_hp'>
+                    <h5>TEMP HP</h5>
+                    <TextField
                         id='text-field-controlled'
                         value={this.state.temp_hit_points ? this.state.temp_hit_points : ''}
                         onChange={(e) => this.setState({ temp_hit_points: Number(e.target.value) })}
-                        floatingLabelText='Temporary HP'
-                        type='number'
-                        style={{ width: '30%' }}
+                        style={{ width: '50%' }}
+                        inputStyle={{ textAlign: 'center' }}
                     />
+                </div>
+                <div className='box hit_dice'>
                     <TextField
-                        className='ac_hp_info'
                         id='text-field-controlled'
                         value={this.state.total_hit_dice}
                         onChange={(e) => this.setState({ total_hit_dice: e.target.value })}
-                        floatingLabelText='Total Hit Dice'
+                        floatingLabelText='Hit Dice'
                         style={{ width: '30%' }}
                     />
                     <TextField
-                        className='ac_hp_info'
                         id='text-field-controlled'
                         value={this.state.current_hit_dice ? this.state.current_hit_dice : ''}
                         onChange={(e) => this.setState({ current_hit_dice: Number(e.target.value) })}
-                        floatingLabelText='Current Hit Dice'
+                        floatingLabelText='Current HD'
                         type='number'
                         style={{ width: '40%' }}
                     />
                 </div>
-                <div className='box death_saves'>
-                    <div className='successes'>
-                        <Checkbox
-                            className='saves'
-                            checked={this.state.death_save_successes >= 1 ? true : false}
-                            onCheck={(event, isInputChecked) => this.deathSaveSuccesses(isInputChecked)}
-                            style={{ float: 'left', width: '1%' }}
-                        />
-                        <Checkbox
-                            className='saves'
-                            checked={this.state.death_save_successes >= 2 ? true : false}
-                            onCheck={(event, isInputChecked) => this.deathSaveSuccesses(isInputChecked)}
-                            style={{ float: 'left', width: '1%' }}
-                        />
-                        <Checkbox
-                            className='saves'
-                            checked={this.state.death_save_successes === 3 ? true : false}
-                            onCheck={(event, isInputChecked) => this.deathSaveSuccesses(isInputChecked)}
-                            style={{ float: 'left', width: '1%' }}
-                            label='Successes'
-                        />
-                    </div>
-                    <div className='failures'>
-                        <Checkbox
-                            className='saves'
-                            checked={this.state.death_save_failures >= 1 ? true : false}
-                            onCheck={(event, isInputChecked) => this.deathSaveFailures(isInputChecked)}
-                            style={{ float: 'left', width: '1%' }}
-                        />
-                        <Checkbox
-                            className='saves'
-                            checked={this.state.death_save_failures >= 2 ? true : false}
-                            onCheck={(event, isInputChecked) => this.deathSaveFailures(isInputChecked)}
-                            style={{ float: 'left', width: '1%' }}
-                        />
-                        <Checkbox
-                            className='saves'
-                            checked={this.state.death_save_failures === 3 ? true : false}
-                            onCheck={(event, isInputChecked) => this.deathSaveFailures(isInputChecked)}
-                            style={{ float: 'left', width: '1%' }}
-                            label='Failures'
-                        />
-                    </div>
-                    <div>
-                        <h5>DEATH SAVES</h5>
-                    </div>
+                <div className='box weapons'>
+                    <Weapons id={this.props.match.params.id} />
+                </div>
+                <div className='box equipment'>
+                    <Equipment id={this.props.match.params.id} />
+                </div>
+                <div className='box spells'>
+                    <Spells id={this.props.match.params.id} />
                 </div>
                 <div className='box money'>
                     <TextField
@@ -700,7 +672,7 @@ class Character extends Component {
                         floatingLabelText='Copper'
                         floatingLabelFixed={true}
                         type='number'
-                        style={{ width: '15%' }}
+                        style={{ width: '70px' }}
                     />
                     <TextField
                         id='text-field-controlled'
@@ -709,7 +681,7 @@ class Character extends Component {
                         floatingLabelText='Silver'
                         floatingLabelFixed={true}
                         type='number'
-                        style={{ width: '15%' }}
+                        style={{ width: '70px' }}
                     />
                     <TextField
                         id='text-field-controlled'
@@ -718,7 +690,7 @@ class Character extends Component {
                         floatingLabelText='Electrum'
                         floatingLabelFixed={true}
                         type='number'
-                        style={{ width: '15%' }}
+                        style={{ width: '70px' }}
                     />
                     <TextField
                         id='text-field-controlled'
@@ -727,7 +699,7 @@ class Character extends Component {
                         floatingLabelText='Gold'
                         floatingLabelFixed={true}
                         type='number'
-                        style={{ width: '15%' }}
+                        style={{ width: '70px' }}
                     />
                     <TextField
                         id='text-field-controlled'
@@ -736,14 +708,55 @@ class Character extends Component {
                         floatingLabelText='Platinum'
                         floatingLabelFixed={true}
                         type='number'
-                        style={{ width: '15%' }}
+                        style={{ width: '70px' }}
                     />
                 </div>
-                <div className='box weapons'>
-                    <Weapons id={this.props.match.params.id} />
-                </div>
-                <div className='box equipment'>
-                    <Equipment id={this.props.match.params.id} />
+                <div className='box death_saves'>
+                    <div className='saves'>
+                        <div className='successes'>
+                            <Checkbox
+                                className='saves'
+                                checked={this.state.death_save_successes >= 1 ? true : false}
+                                onCheck={(event, isInputChecked) => this.deathSaveSuccesses(isInputChecked)}
+                                style={{ float: 'left', width: '1%' }}
+                            />
+                            <Checkbox
+                                className='saves'
+                                checked={this.state.death_save_successes >= 2 ? true : false}
+                                onCheck={(event, isInputChecked) => this.deathSaveSuccesses(isInputChecked)}
+                                style={{ float: 'left', width: '1%' }}
+                            />
+                            <Checkbox
+                                className='saves'
+                                checked={this.state.death_save_successes === 3 ? true : false}
+                                onCheck={(event, isInputChecked) => this.deathSaveSuccesses(isInputChecked)}
+                                style={{ float: 'left', width: '1%' }}
+                                label='Successes'
+                            />
+                        </div>
+                        <div className='failures'>
+                            <Checkbox
+                                className='saves'
+                                checked={this.state.death_save_failures >= 1 ? true : false}
+                                onCheck={(event, isInputChecked) => this.deathSaveFailures(isInputChecked)}
+                                style={{ float: 'left', width: '1%' }}
+                            />
+                            <Checkbox
+                                className='saves'
+                                checked={this.state.death_save_failures >= 2 ? true : false}
+                                onCheck={(event, isInputChecked) => this.deathSaveFailures(isInputChecked)}
+                                style={{ float: 'left', width: '1%' }}
+                            />
+                            <Checkbox
+                                className='saves'
+                                checked={this.state.death_save_failures === 3 ? true : false}
+                                onCheck={(event, isInputChecked) => this.deathSaveFailures(isInputChecked)}
+                                style={{ float: 'left', width: '1%' }}
+                                label='Failures'
+                            />
+                        </div>
+                    </div>
+                    <h5>DEATH SAVES</h5>
                 </div>
                 <div className='box traits personality'>
                     <TextField
@@ -793,9 +806,6 @@ class Character extends Component {
                     />
                     <h5>FLAWS</h5>
                 </div>
-                <div className='box spells'>
-                    <Spells id={this.props.match.params.id} />
-                </div>
                 <div className='box feature_traits'>
                     <TextField
                         id='text-field-controlled'
@@ -819,7 +829,7 @@ class Character extends Component {
                 </div>
                 <FloatingActionButton className='undo' children={<Undo />} onClick={() => this.componentDidMount()} secondary={true} />
                 <FloatingActionButton className='save' children={<Save />} onClick={() => this.save()} />
-            </div>
+            </div >
         );
     }
 }
