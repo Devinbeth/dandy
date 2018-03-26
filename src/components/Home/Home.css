@@ -1,3 +1,7 @@
+.Home {
+    background: #efefef;
+}
+
 .Home .characters {
     display: flex;
     flex-direction: column;

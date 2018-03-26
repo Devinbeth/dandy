@@ -1,0 +1,16 @@
+.AllArmor {
+    padding: 6% 5%;
+    background: #efefef;
+}
+
+.AllArmor .armor_table {
+    border: 1.5px;
+    border-radius: 7px;
+    border-style: solid;
+    border-color: #d1d1d1;
+    background-color: white;
+    -moz-box-shadow: 0 0 8px #aaa;
+    -webkit-box-shadow: 0 0 8px #aaa;
+    box-shadow: 0 0 8px #aaa;
+    padding: 2% 3%;
+}

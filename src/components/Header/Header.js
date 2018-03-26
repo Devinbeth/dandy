@@ -43,7 +43,7 @@ class Header extends Component {
                 <Drawer
                     docked={false}
                     open={this.state.open}
-                    onRequestChange={(open) => this.setState({ open })}
+                    onRequestChange={(open) => this.setState({ open: !this.state.open })}
                 >
                     <AppBar
                         title='Menu'
@@ -67,25 +67,25 @@ class Header extends Component {
                             </Link>
                             : null}
                         <Link to='/races'>
-                            <MenuItem style={menuItem}>Races</MenuItem>
+                            <MenuItem style={menuItem} onClick={() => this.setState({ open: false })}>Races</MenuItem>
                         </Link>
                         <Link to='/classes'>
-                            <MenuItem style={menuItem}>Classes</MenuItem>
+                            <MenuItem style={menuItem} onClick={() => this.setState({ open: false })}>Classes</MenuItem>
                         </Link>
                         <Link to='/weapons'>
-                            <MenuItem style={menuItem}>Weapons</MenuItem>
+                            <MenuItem style={menuItem} onClick={() => this.setState({ open: false })}>Weapons</MenuItem>
                         </Link>
                         <Link to='/armor'>
-                            <MenuItem style={menuItem}>Armor</MenuItem>
+                            <MenuItem style={menuItem} onClick={() => this.setState({ open: false })}>Armor</MenuItem>
                         </Link>
                         <Link to='/equipment'>
-                            <MenuItem style={menuItem}>Equipment</MenuItem>
+                            <MenuItem style={menuItem} onClick={() => this.setState({ open: false })}>Equipment</MenuItem>
                         </Link>
                         <Link to='/spells'>
-                            <MenuItem style={menuItem}>Spells</MenuItem>
+                            <MenuItem style={menuItem} onClick={() => this.setState({ open: false })}>Spells</MenuItem>
                         </Link>
                         <Link to='/monsters'>
-                            <MenuItem style={menuItem}>Monsters</MenuItem>
+                            <MenuItem style={menuItem} onClick={() => this.setState({ open: false })}>Monsters</MenuItem>
                         </Link>
                     </div>
                 </Drawer>

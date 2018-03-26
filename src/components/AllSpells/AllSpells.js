@@ -29,7 +29,6 @@ class AllSpells extends Component {
     }
 
     filteredSpells(value) {
-        console.log(this.state.spellList);
         let filteredList = this.state.spellList.filter((spell, index) => {
             return spell.school.includes(value) || spell.classes.includes(value) || spell.level === value;
         });
@@ -89,7 +88,11 @@ class AllSpells extends Component {
                         }}
                         style={{ width: '100px' }}
                     />
-                    <RaisedButton label='Reset Filter' primary={true} onClick={() => this.setState({ spellList: this.props.allSpells, school: '', class: '', level: '' })} />
+                    <RaisedButton 
+                        label='Reset Filter'
+                        primary={true}
+                        onClick={() => this.setState({ spellList: this.props.allSpells, school: '', class: '', level: '' })}
+                    />
                 </div>
                 {this.state.spellList.map((spell, index) => (
                     <div className='spell_list' key={index + spell.id + spell.name}>
@@ -98,13 +101,18 @@ class AllSpells extends Component {
                         <Table>
                             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                                 <TableRow>
-                                    <TableHeaderColumn tooltip='Cost'>LEVEL</TableHeaderColumn>
-                                    <TableHeaderColumn tooltip='Damage'>COMPONENTS</TableHeaderColumn>
-                                    <TableHeaderColumn tooltip='Properties'>CASTING TIME</TableHeaderColumn>
-                                    <TableHeaderColumn tooltip='Weight'>DURATION</TableHeaderColumn>
+                                    <TableHeaderColumn tooltip='LEVEL'>LEVEL</TableHeaderColumn>
+                                    <TableHeaderColumn tooltip='COMPONENTS'>COMPONENTS</TableHeaderColumn>
+                                    <TableHeaderColumn tooltip='CASTING TIME'>CASTING TIME</TableHeaderColumn>
+                                    <TableHeaderColumn tooltip='DURATION'>DURATION</TableHeaderColumn>
                                 </TableRow>
                             </TableHeader>
-                            <TableBody displayRowCheckbox={false} showRowHover={true} stripedRows={false} style={{ tableLayout: 'auto' }}>
+                            <TableBody
+                                displayRowCheckbox={false}
+                                showRowHover={true}
+                                stripedRows={false}
+                                style={{ tableLayout: 'auto' }}
+                            >
                                 <TableRow key={index}>
                                     <TableRowColumn>{spell.level}</TableRowColumn>
                                     <TableRowColumn>{spell.components}</TableRowColumn>
@@ -116,13 +124,18 @@ class AllSpells extends Component {
                         <Table>
                             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                                 <TableRow>
-                                    <TableHeaderColumn tooltip='Weight'>RANGE</TableHeaderColumn>
-                                    <TableHeaderColumn tooltip='Weight'>SAVE</TableHeaderColumn>
-                                    <TableHeaderColumn tooltip='Weight'>SCHOOL</TableHeaderColumn>
-                                    <TableHeaderColumn tooltip='Weight'>CLASSES</TableHeaderColumn>
+                                    <TableHeaderColumn tooltip='RANGE'>RANGE</TableHeaderColumn>
+                                    <TableHeaderColumn tooltip='SAVE'>SAVE</TableHeaderColumn>
+                                    <TableHeaderColumn tooltip='SCHOOL'>SCHOOL</TableHeaderColumn>
+                                    <TableHeaderColumn tooltip='CLASSES'>CLASSES</TableHeaderColumn>
                                 </TableRow>
                             </TableHeader>
-                            <TableBody displayRowCheckbox={false} showRowHover={true} stripedRows={false} style={{ tableLayout: 'auto' }}>
+                            <TableBody
+                                displayRowCheckbox={false}
+                                showRowHover={true}
+                                stripedRows={false}
+                                style={{ tableLayout: 'auto' }}
+                            >
                                 <TableRow key={index}>
                                     <TableRowColumn>{spell.range}</TableRowColumn>
                                     <TableRowColumn>{spell.save}</TableRowColumn>

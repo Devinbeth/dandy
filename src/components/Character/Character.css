@@ -1,12 +1,13 @@
-.Character .sheet {
+.Character {
+    background: #efefef;
     position: absolute;
     top: 65px;
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 11% 16% 35% 35%;
     grid-template-rows: 200px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px 75px;
-    margin-top: 10px;
-    margin-left: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
 }
 
 .Character .box {
@@ -15,9 +16,9 @@
     border-style: solid;
     border-color: #d1d1d1;
     background-color: white;
-    -moz-box-shadow: 0 0 8px #aaa;
-    -webkit-box-shadow: 0 0 8px #aaa;
-    box-shadow: 0 0 8px #aaa;
+    -moz-box-shadow: 0 0 8px #999;
+    -webkit-box-shadow: 0 0 8px #999;
+    box-shadow: 0 0 8px #999;
 }
 
 .Character .logo {

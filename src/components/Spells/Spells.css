@@ -20,17 +20,6 @@
     margin: 0 40%;
 }
 
-.Spells .spell_descriptions {
-    text-align: left;
-}
-
-.Spells .spell_filters {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 2%;
-}
-
 .Spells .new_spell {
     margin-top: 10%;
     display: flex;

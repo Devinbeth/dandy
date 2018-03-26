@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getWeapons, saveWeapon, removeWeapon, getAllWeapons } from '../../ducks/reducer.js';
 import './Weapons.css';
 import Box from '../Box/Box.js';
+import AllWeapons from '../AllWeapons/AllWeapons.js';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -282,30 +283,7 @@ class Weapons extends Component {
                     left={'10%'}
                     title={'ALL WEAPONS'}
                 >
-                    <Table fixedHeader={true} fixedFooter={true} style={{ tableLayout: 'auto'}}>
-                        <TableHeader displaySelectAll={false} adjustForCheckbox={false} style={{ tableLayout: 'auto'}}>
-                            <TableRow>
-                                <TableHeaderColumn tooltip='Category'>CATERGORY</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Name'>NAME</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Cost'>COST</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Damage'>DAMAGE</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Weight'>WEIGHT</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Properties'>PROPERTIES</TableHeaderColumn>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody displayRowCheckbox={false} showRowHover={true} stripedRows={false}>
-                            {this.props.allWeapons.map((weapon, index) => (
-                                <TableRow key={index}>
-                                    <TableRowColumn>{weapon.category}</TableRowColumn>
-                                    <TableRowColumn>{weapon.name}</TableRowColumn>
-                                    <TableRowColumn>{weapon.cost}</TableRowColumn>
-                                    <TableRowColumn>{weapon.damage}</TableRowColumn>
-                                    <TableRowColumn>{weapon.weight}</TableRowColumn>
-                                    <TableRowColumn>{weapon.properties}</TableRowColumn>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    <AllWeapons />
                 </Box>
             </div>
         );

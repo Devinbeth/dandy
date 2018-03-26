@@ -5,5 +5,6 @@ create table if not exists weapons (
     cost varchar(100) not null,
     damage varchar(100) not null,
     weight varchar(100) not null,
-    properties varchar(100) not null
+    properties varchar(100) not null,
+    classes varchar(180) not null
 );
