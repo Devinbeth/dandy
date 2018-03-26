@@ -9,6 +9,10 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Add from 'material-ui/svg-icons/content/add';
+import ranger from '../../assets/svg_icons/016-people-4.svg';
+import druid from '../../assets/svg_icons/020-people.svg';
+import paladin from '../../assets/svg_icons/025-knight-2.svg';
+import fighter from '../../assets/svg_icons/015-people-5.svg';
 
 class Home extends Component {
     constructor(props) {
@@ -32,7 +36,7 @@ class Home extends Component {
                         <CardHeader
                             title={`Level: ${e.level}`}
                             subtitle={`XP: ${e.xp}`}
-                            avatar={e.image}
+                            avatar={e.image === 'ranger' ? ranger : e.image === 'druid' ? druid : e.image === 'paladin' ? paladin : e.image === 'fighter' ? fighter : null}
                         />
                         <CardTitle title={e.name} subtitle={`${e.race} ${e.class}`} />
                         <CardActions>

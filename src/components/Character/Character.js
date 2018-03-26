@@ -15,6 +15,10 @@ import Checkbox from 'material-ui/Checkbox';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Save from 'material-ui/svg-icons/content/save';
 import Undo from 'material-ui/svg-icons/content/undo';
+import ranger from '../../assets/svg_icons/016-people-4.svg';
+import druid from '../../assets/svg_icons/020-people.svg';
+import paladin from '../../assets/svg_icons/025-knight-2.svg';
+import fighter from '../../assets/svg_icons/015-people-5.svg';
 
 class Character extends Component {
     constructor(props) {
@@ -261,7 +265,7 @@ class Character extends Component {
                     />
                 </div>
                 <div className='box basic_info'>
-                    {/* <img className='character_image' src={this.state.image} alt='' /> */}
+                    <img className='character_image' src={this.state.image === 'ranger' ? ranger : this.state.image === 'druid' ? druid : this.state.image === 'paladin' ? paladin : this.state.image === 'fighter' ? fighter : null} alt='' />
                     <div className='race'>
                         <Race race={this.state.race} updateRace={this.updateRace} />
                     </div>

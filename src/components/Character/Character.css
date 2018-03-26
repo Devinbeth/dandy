@@ -43,8 +43,8 @@
 
 .Character .character_image {
     grid-area: 1 / 1 / 3 / 2;
-    height: 20vh;
-    margin: 15% 10%;
+    height: 17vh;
+    margin: 20px;
 }
 
 .Character .race {
