@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getArmor, saveArmor, removeArmor, getAllArmor } from '../../ducks/reducer.js';
+import { getArmor, removeArmor } from '../../ducks/reducer.js';
 import './Equipment.css';
 import Box from '../Box/Box.js';
 import AllArmor from '../AllArmor/AllArmor.js';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Close from 'material-ui/svg-icons/navigation/close';
 import Info from 'material-ui/svg-icons/action/info';
@@ -19,22 +18,15 @@ class Equipment extends Component {
             infoToggle: false,
             equipmentNotes: ''
         }
-        this.addArmor = this.addArmor.bind(this);
         this.removeArmor = this.removeArmor.bind(this);
     }
 
     componentDidMount() {
         this.props.getArmor(this.props.id);
-        this.props.getAllArmor();
     }
 
     componentWillReceiveProps(newProps) {
         this.setState({ armor: newProps.character_armor });
-    }
-
-    addArmor() {
-        this.props.saveArmor({ character_id: this.props.id, armor_id: this.state.newArmor });
-        this.setState({ category: 1, newArmor: 0, newToggle: false });
     }
 
     removeArmor(id) {
@@ -45,8 +37,11 @@ class Equipment extends Component {
         return (
             <div className='Equipment'>
                 <div className='equipment_table'>
-                    <Table fixedHeader={true} fixedFooter={true}>
-                        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+                    <Table>
+                        <TableHeader
+                            displaySelectAll={false}
+                            adjustForCheckbox={false}
+                        >
                             <TableRow>
                                 <TableHeaderColumn tooltip='Name'>NAME</TableHeaderColumn>
                                 <TableHeaderColumn tooltip='AC'>ARMOR CLASS</TableHeaderColumn>
@@ -54,26 +49,24 @@ class Equipment extends Component {
                                 <TableHeaderColumn tooltip='Save/Delete'>DELETE</TableHeaderColumn>
                             </TableRow>
                         </TableHeader>
-                        <TableBody displayRowCheckbox={false} showRowHover={true} stripedRows={false}>
+                        <TableBody
+                            displayRowCheckbox={false}
+                            showRowHover={true}
+                            stripedRows={false}
+                        >
                             {this.state.armor.map((armor, index) => (
                                 <TableRow key={index}>
-                                    <TableRowColumn style={{ width: '30%', textAlign: 'left', margin: 0, padding: '2%' }}>
-                                        <FlatButton
-                                            label={armor.name ? armor.name : 'No Armor'}
-                                            onClick={() => {
-                                                this.setState({ infoToggle: true });
-                                                this.armorInfoBox(armor.armor_id);
-                                            }}
-                                        />
+                                    <TableRowColumn>
+                                        {armor.name ? armor.name : 'No Armor'}
                                     </TableRowColumn>
-                                    <TableRowColumn style={{ width: '10%', alignContent: 'left', margin: 0, padding: '2%' }}>
+                                    <TableRowColumn>
                                         {armor.ac}
                                     </TableRowColumn>
-                                    <TableRowColumn style={{ width: '35%', textAlign: 'center', margin: 0, padding: '2%' }}>
+                                    <TableRowColumn>
                                         {armor.stealth}
                                     </TableRowColumn>
-                                    <TableRowColumn style={{ width: '20%', alignItems: 'left', margin: 0, padding: '2%' }}>
-                                        <IconButton onClick={() => this.removeArmor(armor.ca_id)} style={{ margin: 0, padding: 0 }}>
+                                    <TableRowColumn>
+                                        <IconButton onClick={() => this.removeArmor(armor.ca_id)}>
                                             <Close />
                                         </IconButton>
                                     </TableRowColumn>
@@ -128,4 +121,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { getArmor, saveArmor, removeArmor, getAllArmor })(Equipment);
+export default connect(mapStateToProps, { getArmor, removeArmor })(Equipment);

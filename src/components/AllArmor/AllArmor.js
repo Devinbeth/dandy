@@ -6,6 +6,8 @@ import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowCol
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Save from 'material-ui/svg-icons/content/save';
 
 class AllArmor extends Component {
     constructor(props) {
@@ -56,9 +58,9 @@ class AllArmor extends Component {
                         }}
                         style={{ width: '170px', textAlign: 'left' }}
                     >
-                        <MenuItem value={'Light Armor'} primaryText='Light Armor' />
-                        <MenuItem value={'Medium Armor'} primaryText='Medium Armor' />
-                        <MenuItem value={'Heavy Armor'} primaryText='Heavy Armor' />
+                        <MenuItem value={'Light'} primaryText='Light Armor' />
+                        <MenuItem value={'Medium'} primaryText='Medium Armor' />
+                        <MenuItem value={'Heavy'} primaryText='Heavy Armor' />
                         <MenuItem value={'Shield'} primaryText='Shield' />
                     </SelectField>
                     <SelectField
@@ -90,15 +92,10 @@ class AllArmor extends Component {
                 </div>
                 <div className='armor_table'>
                     <Table
-                        selectable={true}
-                        onRowSelection={(selectedRows) => {
-                            console.log(selectedRows);
-                            this.setState({ selectedArmor: selectedRows })
-                        }}
-                        style={{ tableLayout: 'auto' }}
+                        multiSelectable={true}
                     >
                         <TableHeader
-                            displaySelectAll={false}
+                            displaySelectAll={true}
                             adjustForCheckbox={true}
                         >
                             <TableRow>
@@ -130,8 +127,10 @@ class AllArmor extends Component {
                         </TableBody>
                     </Table>
                     {this.props.characterId && this.state.selectedArmor ?
-                        <RaisedButton
+                        <FloatingActionButton
+                            className='save'
                             label='Add Armor'
+                            children={<Save />}
                             primary={true}
                             onClick={() => {
                                 console.log(this.props.characterId);

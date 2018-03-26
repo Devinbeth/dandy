@@ -11,8 +11,8 @@ import Equipment from '../Equipment/Equipment.js';
 import Spells from '../Spells/Spells.js';
 import logo from '../../assets/D&D_5E_Logo.png';
 import TextField from 'material-ui/TextField';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Checkbox from 'material-ui/Checkbox';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Save from 'material-ui/svg-icons/content/save';
 import Undo from 'material-ui/svg-icons/content/undo';
 
@@ -697,7 +697,8 @@ class Character extends Component {
                         id='text-field-controlled'
                         value={this.state.copper ? this.state.copper : ''}
                         onChange={(e) => this.setState({ copper: Number(e.target.value) })}
-                        floatingLabelText='CP'
+                        floatingLabelText='Copper'
+                        floatingLabelFixed={true}
                         type='number'
                         style={{ width: '15%' }}
                     />
@@ -705,7 +706,8 @@ class Character extends Component {
                         id='text-field-controlled'
                         value={this.state.silver ? this.state.silver : ''}
                         onChange={(e) => this.setState({ silver: Number(e.target.value) })}
-                        floatingLabelText='SP'
+                        floatingLabelText='Silver'
+                        floatingLabelFixed={true}
                         type='number'
                         style={{ width: '15%' }}
                     />
@@ -713,7 +715,8 @@ class Character extends Component {
                         id='text-field-controlled'
                         value={this.state.electrum ? this.state.electrum : ''}
                         onChange={(e) => this.setState({ electrum: Number(e.target.value) })}
-                        floatingLabelText='EP'
+                        floatingLabelText='Electrum'
+                        floatingLabelFixed={true}
                         type='number'
                         style={{ width: '15%' }}
                     />
@@ -721,7 +724,8 @@ class Character extends Component {
                         id='text-field-controlled'
                         value={this.state.gold ? this.state.gold : ''}
                         onChange={(e) => this.setState({ gold: Number(e.target.value) })}
-                        floatingLabelText='GP'
+                        floatingLabelText='Gold'
+                        floatingLabelFixed={true}
                         type='number'
                         style={{ width: '15%' }}
                     />
@@ -729,7 +733,8 @@ class Character extends Component {
                         id='text-field-controlled'
                         value={this.state.platinum ? this.state.platinum : ''}
                         onChange={(e) => this.setState({ platinum: Number(e.target.value) })}
-                        floatingLabelText='PP'
+                        floatingLabelText='Platinum'
+                        floatingLabelFixed={true}
                         type='number'
                         style={{ width: '15%' }}
                     />

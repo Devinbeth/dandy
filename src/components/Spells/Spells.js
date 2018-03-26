@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getSpells, saveSpell, removeSpell } from '../../ducks/reducer.js';
+import { getSpells, removeSpell } from '../../ducks/reducer.js';
 import './Spells.css';
 import Box from '../Box/Box.js';
 import AllSpells from '../AllSpells/AllSpells.js';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Close from 'material-ui/svg-icons/navigation/close';
 import Info from 'material-ui/svg-icons/action/info';
@@ -57,27 +56,17 @@ class Spells extends Component {
                         >
                             {this.state.spells.map((spell, index) => (
                                 <TableRow key={index}>
-                                    <TableRowColumn style={{ width: '30%', textAlign: 'left', margin: 0, padding: '2%' }}>
-                                        <FlatButton
-                                            label={spell.name ? spell.name : 'No Spells'}
-                                            onClick={() => {
-                                                this.setState({ infoToggle: true });
-                                                this.weaponInfoBox(spell.spell_id);
-                                            }}
-                                        />
+                                    <TableRowColumn>
+                                        {spell.name ? spell.name : 'No Spells'}
                                     </TableRowColumn>
-                                    <TableRowColumn style={{ width: '20%', alignContent: 'left', margin: 0, padding: '2%' }}>
+                                    <TableRowColumn>
                                         {spell.casting_time}
                                     </TableRowColumn>
-                                    <TableRowColumn style={{ width: '20%', textAlign: 'center', margin: 0, padding: '2%' }}>
+                                    <TableRowColumn>
                                         {spell.save}
                                     </TableRowColumn>
-                                    <TableRowColumn style={{ width: '15%', alignItems: 'left', margin: 0, padding: '2%' }}>
-                                        <IconButton onClick={() => {
-                                            console.log(spell);
-                                            this.removeSpell(spell.cs_id)
-                                        }} 
-                                        style={{ margin: 0, padding: 0 }}>
+                                    <TableRowColumn>
+                                        <IconButton onClick={() => this.removeSpell(spell.cs_id)}>
                                             <Close />
                                         </IconButton>
                                     </TableRowColumn>
@@ -131,4 +120,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { getSpells, saveSpell, removeSpell })(Spells);
+export default connect(mapStateToProps, { getSpells, removeSpell })(Spells);

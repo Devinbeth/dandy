@@ -33,3 +33,9 @@
     margin-top: 20px;
     overflow: scroll;
 }
+
+.AllArmor .save {
+    position: fixed;
+    bottom: 8%;
+    right: 12%;
+}

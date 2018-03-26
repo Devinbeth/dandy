@@ -119,7 +119,6 @@ class AllSpells extends Component {
                                 displayRowCheckbox={false}
                                 showRowHover={true}
                                 stripedRows={false}
-                                style={{ tableLayout: 'auto' }}
                             >
                                 <TableRow key={index}>
                                     <TableRowColumn>{spell.level}</TableRowColumn>
@@ -145,7 +144,6 @@ class AllSpells extends Component {
                                 displayRowCheckbox={false}
                                 showRowHover={true}
                                 stripedRows={false}
-                                style={{ tableLayout: 'auto' }}
                             >
                                 <TableRow key={index}>
                                     <TableRowColumn>{spell.range}</TableRowColumn>

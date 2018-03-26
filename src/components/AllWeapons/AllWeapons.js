@@ -47,10 +47,10 @@ class AllWeapons extends Component {
                         }}
                         style={{ width: '230px', textAlign: 'left' }}
                     >
-                        <MenuItem value={'Simple Melee Weapon'} primaryText='Simple Melee Weapon' />
-                        <MenuItem value={'Simple Ranged Weapon'} primaryText='Simple Ranged Weapon' />
-                        <MenuItem value={'Martial Melee Weapon'} primaryText='Martial Melee Weapon' />
-                        <MenuItem value={'Martial Ranged Weapon'} primaryText='Martial Ranged Weapon' />
+                        <MenuItem value={'Simple Melee'} primaryText='Simple Melee Weapon' />
+                        <MenuItem value={'Simple Ranged'} primaryText='Simple Ranged Weapon' />
+                        <MenuItem value={'Martial Melee'} primaryText='Martial Melee Weapon' />
+                        <MenuItem value={'Martial Ranged'} primaryText='Martial Ranged Weapon' />
                     </SelectField>
                     <SelectField
                         floatingLabelText='Class'
@@ -83,19 +83,18 @@ class AllWeapons extends Component {
                     <Table
                         onRowSelection={(selectedRows) => console.log(selectedRows)}
                         multiSelectable={true}
-                        style={{ tableLayout: 'auto' }}
                     >
                         <TableHeader
-                            displaySelectAll={false}
+                            displaySelectAll={true}
                             adjustForCheckbox={true}
                         >
                             <TableRow>
-                                <TableHeaderColumn tooltip='Category'>CATERGORY</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Name'>NAME</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Cost'>COST</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Damage'>DAMAGE</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Weight'>WEIGHT</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Properties'>PROPERTIES</TableHeaderColumn>
+                                <TableHeaderColumn>CATERGORY</TableHeaderColumn>
+                                <TableHeaderColumn>NAME</TableHeaderColumn>
+                                <TableHeaderColumn>COST</TableHeaderColumn>
+                                <TableHeaderColumn>DAMAGE</TableHeaderColumn>
+                                <TableHeaderColumn>WEIGHT</TableHeaderColumn>
+                                <TableHeaderColumn>PROPERTIES</TableHeaderColumn>
                             </TableRow>
                         </TableHeader>
                         <TableBody
