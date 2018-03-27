@@ -91,7 +91,10 @@ class AllArmor extends Component {
                     />
                 </div>
                 <div className='armor_table'>
-                    <Table onRowSelection={(selectedRows) => this.setState({ selectedArmor: selectedRows })}>
+                    <Table 
+                        style={{ tableLayout: 'auto', zIndex: 1 }}
+                        onRowSelection={(selectedRows) => this.setState({ selectedArmor: selectedRows })}
+                    >
                         <TableHeader
                             displaySelectAll={false}
                             adjustForCheckbox={true}

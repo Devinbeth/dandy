@@ -91,7 +91,10 @@ class AllWeapons extends Component {
                     />
                 </div>
                 <div className='weapons_table'>
-                    <Table onRowSelection={(selectedRows) => this.setState({ selectedWeapon: selectedRows })}>
+                    <Table
+                        style={{ tableLayout: 'auto', zIndex: 1 }}
+                        onRowSelection={(selectedRows) => this.setState({ selectedWeapon: selectedRows })}
+                    >
                         <TableHeader
                             displaySelectAll={false}
                             adjustForCheckbox={true}

@@ -32,7 +32,7 @@ class Equipment extends Component {
         return (
             <div className='Equipment'>
                 <div className='equipment_table'>
-                    <Table>
+                    <Table style={{ tableLayout: 'auto', zIndex: 1 }}>
                         <TableHeader
                             displaySelectAll={false}
                             adjustForCheckbox={false}

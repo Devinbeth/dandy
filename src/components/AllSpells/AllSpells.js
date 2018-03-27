@@ -163,6 +163,7 @@ class AllSpells extends Component {
                             {this.props.character.id && !this.props.characterSpells.find((e) => e.id === spell.id) ? 
                                 <RaisedButton
                                     label='Add Spell'
+                                    primary={true}
                                     onClick={() => {
                                         this.saveSpell({character_id: this.props.character.id, spell_id: spell.id});
                                         this.props.switch();
