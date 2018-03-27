@@ -24,6 +24,12 @@ class Character extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            acBox: false,
+            initiativeBox: false,
+            speedBox: false,
+            maxHpBox: false,
+            currentHpBox: false,
+            tempHpBox: false,
             id: Number(this.props.match.params.id),
             name: '',
             image: '',
@@ -582,7 +588,7 @@ class Character extends Component {
                     />
                     <h5>OTHER PROFICIENCIES & LANGUAGES</h5>
                 </div>
-                <div className='box ac'>
+                <div className={`${this.state.acBox ? 'active' : 'box'} ac`} onClick={() => this.setState({ acBox: !this.state.acBox })}>
                     <h5>ARMOR CLASS</h5>
                     <TextField
                         id='text-field-controlled'
@@ -592,7 +598,7 @@ class Character extends Component {
                         inputStyle={{ textAlign: 'center' }}
                     />
                 </div>
-                <div className='box initiative'>
+                <div className={`${this.state.initiativeBox ? 'active' : 'box'} initiative`} onClick={() => this.setState({ initiativeBox: !this.state.initiativeBox })}>
                     <h5>INITIATIVE</h5>
                     <TextField
                         id='text-field-controlled'
@@ -602,7 +608,7 @@ class Character extends Component {
                         inputStyle={{ textAlign: 'center' }}
                     />
                 </div>
-                <div className='box speed'>
+                <div className={`${this.state.speedBox ? 'active' : 'box'} speed`} onClick={() => this.setState({ speedBox: !this.state.speedBox })}>
                     <h5>SPEED</h5>
                     <TextField
                         id='text-field-controlled'
@@ -612,7 +618,7 @@ class Character extends Component {
                         inputStyle={{ textAlign: 'center' }}
                     />
                 </div>
-                <div className='box max_hp'>
+                <div className={`${this.state.maxHpBox ? 'active' : 'box'} max_hp`} onClick={() => this.setState({ maxHpBox: !this.state.maxHpBox })}>
                     <h5>MAX HIT POINTS</h5>
                     <TextField
                         id='text-field-controlled'
@@ -622,7 +628,7 @@ class Character extends Component {
                         inputStyle={{ textAlign: 'center' }}
                     />
                 </div>
-                <div className='box current_hp'>
+                <div className={`${this.state.currentHpBox ? 'active' : 'box'} current_hp`} onClick={() => this.setState({ currentHpBox: !this.state.currentHpBox })}>
                     <h5>CURRENT HP</h5>
                     <TextField
                         id='text-field-controlled'
@@ -632,7 +638,7 @@ class Character extends Component {
                         inputStyle={{ textAlign: 'center' }}
                     />
                 </div>
-                <div className='box temp_hp'>
+                <div className={`${this.state.tempHpBox ? 'active' : 'box'} temp_hp`} onClick={() => this.setState({ tempHpBox: !this.state.tempHpBox })}>
                     <h5>TEMP HP</h5>
                     <TextField
                         id='text-field-controlled'

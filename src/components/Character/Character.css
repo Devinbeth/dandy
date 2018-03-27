@@ -21,6 +21,35 @@
     box-shadow: 0 0 8px #999;
 }
 
+.Character .active {
+    z-index: 17;
+    border: 1.5px;
+    border-radius: 7px;
+    border-style: solid;
+    border-color: #d1d1d1;
+    background-color: white;
+    -moz-box-shadow: 0 0 8px #999;
+    -webkit-box-shadow: 0 0 8px #999;
+    box-shadow: 0 0 8px #999;
+    animation-name: expand;
+    animation-duration: .2s;
+    margin: -8%;
+}
+
+@keyframes expand {
+    0%   {margin: -0%;}
+    10%  {margin: -2%;}
+    20%  {margin: -4%;}
+    30%  {margin: -6%;}
+    40%  {margin: -8%;}
+    50%  {margin: -10%;}
+    60%  {margin: -12%;}
+    70%  {margin: -14%;}
+    80%  {margin: -12%;}
+    90%  {margin: -10%;}
+    100% {margin: -8%;}
+}
+
 .Character .logo {
     height: 10vh;
 }

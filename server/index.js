@@ -63,8 +63,8 @@ passport.deserializeUser((id, done) => {
 // AUTH ENDPOINTS
 app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: '/#/home',
-    failueRedirect: '/'
+    successRedirect: 'http://localhost:3000/#/home',
+    failueRedirect: 'http://localhost:3000/'
 }));
 app.get('/auth/me', (req, res) => {
     if (req.user) {
@@ -76,7 +76,7 @@ app.get('/auth/me', (req, res) => {
 });
 app.get('/auth/logout', (req, res) => {
     req.logOut();
-    res.redirect('/')
+    res.redirect('http://localhost:3000/')
 });
 app.put('/user', (req, res) => {
     const db = req.app.get('db');
