@@ -14,7 +14,6 @@ class Weapons extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            weapons: [{}],
             infoToggle: false,
             weaponNotes: ''
         }
@@ -23,11 +22,7 @@ class Weapons extends Component {
     }
 
     componentDidMount() {
-        this.props.getWeapons(this.props.id);
-    }
-
-    componentWillReceiveProps(newProps) {
-        this.setState({ weapons: newProps.character_weapons });
+        this.props.getWeapons(this.props.character.id);
     }
 
     abilityModifiers(ability) {
@@ -51,10 +46,10 @@ class Weapons extends Component {
                             adjustForCheckbox={false}
                         >
                             <TableRow>
-                                <TableHeaderColumn tooltip='Name'>NAME</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Bonus'>ATK BONUS</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Damage'>DAMAGE</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Save/Delete'>DELETE</TableHeaderColumn>
+                                <TableHeaderColumn>NAME</TableHeaderColumn>
+                                <TableHeaderColumn>ATK BONUS</TableHeaderColumn>
+                                <TableHeaderColumn>DAMAGE</TableHeaderColumn>
+                                <TableHeaderColumn>DELETE</TableHeaderColumn>
                             </TableRow>
                         </TableHeader>
                         <TableBody
@@ -62,7 +57,7 @@ class Weapons extends Component {
                             showRowHover={true}
                             stripedRows={false}
                         >
-                            {this.state.weapons.map((weapon, index) => (
+                            {this.props.characterWeapons.map((weapon, index) => (
                                 <TableRow key={index}>
                                     <TableRowColumn>
                                         {weapon.name ? weapon.name : 'No Weapons'}
@@ -110,7 +105,7 @@ class Weapons extends Component {
                     left={'10%'}
                     title={'WEAPONS'}
                 >
-                    <AllWeapons />
+                    <AllWeapons switch={() => this.setState({ infoToggle: false })}/>
                 </Box>
             </div>
         );
@@ -120,7 +115,7 @@ class Weapons extends Component {
 function mapStateToProps(state) {
     return {
         character: state.character,
-        character_weapons: state.character_weapons,
+        characterWeapons: state.characterWeapons,
     };
 }
 

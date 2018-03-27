@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCharacter, saveCharacter, createCharacter, resetCharacter } from '../../ducks/reducer.js';
+import { getCharacter, saveCharacter, createCharacter, resetCharacter, getWeapons, getArmor, getSpells } from '../../ducks/reducer.js';
 import './Character.css';
 import Race from './Race.js';
 import Class from './Class.js';
@@ -24,12 +24,14 @@ class Character extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            acBox: false,
-            initiativeBox: false,
-            speedBox: false,
-            maxHpBox: false,
-            currentHpBox: false,
-            tempHpBox: false,
+            toggles: {
+                acBox: false,
+                initiativeBox: false,
+                speedBox: false,
+                maxHpBox: false,
+                currentHpBox: false,
+                tempHpBox: false
+            },
             id: Number(this.props.match.params.id),
             name: '',
             image: '',
@@ -110,6 +112,9 @@ class Character extends Component {
     componentDidMount() {
         if (Number(this.props.match.params.id)) {
             this.props.getCharacter(this.props.match.params.id);
+            this.props.getWeapons(this.props.match.params.id);
+            this.props.getArmor(this.props.match.params.id);
+            this.props.getSpells(this.props.match.params.id);
         }
         else {
             this.props.resetCharacter();
@@ -117,11 +122,13 @@ class Character extends Component {
     }
 
     save() {
+        let character = Object.assign({}, this.state);
+        delete character.toggles;
         if (Number(this.props.match.params.id)) {
-            this.props.saveCharacter(this.props.match.params.id, this.state);
+            this.props.saveCharacter(this.props.match.params.id, character);
         }
         else {
-            this.props.createCharacter(this.state);
+            this.props.createCharacter(character);
         }
     }
 
@@ -666,13 +673,13 @@ class Character extends Component {
                     />
                 </div>
                 <div className='box weapons'>
-                    <Weapons id={this.props.match.params.id} />
+                    <Weapons />
                 </div>
                 <div className='box equipment'>
-                    <Equipment id={this.props.match.params.id} />
+                    <Equipment />
                 </div>
                 <div className='box spells'>
-                    <Spells id={this.props.match.params.id} />
+                    <Spells />
                 </div>
                 <div className='box money'>
                     <TextField
@@ -847,8 +854,7 @@ class Character extends Component {
 function mapStateToProps(state) {
     return {
         character: state.character,
-        character_weapons: state.character_weapons
     };
 }
 
-export default connect(mapStateToProps, { getCharacter, saveCharacter, createCharacter, resetCharacter })(Character);
+export default connect(mapStateToProps, { getCharacter, saveCharacter, createCharacter, resetCharacter, getWeapons, getArmor, getSpells })(Character);

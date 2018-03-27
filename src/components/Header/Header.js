@@ -33,7 +33,7 @@ class Header extends Component {
         return (
             <div className='Header'>
                 <AppBar
-                    title='DANDY'
+                    title={this.props.user.id ? <Link to='/home'>DANDY</Link> : <Link to='/'>DANDY</Link>}
                     onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}
                     style={{ position: 'fixed' }}
                 >

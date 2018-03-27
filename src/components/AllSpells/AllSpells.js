@@ -31,6 +31,7 @@ class AllSpells extends Component {
 
     saveSpell(spell) {
         this.props.saveSpell(spell);
+        this.setState({ school: '', class: '', level: '' })
     }
 
     filteredSpells(value) {
@@ -109,10 +110,10 @@ class AllSpells extends Component {
                                 adjustForCheckbox={false}
                             >
                                 <TableRow>
-                                    <TableHeaderColumn tooltip='LEVEL'>LEVEL</TableHeaderColumn>
-                                    <TableHeaderColumn tooltip='COMPONENTS'>COMPONENTS</TableHeaderColumn>
-                                    <TableHeaderColumn tooltip='CASTING TIME'>CASTING TIME</TableHeaderColumn>
-                                    <TableHeaderColumn tooltip='DURATION'>DURATION</TableHeaderColumn>
+                                    <TableHeaderColumn>LEVEL</TableHeaderColumn>
+                                    <TableHeaderColumn>COMPONENTS</TableHeaderColumn>
+                                    <TableHeaderColumn>CASTING TIME</TableHeaderColumn>
+                                    <TableHeaderColumn>DURATION</TableHeaderColumn>
                                 </TableRow>
                             </TableHeader>
                             <TableBody
@@ -134,10 +135,10 @@ class AllSpells extends Component {
                                 adjustForCheckbox={false}
                             >
                                 <TableRow>
-                                    <TableHeaderColumn tooltip='RANGE'>RANGE</TableHeaderColumn>
-                                    <TableHeaderColumn tooltip='SAVE'>SAVE</TableHeaderColumn>
-                                    <TableHeaderColumn tooltip='SCHOOL'>SCHOOL</TableHeaderColumn>
-                                    <TableHeaderColumn tooltip='CLASSES'>CLASSES</TableHeaderColumn>
+                                    <TableHeaderColumn>RANGE</TableHeaderColumn>
+                                    <TableHeaderColumn>SAVE</TableHeaderColumn>
+                                    <TableHeaderColumn>SCHOOL</TableHeaderColumn>
+                                    <TableHeaderColumn>CLASSES</TableHeaderColumn>
                                 </TableRow>
                             </TableHeader>
                             <TableBody
@@ -159,14 +160,13 @@ class AllSpells extends Component {
                             <p>{spell.higher_levels}</p>
                             <h4>Material: </h4>
                             <p>{spell.material}</p>
-                            {this.props.id && !this.props.characterSpells.find((e) => e.id === spell.id) ? 
+                            {this.props.character.id && !this.props.characterSpells.find((e) => e.id === spell.id) ? 
                                 <RaisedButton
                                     label='Add Spell'
                                     primary={true}
                                     onClick={() => {
-                                        this.saveSpell({character_id: this.props.id, spell_id: spell.id});
+                                        this.saveSpell({character_id: this.props.character.id, spell_id: spell.id});
                                         this.props.switch();
-                                        this.setState({ school: '', class: '', level: '' })
                                     }}
                                 />
                             : null}
@@ -183,7 +183,9 @@ class AllSpells extends Component {
 
 function mapStateToProps(state) {
     return {
-        allSpells: state.allSpells
+        allSpells: state.allSpells,
+        character: state.character,
+        characterSpells: state.characterSpells
     };
 }
 

@@ -30,9 +30,9 @@ class AllArmor extends Component {
         this.setState({ armorList: newProps.allArmor });
     }
 
-    saveArmor(characterId, characterArmor) {
-        if (!characterArmor.find((e) => e.id === this.state.armorList[this.state.selectedArmor[0]].id)) {
-            this.props.saveArmor({character_id: characterId, armor_id: this.state.armorList[this.state.selectedArmor[0]].id});
+    saveArmor() {
+        if (!this.props.characterArmor.find((e) => e.id === this.state.armorList[this.state.selectedArmor[0]].id)) {
+            this.props.saveArmor({character_id: this.props.character.id, armor_id: this.state.armorList[this.state.selectedArmor[0]].id});
         }
         this.setState({ armorList: this.props.allArmor, category: '', class: '', selectedArmor: [] });
     }
@@ -91,11 +91,9 @@ class AllArmor extends Component {
                     />
                 </div>
                 <div className='armor_table'>
-                    <Table
-                        multiSelectable={true}
-                    >
+                    <Table onRowSelection={(selectedRows) => this.setState({ selectedArmor: selectedRows })}>
                         <TableHeader
-                            displaySelectAll={true}
+                            displaySelectAll={false}
                             adjustForCheckbox={true}
                         >
                             <TableRow>
@@ -126,15 +124,14 @@ class AllArmor extends Component {
                             ))}
                         </TableBody>
                     </Table>
-                    {this.props.characterId && this.state.selectedArmor ?
+                    {this.props.character.id ?
                         <FloatingActionButton
                             className='save'
                             label='Add Armor'
                             children={<Save />}
                             primary={true}
                             onClick={() => {
-                                console.log(this.props.characterId);
-                                this.saveArmor(this.props.characterId, this.props.characterArmor);
+                                this.saveArmor();
                                 this.props.switch();
                             }}
                         />
@@ -147,7 +144,9 @@ class AllArmor extends Component {
 
 function mapStateToProps(state) {
     return {
-        allArmor: state.allArmor
+        allArmor: state.allArmor,
+        character: state.character,
+        characterArmor: state.characterArmor
     };
 }
 

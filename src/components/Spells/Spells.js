@@ -14,7 +14,6 @@ class Spells extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            spells: [{}],
             infoToggle: false,
             spellNotes: ''
         }
@@ -22,11 +21,7 @@ class Spells extends Component {
     }
 
     componentDidMount() {
-        this.props.getSpells(this.props.id);
-    }
-
-    componentWillReceiveProps(newProps) {
-        this.setState({ spells: newProps.character_spells });
+        this.props.getSpells(this.props.character.id);
     }
 
     removeSpell(id) {
@@ -43,10 +38,10 @@ class Spells extends Component {
                             adjustForCheckbox={false}
                         >
                             <TableRow>
-                                <TableHeaderColumn tooltip='NAME'>NAME</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='CASTING TIME'>CASTING TIME</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='SAVE'>SAVE</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Save/Delete'>DELETE</TableHeaderColumn>
+                                <TableHeaderColumn>NAME</TableHeaderColumn>
+                                <TableHeaderColumn>CASTING TIME</TableHeaderColumn>
+                                <TableHeaderColumn>SAVE</TableHeaderColumn>
+                                <TableHeaderColumn>DELETE</TableHeaderColumn>
                             </TableRow>
                         </TableHeader>
                         <TableBody 
@@ -54,7 +49,7 @@ class Spells extends Component {
                             showRowHover={true}
                             stripedRows={false}
                         >
-                            {this.state.spells.map((spell, index) => (
+                            {this.props.characterSpells.map((spell, index) => (
                                 <TableRow key={index}>
                                     <TableRowColumn>
                                         {spell.name ? spell.name : 'No Spells'}
@@ -102,11 +97,7 @@ class Spells extends Component {
                     left={'10%'}
                     title={'SPELLS'}
                 >
-                    <AllSpells 
-                        id={this.props.id}
-                        characterSpells={this.state.spells}
-                        switch={() => this.setState({ infoToggle: false })}
-                    />
+                    <AllSpells switch={() => this.setState({ infoToggle: false })}/>
                 </Box>
             </div>
         );
@@ -116,7 +107,7 @@ class Spells extends Component {
 function mapStateToProps(state) {
     return {
         character: state.character,
-        character_spells: state.character_spells,
+        characterSpells: state.characterSpells,
     };
 }
 

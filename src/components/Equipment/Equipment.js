@@ -14,7 +14,6 @@ class Equipment extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            armor: [{}],
             infoToggle: false,
             equipmentNotes: ''
         }
@@ -22,11 +21,7 @@ class Equipment extends Component {
     }
 
     componentDidMount() {
-        this.props.getArmor(this.props.id);
-    }
-
-    componentWillReceiveProps(newProps) {
-        this.setState({ armor: newProps.character_armor });
+        this.props.getArmor(this.props.character.id);
     }
 
     removeArmor(id) {
@@ -43,10 +38,10 @@ class Equipment extends Component {
                             adjustForCheckbox={false}
                         >
                             <TableRow>
-                                <TableHeaderColumn tooltip='Name'>NAME</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='AC'>ARMOR CLASS</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Stealth'>STEALTH</TableHeaderColumn>
-                                <TableHeaderColumn tooltip='Save/Delete'>DELETE</TableHeaderColumn>
+                                <TableHeaderColumn>NAME</TableHeaderColumn>
+                                <TableHeaderColumn>ARMOR CLASS</TableHeaderColumn>
+                                <TableHeaderColumn>STEALTH</TableHeaderColumn>
+                                <TableHeaderColumn>DELETE</TableHeaderColumn>
                             </TableRow>
                         </TableHeader>
                         <TableBody
@@ -54,7 +49,7 @@ class Equipment extends Component {
                             showRowHover={true}
                             stripedRows={false}
                         >
-                            {this.state.armor.map((armor, index) => (
+                            {this.props.characterArmor.map((armor, index) => (
                                 <TableRow key={index}>
                                     <TableRowColumn>
                                         {armor.name ? armor.name : 'No Armor'}
@@ -102,11 +97,7 @@ class Equipment extends Component {
                     left={'10%'}
                     title={'ARMOR'}
                 >
-                    <AllArmor 
-                        characterId={this.props.id}
-                        characterArmor={this.state.armor}
-                        switch={() => this.setState({ infoToggle: false })}
-                    />
+                    <AllArmor switch={() => this.setState({ infoToggle: false })}/>
                 </Box>
             </div>
         );
@@ -116,7 +107,7 @@ class Equipment extends Component {
 function mapStateToProps(state) {
     return {
         character: state.character,
-        character_armor: state.character_armor,
+        characterArmor: state.characterArmor,
         allArmor: state.allArmor
     };
 }

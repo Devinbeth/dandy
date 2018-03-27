@@ -70,9 +70,9 @@ const initialState = {
         features: '',
         traits: ''
     },
-    character_weapons: [{}],
-    character_armor: [{}],
-    character_spells: [{}],
+    characterWeapons: [{}],
+    characterArmor: [{}],
+    characterSpells: [{}],
     allWeapons: [{}],
     allArmor: [{}],
     allSpells: [{}]
@@ -317,36 +317,36 @@ export default function reducer(state = initialState, action) {
 
         // WEAPONS REDUCER
         case GET_WEAPONS + '_FULFILLED':
-            return Object.assign({}, state, { character_weapons: action.payload });
+            return Object.assign({}, state, { characterWeapons: action.payload });
 
         case SAVE_WEAPON + '_FULFILLED':
-            return Object.assign({}, state, { character_weapons: action.payload });
+            return Object.assign({}, state, { characterWeapons: action.payload });
 
         case REMOVE_WEAPON + '_FULFILLED':
-            return Object.assign({}, state, { character_weapons: action.payload });
+            return Object.assign({}, state, { characterWeapons: action.payload });
 
         case EDIT_WEAPON + '_FULFILLED':
-            return Object.assign({}, state, { character_weapons: action.payload });
+            return Object.assign({}, state, { characterWeapons: action.payload });
 
         // ARMOR REDUCER
         case GET_ARMOR + '_FULFILLED':
-            return Object.assign({}, state, { character_armor: action.payload });
+            return Object.assign({}, state, { characterArmor: action.payload });
 
         case SAVE_ARMOR + '_FULFILLED':
-            return Object.assign({}, state, { character_armor: action.payload });
+            return Object.assign({}, state, { characterArmor: action.payload });
 
         case REMOVE_ARMOR + '_FULFILLED':
-            return Object.assign({}, state, { character_armor: action.payload });
+            return Object.assign({}, state, { characterArmor: action.payload });
 
         // SPELL REDUCER
         case GET_SPELLS + '_FULFILLED':
-            return Object.assign({}, state, { character_spells: action.payload });
+            return Object.assign({}, state, { characterSpells: action.payload });
 
         case SAVE_SPELL + '_FULFILLED':
-            return Object.assign({}, state, { character_spells: action.payload });
+            return Object.assign({}, state, { characterSpells: action.payload });
 
         case REMOVE_SPELL + '_FULFILLED':
-            return Object.assign({}, state, { character_spells: action.payload });
+            return Object.assign({}, state, { characterSpells: action.payload });
 
         // INFO REDUCER
         case GET_ALL_WEAPONS + '_FULFILLED':

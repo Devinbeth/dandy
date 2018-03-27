@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllWeapons } from '../../ducks/reducer.js';
+import { getAllWeapons, saveWeapon } from '../../ducks/reducer.js';
 import './AllWeapons.css';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Save from 'material-ui/svg-icons/content/save';
 
 class AllWeapons extends Component {
     constructor(props) {
@@ -14,7 +16,9 @@ class AllWeapons extends Component {
             weaponsList: this.props.allWeapons,
             category: '',
             class: '',
+            selectedWeapon: []
         }
+        this.saveWeapon = this.saveWeapon.bind(this);
         this.filteredWeapons = this.filteredWeapons.bind(this);
     }
 
@@ -24,6 +28,13 @@ class AllWeapons extends Component {
 
     componentWillReceiveProps(newProps) {
         this.setState({ weaponsList: newProps.allWeapons });
+    }
+
+    saveWeapon() {
+        if (!this.props.characterWeapons.find((e) => e.id === this.state.weaponsList[this.state.selectedWeapon[0]].id)) {
+            this.props.saveWeapon({character_id: this.props.character.id, weapon_id: this.state.weaponsList[this.state.selectedWeapon[0]].id});
+        }
+        this.setState({ weaponsList: this.props.allWeapons, category: '', class: '', selectedWeapon: [] });
     }
 
     filteredWeapons(value) {
@@ -80,12 +91,9 @@ class AllWeapons extends Component {
                     />
                 </div>
                 <div className='weapons_table'>
-                    <Table
-                        onRowSelection={(selectedRows) => console.log(selectedRows)}
-                        multiSelectable={true}
-                    >
+                    <Table onRowSelection={(selectedRows) => this.setState({ selectedWeapon: selectedRows })}>
                         <TableHeader
-                            displaySelectAll={true}
+                            displaySelectAll={false}
                             adjustForCheckbox={true}
                         >
                             <TableRow>
@@ -114,11 +122,18 @@ class AllWeapons extends Component {
                             ))}
                         </TableBody>
                     </Table>
-                    <RaisedButton
-                        label='Add Weapons'
-                        primary={true}
-                        onClick={() => this.setState({ weaponsList: this.props.allWeapons, category: '', class: '' })}
-                    />
+                    {this.props.character.id ?
+                        <FloatingActionButton
+                            className='save'
+                            label='Add Weapon'
+                            children={<Save />}
+                            primary={true}
+                            onClick={() => {
+                                this.saveWeapon();
+                                this.props.switch();
+                            }}
+                        />
+                        : null}
                 </div>
             </div>
         );
@@ -127,8 +142,10 @@ class AllWeapons extends Component {
 
 function mapStateToProps(state) {
     return {
-        allWeapons: state.allWeapons
+        allWeapons: state.allWeapons,
+        character: state.character,
+        characterWeapons: state.characterWeapons
     };
 }
 
-export default connect(mapStateToProps, { getAllWeapons })(AllWeapons);
+export default connect(mapStateToProps, { getAllWeapons, saveWeapon })(AllWeapons);
