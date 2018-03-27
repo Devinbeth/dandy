@@ -127,7 +127,6 @@ class AllWeapons extends Component {
                             className='save'
                             label='Add Weapon'
                             children={<Save />}
-                            primary={true}
                             onClick={() => {
                                 this.saveWeapon();
                                 this.props.switch();

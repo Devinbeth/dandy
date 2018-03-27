@@ -102,9 +102,9 @@ class Character extends Component {
         this.updateClass = this.updateClass.bind(this);
         this.updateAlignment = this.updateAlignment.bind(this);
         this.updateBackground = this.updateBackground.bind(this);
+        this.proficiencyBonus = this.proficiencyBonus.bind(this);
         this.abilityModifiers = this.abilityModifiers.bind(this);
         this.modifiers = this.modifiers.bind(this);
-        this.passiveWisdom = this.passiveWisdom.bind(this);
         this.deathSaveSuccesses = this.deathSaveSuccesses.bind(this);
         this.deathSaveFailures = this.deathSaveFailures.bind(this);
     }
@@ -124,6 +124,7 @@ class Character extends Component {
     save() {
         let character = Object.assign({}, this.state);
         delete character.toggles;
+        console.log(character);
         if (Number(this.props.match.params.id)) {
             this.props.saveCharacter(this.props.match.params.id, character);
         }
@@ -148,6 +149,24 @@ class Character extends Component {
         this.setState({ background: newBackground });
     }
 
+    proficiencyBonus(level) {
+        if (level < 5) {
+            this.setState({ proficiency_bonus: 2 })
+        }
+        else if (level < 9) {
+            this.setState({ proficiency_bonus: 3 })
+        }
+        else if (level < 13) {
+            this.setState({ proficiency_bonus: 4 })
+        }
+        else if (level < 17) {
+            this.setState({ proficiency_bonus: 5 })
+        }
+        else if (level < 20) {
+            this.setState({ proficiency_bonus: 6 })
+        }
+    }
+
     abilityModifiers(ability) {
         if (isNaN(ability)) {
             return;
@@ -167,10 +186,6 @@ class Character extends Component {
         }
         let modifier = num > 0 ? `+${num}` : num;
         return modifier;
-    }
-
-    passiveWisdom() {
-        return 10 + Number(this.modifiers(this.state.wisdom, this.state.perception));
     }
 
     deathSaveSuccesses(checked) {
@@ -267,7 +282,8 @@ class Character extends Component {
         return (
             <div className='Character'>
                 <div className=' box character_name'>
-                    <img className='logo' src={logo} alt='' />
+                    <div><img className='logo' src={logo} alt='' /></div>
+                    <div>
                     <TextField
                         className='basic_info_text'
                         id='text-field-controlled'
@@ -276,6 +292,7 @@ class Character extends Component {
                         floatingLabelText='Character Name'
                         style={{ width: '75%' }}
                     />
+                    </div>
                 </div>
                 <div className='box basic_info'>
                     <img className='character_image' src={this.state.image === 'ranger' ? ranger : this.state.image === 'druid' ? druid : this.state.image === 'paladin' ? paladin : this.state.image === 'fighter' ? fighter : null} alt='' />
@@ -289,7 +306,10 @@ class Character extends Component {
                         className='level'
                         id='text-field-controlled'
                         value={this.state.level ? this.state.level : ''}
-                        onChange={(e) => this.setState({ level: Number(e.target.value) })}
+                        onChange={(e) => {
+                            this.setState({ level: Number(e.target.value) });
+                            this.proficiencyBonus(Number(e.target.value));
+                        }}
                         floatingLabelText='Level'
                         type='number'
                         style={{ width: '90%' }}
@@ -507,14 +527,7 @@ class Character extends Component {
                     <h5>SKILLS</h5>
                 </div>
                 <div className='box proficiency'>
-                    <TextField
-                        id='text-field-controlled'
-                        value={this.state.proficiency_bonus ? this.state.proficiency_bonus : ''}
-                        onChange={(e) => this.setState({ proficiency_bonus: Number(e.target.value) })}
-                        floatingLabelText='Proficieny Bonus'
-                        type='number'
-                        style={{ width: '60%' }}
-                    />
+                    <h5>PROFICIENCY BONUS: {`+${this.state.proficiency_bonus}`}</h5>
                 </div>
                 <div className='box inspiration'>
                     <TextField
@@ -572,7 +585,7 @@ class Character extends Component {
                     <h5>SAVING THROWS</h5>
                 </div>
                 <div className='box passive_wisdom'>
-                    <h5>PASSIVE WISDOM (PERCEPTION): {this.passiveWisdom()}</h5>
+                    <h5>PASSIVE WISDOM (PERCEPTION): {10 + Number(this.modifiers(this.state.wisdom, this.state.perception))}</h5>
                 </div>
                 <div className='box other_prof'>
                     <TextField

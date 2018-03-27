@@ -129,7 +129,6 @@ class AllArmor extends Component {
                             className='save'
                             label='Add Armor'
                             children={<Save />}
-                            primary={true}
                             onClick={() => {
                                 this.saveArmor();
                                 this.props.switch();

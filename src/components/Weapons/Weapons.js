@@ -17,7 +17,9 @@ class Weapons extends Component {
             infoToggle: false,
             weaponNotes: ''
         }
-        this.abilityModifiers = this.abilityModifiers.bind(this);
+        this.attackBonus = this.attackBonus.bind(this);
+        this.proficiency = this.proficiency.bind(this);
+        this.abilityModifier = this.abilityModifier.bind(this);
         this.removeWeapon = this.removeWeapon.bind(this);
     }
 
@@ -25,7 +27,29 @@ class Weapons extends Component {
         this.props.getWeapons(this.props.character.id);
     }
 
-    abilityModifiers(ability) {
+    attackBonus(weapon) {
+        let dex = this.abilityModifier(this.props.character.dexterity);
+        let str = this.abilityModifier(this.props.character.strength);
+        if (weapon.properties.includes('Finesse')) {
+            return dex > str ? dex : str;
+        }
+        else if (weapon.category.includes('Ranged')) {
+            return dex;
+        }
+        else {
+            return str;
+        }
+    }
+
+    proficiency(weapon) {
+        let prof = 0;
+        if (weapon.classes.includes(this.props.character.class)) {
+            prof = this.props.character.proficiency_bonus;
+        }
+        return prof;
+    }
+
+    abilityModifier(ability) {
         if (isNaN(ability)) {
             return 0;
         }
@@ -63,10 +87,10 @@ class Weapons extends Component {
                                         {weapon.name ? weapon.name : 'No Weapons'}
                                     </TableRowColumn>
                                     <TableRowColumn>
-                                        {weapon.attack_bonus}
+                                        {weapon.name ? `+${this.attackBonus(weapon) + this.proficiency(weapon)}` : null}
                                     </TableRowColumn>
                                     <TableRowColumn>
-                                        {`${weapon.damage} + ${weapon.strdex === 'Strength' ? this.abilityModifiers(this.props.character.strength) : this.abilityModifiers(this.props.character.dexterity)}`}
+                                        {weapon.name ? `${weapon.damage.slice(0, 3)}+${this.attackBonus(weapon)}` : null}
                                     </TableRowColumn>
                                     <TableRowColumn>
                                         <IconButton onClick={() => this.removeWeapon(weapon.id)}>
