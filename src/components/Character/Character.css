@@ -579,7 +579,11 @@
 
     .Character .saving_throws {
         grid-area: 15 / 1 / 18 / 2;
-        font-size: 50%;
+        font-size: 70%;
+    }
+
+    .Character .saving_throws h5 {
+        font-size: 120%;
     }
 
     .Character .weapons {
