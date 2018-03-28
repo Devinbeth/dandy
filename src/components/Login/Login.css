@@ -5,7 +5,7 @@
 .Login .image{
     height: 100vh;
     background-image: url('../../assets/svg_logos/color_logo_with_background.svg');
-    background-size: 100vh;
+    background-size: 70vh;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;

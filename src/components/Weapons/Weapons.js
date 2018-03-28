@@ -64,7 +64,7 @@ class Weapons extends Component {
         return (
             <div className='Weapons'>
                 <div className='weapon_table'>
-                    <Table>
+                    <Table style={{ tableLayout: 'auto' }}>
                         <TableHeader
                             displaySelectAll={false}
                             adjustForCheckbox={false}

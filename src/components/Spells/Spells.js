@@ -32,7 +32,7 @@ class Spells extends Component {
         return (
             <div className='Spells'>
                 <div className='spell_table'>
-                    <Table>
+                    <Table style={{ tableLayout: 'auto' }}>
                         <TableHeader
                             displaySelectAll={false}
                             adjustForCheckbox={false}
