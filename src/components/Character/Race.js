@@ -26,7 +26,7 @@ export default class Race extends Component {
                     floatingLabelText='Race'
                     value={this.state.value}
                     onChange={(event, index, value) => this.props.updateRace(value)}
-                    style={{ width: '160px', textAlign: 'left' }}
+                    style={{ width: '60%', textAlign: 'left' }}
                 >
                     <MenuItem value={'Dwarf'} primaryText='Dwarf' />
                     <MenuItem value={'Elf'} primaryText='Elf' />

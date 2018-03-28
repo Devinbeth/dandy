@@ -27,7 +27,7 @@ export default class Alignment extends Component {
                     floatingLabelText='Alignment'
                     value={this.state.value}
                     onChange={(event, index, value) => this.props.updateAlignment(value)}
-                    style={{ width: '220px', textAlign: 'left' }}
+                    style={{ width: '60%', textAlign: 'left' }}
                 >
                     <MenuItem value={'Lawful Good (LG)'} primaryText='Lawful Good (LG)' />
                     <MenuItem value={'Neutral Good (NG)'} primaryText='Neutral Good (NG)' />

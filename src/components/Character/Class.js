@@ -26,7 +26,7 @@ export default class Class extends Component {
                     floatingLabelText='Class'
                     value={this.state.value}
                     onChange={(event, index, value) => this.props.updateClass(value)}
-                    style={{ width: '160px', textAlign: 'left' }}
+                    style={{ width: '60%', textAlign: 'left' }}
                 >
                     <MenuItem value={'Barbarian'} primaryText='Barbarian' />
                     <MenuItem value={'Bard'} primaryText='Bard' />

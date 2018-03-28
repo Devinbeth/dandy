@@ -26,7 +26,7 @@ export default class Background extends Component {
                     floatingLabelText='Background'
                     value={this.state.value}
                     onChange={(event, index, value) => this.props.updateBackground(value)}
-                    style={{ width: '220px', textAlign: 'left' }}
+                    style={{ width: '60%', textAlign: 'left' }}
                 >
                     <MenuItem value={'Acolyte'} primaryText='Acolyte' />
                     <MenuItem value={'Charlatan'} primaryText='Charlatan' />
