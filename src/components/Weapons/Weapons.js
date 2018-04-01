@@ -57,7 +57,8 @@ class Weapons extends Component {
     }
 
     removeWeapon(id) {
-        this.props.removeWeapon(id);
+        console.log(id)
+        this.props.removeWeapon(id, { character_id: this.props.character.id });
     }
 
     render() {
@@ -93,7 +94,7 @@ class Weapons extends Component {
                                         {weapon.name ? `${weapon.damage.slice(0, 3)}+${this.attackBonus(weapon)}` : null}
                                     </TableRowColumn>
                                     <TableRowColumn>
-                                        <IconButton onClick={() => this.removeWeapon(weapon.id)}>
+                                        <IconButton onClick={() => this.removeWeapon(weapon.cw_id)}>
                                             <Close />
                                         </IconButton>
                                     </TableRowColumn>
@@ -129,7 +130,7 @@ class Weapons extends Component {
                     left={'10%'}
                     title={'WEAPONS'}
                 >
-                    <AllWeapons switch={() => this.setState({ infoToggle: false })}/>
+                    <AllWeapons switch={() => this.setState({ infoToggle: false })} />
                 </Box>
             </div>
         );

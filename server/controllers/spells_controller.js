@@ -15,7 +15,7 @@ module.exports = {
         });
     },
     deleteSpell: (req, res) => {
-        req.app.get('db').delete_spell([req.params.id]).then(spells => {
+        req.app.get('db').delete_spell([req.params.id, req.body.character_id]).then(spells => {
             res.status(200).send(spells);
         });
     },

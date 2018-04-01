@@ -193,8 +193,8 @@ export function saveWeapon(weapon) {
     };
 }
 
-export function removeWeapon(id) {
-    let weapons = axios.delete(`/api/weapons/${id}`).then(res => res.data);
+export function removeWeapon(id, obj) {
+    let weapons = axios.delete(`/api/weapons/${id}`, obj).then(res => res.data);
     return {
         type: REMOVE_WEAPON,
         payload: weapons

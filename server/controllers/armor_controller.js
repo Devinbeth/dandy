@@ -15,7 +15,7 @@ module.exports = {
         });
     },
     deleteArmor: (req, res) => {
-        req.app.get('db').delete_armor([req.params.id]).then(armor => {
+        req.app.get('db').delete_armor([req.params.id, req.body.character_id]).then(armor => {
             res.status(200).send(armor);
         });
     },

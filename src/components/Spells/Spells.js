@@ -25,7 +25,7 @@ class Spells extends Component {
     }
 
     removeSpell(id) {
-        this.props.removeSpell(id);
+        this.props.removeSpell(id, { character_id: this.props.character.id });
     }
 
     render() {

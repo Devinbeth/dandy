@@ -15,7 +15,7 @@ module.exports = {
         });
     },
     deleteWeapon: (req, res) => {
-        req.app.get('db').delete_weapon([req.params.id]).then(weapons => {
+        req.app.get('db').delete_weapon([req.params.id, req.body.character_id]).then(weapons => {
             res.status(200).send(weapons);
         });
     },

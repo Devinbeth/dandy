@@ -25,7 +25,7 @@ class Equipment extends Component {
     }
 
     removeArmor(id) {
-        this.props.removeArmor(id);
+        this.props.removeArmor(id, { character_id: this.props.character.id });
     }
 
     render() {
