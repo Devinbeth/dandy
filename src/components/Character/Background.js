@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { updateCharacter } from '../../ducks/reducer.js';
 import Box from '../Box/Box.js';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 
-export default class Background extends Component {
+class Background extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,7 +26,7 @@ export default class Background extends Component {
             <div className='Background' >
                 <SelectField
                     floatingLabelText='Background'
-                    value={this.state.value}
+                    value={this.props.character.background}
                     onChange={(event, index, value) => this.props.updateBackground(value)}
                     style={{ width: '60%', textAlign: 'left' }}
                 >
@@ -62,3 +64,11 @@ export default class Background extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        character: state.character,
+    };
+}
+
+export default connect(mapStateToProps, { updateCharacter })(Background);

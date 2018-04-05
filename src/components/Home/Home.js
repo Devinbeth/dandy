@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getUser, getCharacters, removeCharacter, resetCharacter } from '../../ducks/reducer.js';
+import { getCharacters, setCharacter, removeCharacter, resetCharacter, getAllWeapons, getAllArmor, getAllSpells } from '../../ducks/reducer.js';
 import './Home.css';
 import { Card, CardActions, CardHeader, CardTitle } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -26,6 +26,9 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.getCharacters();
+        this.props.getAllWeapons();
+        this.props.getAllArmor();
+        this.props.getAllSpells();
     }
 
     render() {
@@ -40,7 +43,10 @@ class Home extends Component {
                         />
                         <CardTitle title={e.name} subtitle={`${e.race} ${e.class}`} />
                         <CardActions>
-                            <Link to={`/character/${e.id}`}><RaisedButton label="View" primary={true} /></Link>
+                            <Link to={`/character/${e.id}`}><RaisedButton label="View" primary={true} 
+                                  onClick={() => this.props.setCharacter(e)}
+                            />
+                            </Link>
                             <RaisedButton label="Delete" secondary={true} onClick={() => {
                                 this.setState({
                                     open: true,
@@ -99,4 +105,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { getUser, getCharacters, removeCharacter, resetCharacter })(Home);
+export default connect(mapStateToProps, { getCharacters, setCharacter, removeCharacter, resetCharacter, getAllWeapons, getAllArmor, getAllSpells })(Home);

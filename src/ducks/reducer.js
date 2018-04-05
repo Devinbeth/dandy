@@ -85,7 +85,9 @@ const GET_USER = 'GET_USER';
 const SAVE_USER = 'SAVE_USER';
 // CHARACTER CONSTANTS
 const GET_CHARACTERS = 'GET_CHARACTERS';
+const SET_CHARACTER = 'SET_CHARACTER';
 const GET_CHARACTER = 'GET_CHARACTER';
+const UPDATE_CHARACTER = 'UPDATE_CHARACTER';
 const REMOVE_CHARACTER = 'REMOVE_CHARACTER';
 const SAVE_CHARACTER = 'SAVE_CHARACTER';
 const CREATE_CHARACTER = 'CREATE_CHARACTER';
@@ -137,6 +139,13 @@ export function getCharacters() {
     };
 }
 
+export function setCharacter(character) {
+    return {
+        type: SET_CHARACTER,
+        payload: character
+    };
+}
+
 export function getCharacter(id) {
     let characterData = axios.get(`/api/character/${id}`).then(res => res.data);
     return {
@@ -150,6 +159,13 @@ export function removeCharacter(id) {
     return {
         type: REMOVE_CHARACTER,
         payload: removedData
+    };
+}
+
+export function updateCharacter(update) {
+    return {
+        type: UPDATE_CHARACTER,
+        payload: update
     };
 }
 
@@ -299,6 +315,13 @@ export default function reducer(state = initialState, action) {
         // CHARACTER REDUCER
         case GET_CHARACTERS + '_FULFILLED':
             return Object.assign({}, state, { characters: action.payload });
+
+        case SET_CHARACTER:
+            return Object.assign({}, state, { character: action.payload });
+
+        case UPDATE_CHARACTER:
+            let updatedCharacter = Object.assign({}, state.character, action.payload);
+            return Object.assign({}, state, { character: updatedCharacter });
 
         case GET_CHARACTER + '_FULFILLED':
             return Object.assign({}, state, { character: action.payload });

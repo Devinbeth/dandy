@@ -1,31 +1,27 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { updateCharacter } from '../../ducks/reducer.js';
 import Box from '../Box/Box.js';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 
-export default class Race extends Component {
+class Race extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: this.props.race,
             toggle: false
         }
     }
-    componentDidMount() {
-        this.setState({ value: this.props.race });
-    }
-    componentWillReceiveProps(newProps) {
-        this.setState({ value: newProps.race });
-    }
+
     render() {
         return (
             <div className='Race' >
                 <SelectField
                     floatingLabelText='Race'
-                    value={this.state.value}
-                    onChange={(event, index, value) => this.props.updateRace(value)}
+                    value={this.props.character.race}
+                    onChange={(event, index, value) => this.props.updateCharacter({ race: value })}
                     style={{ width: '60%', textAlign: 'left' }}
                 >
                     <MenuItem value={'Dwarf'} primaryText='Dwarf' />
@@ -45,7 +41,7 @@ export default class Race extends Component {
                 >
                     <ActionInfo />
                 </IconButton>
-                <Box 
+                <Box
                     toggle={this.state.toggle}
                     switch={() => this.setState({ toggle: !this.state.toggle })}
                     top={'15%'}
@@ -62,3 +58,11 @@ export default class Race extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        character: state.character,
+    };
+}
+
+export default connect(mapStateToProps, { updateCharacter })(Race);

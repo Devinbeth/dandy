@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { updateCharacter } from '../../ducks/reducer.js';
 import Box from '../Box/Box.js';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 
-export default class Class extends Component {
+class Class extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,19 +15,14 @@ export default class Class extends Component {
             toggle: false
         }
     }
-    componentDidMount() {
-        this.setState({ value: this.props.class });
-    }
-    componentWillReceiveProps(newProps) {
-        this.setState({ value: newProps.class });
-    }
+
     render() {
         return (
             <div className='Class' >
                 <SelectField
                     floatingLabelText='Class'
-                    value={this.state.value}
-                    onChange={(event, index, value) => this.props.updateClass(value)}
+                    value={this.props.character.class}
+                    onChange={(event, index, value) => this.props.updateCharacter({ class: value })}
                     style={{ width: '60%', textAlign: 'left' }}
                 >
                     <MenuItem value={'Barbarian'} primaryText='Barbarian' />
@@ -43,7 +40,7 @@ export default class Class extends Component {
                 <IconButton tooltip='Class Details' onClick={() => this.setState({ toggle: !this.state.toggle })}>
                     <ActionInfo />
                 </IconButton>
-                <Box 
+                <Box
                     toggle={this.state.toggle}
                     switch={() => this.setState({ toggle: !this.state.toggle })}
                     top={'15%'}
@@ -60,3 +57,11 @@ export default class Class extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        character: state.character,
+    };
+}
+
+export default connect(mapStateToProps, { updateCharacter })(Class);

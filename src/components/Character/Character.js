@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCharacter, saveCharacter, createCharacter, resetCharacter, getWeapons, getArmor, getSpells } from '../../ducks/reducer.js';
+import { getCharacter, updateCharacter, saveCharacter, createCharacter, resetCharacter, getWeapons, getArmor, getSpells, getAllWeapons, getAllArmor, getAllSpells } from '../../ducks/reducer.js';
 import './Character.css';
 import Race from './Race.js';
 import Class from './Class.js';
@@ -24,84 +24,14 @@ class Character extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            toggles: {
-                acBox: false,
-                initiativeBox: false,
-                speedBox: false,
-                maxHpBox: false,
-                currentHpBox: false,
-                tempHpBox: false
-            },
-            id: Number(this.props.match.params.id),
-            name: '',
-            image: '',
-            race: '',
-            class: '',
-            level: 0,
-            xp: 0,
-            background: '',
-            alignment: '',
-            strength: 0,
-            dexterity: 0,
-            constitution: 0,
-            intelligence: 0,
-            wisdom: 0,
-            charisma: 0,
-            inspiration: 0,
-            proficiency_bonus: 0,
-            strength_saving_throw: false,
-            dexterity_saving_throw: false,
-            constitution_saving_throw: false,
-            intelligence_saving_throw: false,
-            wisdom_saving_throw: false,
-            charisma_saving_throw: false,
-            acrobatics: false,
-            animal_handling: false,
-            arcana: false,
-            athletics: false,
-            deception: false,
-            history: false,
-            insight: false,
-            intimidation: false,
-            investigation: false,
-            medicine: false,
-            nature: false,
-            perception: false,
-            performance: false,
-            persuasion: false,
-            religion: false,
-            sleight_of_hand: false,
-            stealth: false,
-            survival: false,
-            languages: '',
-            other_proficiencies: '',
-            armor_class: 0,
-            initiative: 0,
-            speed: 0,
-            max_hit_points: 0,
-            current_hit_points: 0,
-            death_save_successes: 0,
-            death_save_failures: 0,
-            temp_hit_points: 0,
-            total_hit_dice: '',
-            current_hit_dice: 0,
-            personality_traits: '',
-            ideals: '',
-            bonds: '',
-            flaws: '',
-            platinum: 0,
-            gold: 0,
-            electrum: 0,
-            silver: 0,
-            copper: 0,
-            features: '',
-            traits: ''
+            acBox: false,
+            initiativeBox: false,
+            speedBox: false,
+            maxHpBox: false,
+            currentHpBox: false,
+            tempHpBox: false
         }
         this.save = this.save.bind(this);
-        this.updateRace = this.updateRace.bind(this);
-        this.updateClass = this.updateClass.bind(this);
-        this.updateAlignment = this.updateAlignment.bind(this);
-        this.updateBackground = this.updateBackground.bind(this);
         this.proficiencyBonus = this.proficiencyBonus.bind(this);
         this.abilityModifiers = this.abilityModifiers.bind(this);
         this.modifiers = this.modifiers.bind(this);
@@ -115,6 +45,9 @@ class Character extends Component {
             this.props.getWeapons(this.props.match.params.id);
             this.props.getArmor(this.props.match.params.id);
             this.props.getSpells(this.props.match.params.id);
+            this.props.getAllWeapons();
+            this.props.getAllArmor();
+            this.props.getAllSpells();
         }
         else {
             this.props.resetCharacter();
@@ -122,48 +55,29 @@ class Character extends Component {
     }
 
     save() {
-        let character = Object.assign({}, this.state);
-        delete character.toggles;
-        console.log(character);
         if (Number(this.props.match.params.id)) {
-            this.props.saveCharacter(this.props.match.params.id, character);
+            this.props.saveCharacter(this.props.match.params.id, this.props.character);
         }
         else {
-            this.props.createCharacter(character);
+            this.props.createCharacter(this.props.character);
         }
-    }
-
-    updateRace(newRace) {
-        this.setState({ race: newRace });
-    }
-
-    updateClass(newClass) {
-        this.setState({ class: newClass });
-    }
-
-    updateAlignment(newAlignment) {
-        this.setState({ alignment: newAlignment });
-    }
-
-    updateBackground(newBackground) {
-        this.setState({ background: newBackground });
     }
 
     proficiencyBonus(level) {
         if (level < 5) {
-            this.setState({ proficiency_bonus: 2 })
+            this.props.updateCharacter({ proficiency_bonus: 2 })
         }
         else if (level < 9) {
-            this.setState({ proficiency_bonus: 3 })
+            this.props.updateCharacter({ proficiency_bonus: 3 })
         }
         else if (level < 13) {
-            this.setState({ proficiency_bonus: 4 })
+            this.props.updateCharacter({ proficiency_bonus: 4 })
         }
         else if (level < 17) {
-            this.setState({ proficiency_bonus: 5 })
+            this.props.updateCharacter({ proficiency_bonus: 5 })
         }
         else if (level < 20) {
-            this.setState({ proficiency_bonus: 6 })
+            this.props.updateCharacter({ proficiency_bonus: 6 })
         }
     }
 
@@ -182,7 +96,7 @@ class Character extends Component {
         }
         let num = Math.floor((ability - 10) / 2);
         if (bool) {
-            num += Number(this.state.proficiency_bonus);
+            num += Number(this.props.character.proficiency_bonus);
         }
         let modifier = num > 0 ? `+${num}` : num;
         return modifier;
@@ -190,92 +104,20 @@ class Character extends Component {
 
     deathSaveSuccesses(checked) {
         if (checked) {
-            this.setState({ death_save_successes: this.state.death_save_successes + 1 });
+            this.props.updateCharacter({ death_save_successes: this.props.character.death_save_successes + 1 });
         }
         else {
-            this.setState({ death_save_successes: this.state.death_save_successes - 1 });
+            this.props.updateCharacter({ death_save_successes: this.props.character.death_save_successes - 1 });
         }
     }
 
     deathSaveFailures(checked) {
         if (checked) {
-            this.setState({ death_save_failures: this.state.death_save_failures + 1 });
+            this.props.updateCharacter({ death_save_failures: this.props.character.death_save_failures + 1 });
         }
         else {
-            this.setState({ death_save_failures: this.state.death_save_failures - 1 });
+            this.props.updateCharacter({ death_save_failures: this.props.character.death_save_failures - 1 });
         }
-    }
-
-    componentWillReceiveProps(newProps) {
-        if (newProps.character.id !== this.state.id) {
-            this.props.history.push(`/character/${newProps.character.id}`);
-        }
-        this.setState({
-            id: newProps.character.id,
-            name: newProps.character.name,
-            image: newProps.character.image,
-            race: newProps.character.race,
-            class: newProps.character.class,
-            level: newProps.character.level,
-            xp: newProps.character.xp,
-            background: newProps.character.background,
-            alignment: newProps.character.alignment,
-            strength: newProps.character.strength,
-            dexterity: newProps.character.dexterity,
-            constitution: newProps.character.constitution,
-            intelligence: newProps.character.intelligence,
-            wisdom: newProps.character.wisdom,
-            charisma: newProps.character.charisma,
-            inspiration: newProps.character.inspiration,
-            proficiency_bonus: newProps.character.proficiency_bonus,
-            strength_saving_throw: newProps.character.strength_saving_throw,
-            dexterity_saving_throw: newProps.character.dexterity_saving_throw,
-            constitution_saving_throw: newProps.character.constitution_saving_throw,
-            intelligence_saving_throw: newProps.character.intelligence_saving_throw,
-            wisdom_saving_throw: newProps.character.wisdom_saving_throw,
-            charisma_saving_throw: newProps.character.charisma_saving_throw,
-            acrobatics: newProps.character.acrobatics,
-            animal_handling: newProps.character.animal_handling,
-            arcana: newProps.character.arcana,
-            athletics: newProps.character.athletics,
-            deception: newProps.character.deception,
-            history: newProps.character.history,
-            insight: newProps.character.insight,
-            intimidation: newProps.character.intimidation,
-            investigation: newProps.character.investigation,
-            medicine: newProps.character.medicine,
-            nature: newProps.character.nature,
-            perception: newProps.character.perception,
-            performance: newProps.character.performance,
-            persuasion: newProps.character.persuasion,
-            religion: newProps.character.religion,
-            sleight_of_hand: newProps.character.sleight_of_hand,
-            stealth: newProps.character.stealth,
-            survival: newProps.character.survival,
-            languages: newProps.character.languages,
-            other_proficiencies: newProps.character.other_proficiencies,
-            armor_class: newProps.character.armor_class,
-            initiative: newProps.character.initiative,
-            speed: newProps.character.speed,
-            max_hit_points: newProps.character.max_hit_points,
-            current_hit_points: newProps.character.current_hit_points,
-            temp_hit_points: newProps.character.temp_hit_points,
-            total_hit_dice: newProps.character.total_hit_dice,
-            current_hit_dice: newProps.character.current_hit_dice,
-            death_save_successes: newProps.character.death_save_successes,
-            death_save_failures: newProps.character.death_save_failures,
-            personality_traits: newProps.character.personality_traits,
-            ideals: newProps.character.ideals,
-            bonds: newProps.character.bonds,
-            flaws: newProps.character.flaws,
-            platinum: newProps.character.platinum,
-            gold: newProps.character.gold,
-            electrum: newProps.character.electrum,
-            silver: newProps.character.silver,
-            copper: newProps.character.copper,
-            features: newProps.character.features,
-            traits: newProps.character.traits
-        });
     }
 
     render() {
@@ -284,30 +126,30 @@ class Character extends Component {
                 <div className=' box character_name'>
                     <div><img className='logo' src={logo} alt='' /></div>
                     <div>
-                    <TextField
-                        className='basic_info_text'
-                        id='text-field-controlled'
-                        value={this.state.name}
-                        onChange={(e) => this.setState({ name: e.target.value })}
-                        floatingLabelText='Character Name'
-                        style={{ width: '75%' }}
-                    />
+                        <TextField
+                            className='basic_info_text'
+                            id='text-field-controlled'
+                            value={this.props.character.name}
+                            onChange={(e) => this.props.updateCharacter({ name: e.target.value })}
+                            floatingLabelText='Character Name'
+                            style={{ width: '75%' }}
+                        />
                     </div>
                 </div>
                 <div className='box basic_info'>
-                    <img className='character_image' src={this.state.image === 'ranger' ? ranger : this.state.image === 'druid' ? druid : this.state.image === 'paladin' ? paladin : this.state.image === 'fighter' ? fighter : null} alt='' />
+                    <img className='character_image' src={this.props.character.image === 'ranger' ? ranger : this.props.character.image === 'druid' ? druid : this.props.character.image === 'paladin' ? paladin : this.props.character.image === 'fighter' ? fighter : null} alt='' />
                     <div className='race'>
-                        <Race race={this.state.race} updateRace={this.updateRace} />
+                        <Race />
                     </div>
                     <div className='class'>
-                        <Class class={this.state.class} updateClass={this.updateClass} />
+                        <Class />
                     </div>
                     <TextField
                         className='level'
                         id='text-field-controlled'
-                        value={this.state.level ? this.state.level : ''}
+                        value={this.props.characterlevel ? this.props.character.level : ''}
                         onChange={(e) => {
-                            this.setState({ level: Number(e.target.value) });
+                            this.props.updateCharacter({ level: Number(e.target.value) });
                             this.proficiencyBonus(Number(e.target.value));
                         }}
                         floatingLabelText='Level'
@@ -317,223 +159,223 @@ class Character extends Component {
                     <TextField
                         className='xp'
                         id='text-field-controlled'
-                        value={this.state.xp ? this.state.xp : ''}
-                        onChange={(e) => this.setState({ xp: Number(e.target.value) })}
+                        value={this.props.character.xp ? this.props.character.xp : ''}
+                        onChange={(e) => this.props.updateCharacter({ xp: Number(e.target.value) })}
                         floatingLabelText='XP'
                         type='number'
                         style={{ width: '90%' }}
                     />
                     <div className='background'>
-                        <Background background={this.state.background} updateBackground={this.updateBackground} />
+                        <Background />
                     </div>
                     <div className='alignment'>
-                        <Alignment alignment={this.state.alignment} updateAlignment={this.updateAlignment} />
+                        <Alignment />
                     </div>
                 </div>
                 <div className='box abilities strength'>
                     <h5>STRENGTH</h5>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.strength ? this.state.strength : ''}
-                        onChange={(e) => this.setState({ strength: Number(e.target.value) })}
+                        value={this.props.character.strength ? this.props.character.strength : ''}
+                        onChange={(e) => this.props.updateCharacter({ strength: Number(e.target.value) })}
                         style={{ width: '75%' }}
                         inputStyle={{ textAlign: 'center' }}
                     /><br />
-                    {this.abilityModifiers(this.state.strength)}
+                    {this.abilityModifiers(this.props.character.strength)}
                 </div>
                 <div className='box abilities dexterity'>
                     <h5>DEXTERITY</h5>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.dexterity ? this.state.dexterity : ''}
-                        onChange={(e) => this.setState({ dexterity: Number(e.target.value) })}
+                        value={this.props.character.dexterity ? this.props.character.dexterity : ''}
+                        onChange={(e) => this.props.updateCharacter({ dexterity: Number(e.target.value) })}
                         style={{ width: '75%' }}
                         inputStyle={{ textAlign: 'center' }}
                     /><br />
-                    {this.abilityModifiers(this.state.dexterity)}
+                    {this.abilityModifiers(this.props.character.dexterity)}
                 </div>
                 <div className='box abilities constitution'>
                     <h5>CONSTITUTION
                         </h5>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.constitution ? this.state.constitution : ''}
-                        onChange={(e) => this.setState({ constitution: Number(e.target.value) })}
+                        value={this.props.character.constitution ? this.props.character.constitution : ''}
+                        onChange={(e) => this.props.updateCharacter({ constitution: Number(e.target.value) })}
                         style={{ width: '75%' }}
                         inputStyle={{ textAlign: 'center' }}
                     /><br />
-                    {this.abilityModifiers(this.state.constitution)}
+                    {this.abilityModifiers(this.props.character.constitution)}
                 </div>
                 <div className='box abilities intelligence'>
                     <h5>INTELLIGENCE</h5>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.intelligence ? this.state.intelligence : ''}
-                        onChange={(e) => this.setState({ intelligence: Number(e.target.value) })}
+                        value={this.props.character.intelligence ? this.props.character.intelligence : ''}
+                        onChange={(e) => this.props.updateCharacter({ intelligence: Number(e.target.value) })}
                         style={{ width: '75%' }}
                         inputStyle={{ textAlign: 'center' }}
                     /><br />
-                    {this.abilityModifiers(this.state.intelligence)}
+                    {this.abilityModifiers(this.props.character.intelligence)}
                 </div>
                 <div className='box abilities wisdom'>
                     <h5>WISDOM</h5>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.wisdom ? this.state.wisdom : ''}
-                        onChange={(e) => this.setState({ wisdom: Number(e.target.value) })}
+                        value={this.props.character.wisdom ? this.props.character.wisdom : ''}
+                        onChange={(e) => this.props.updateCharacter({ wisdom: Number(e.target.value) })}
                         style={{ width: '75%' }}
                         inputStyle={{ textAlign: 'center' }}
                     /><br />
-                    {this.abilityModifiers(this.state.wisdom)}
+                    {this.abilityModifiers(this.props.character.wisdom)}
                 </div>
                 <div className='box abilities charisma'>
                     <h5>CHARISMA</h5>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.charisma ? this.state.charisma : ''}
-                        onChange={(e) => this.setState({ charisma: Number(e.target.value) })}
+                        value={this.props.character.charisma ? this.props.character.charisma : ''}
+                        onChange={(e) => this.props.updateCharacter({ charisma: Number(e.target.value) })}
                         style={{ width: '75%' }}
                         inputStyle={{ textAlign: 'center' }}
                     /><br />
-                    {this.abilityModifiers(this.state.charisma)}
+                    {this.abilityModifiers(this.props.character.charisma)}
                 </div>
                 <div className='box skills'>
                     <Checkbox
-                        label={` ${this.modifiers(this.state.dexterity, this.state.acrobatics)}  Acrobatics (Dex)`}
-                        checked={this.state.acrobatics}
-                        onCheck={() => this.setState({ acrobatics: !this.state.acrobatics })}
+                        label={` ${this.modifiers(this.props.character.dexterity, this.props.character.acrobatics)}  Acrobatics (Dex)`}
+                        checked={this.props.character.acrobatics}
+                        onCheck={() => this.props.updateCharacter({ acrobatics: !this.props.character.acrobatics })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.wisdom, this.state.animal_handling)}  Animal Handling (Wis)`}
-                        checked={this.state.animal_handling}
-                        onCheck={() => this.setState({ animal_handling: !this.state.animal_handling })}
+                        label={` ${this.modifiers(this.props.character.wisdom, this.props.character.animal_handling)}  Animal Handling (Wis)`}
+                        checked={this.props.character.animal_handling}
+                        onCheck={() => this.props.updateCharacter({ animal_handling: !this.props.character.animal_handling })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.intelligence, this.state.arcana)}  Arcana (Int)`}
-                        checked={this.state.arcana}
-                        onCheck={() => this.setState({ arcana: !this.state.arcana })}
+                        label={` ${this.modifiers(this.props.character.intelligence, this.props.character.arcana)}  Arcana (Int)`}
+                        checked={this.props.character.arcana}
+                        onCheck={() => this.props.updateCharacter({ arcana: !this.props.character.arcana })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.strength, this.state.athletics)}  Athletics (Str)`}
-                        checked={this.state.athletics}
-                        onCheck={() => this.setState({ athletics: !this.state.athletics })}
+                        label={` ${this.modifiers(this.props.character.strength, this.props.character.athletics)}  Athletics (Str)`}
+                        checked={this.props.character.athletics}
+                        onCheck={() => this.props.updateCharacter({ athletics: !this.props.character.athletics })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.charisma, this.state.deception)}  Deception (Cha)`}
-                        checked={this.state.deception}
-                        onCheck={() => this.setState({ deception: !this.state.deception })}
+                        label={` ${this.modifiers(this.props.character.charisma, this.props.character.deception)}  Deception (Cha)`}
+                        checked={this.props.character.deception}
+                        onCheck={() => this.props.updateCharacter({ deception: !this.props.character.deception })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.intelligence, this.state.history)}  History (Int)`}
-                        checked={this.state.history}
-                        onCheck={() => this.setState({ history: !this.state.history })}
+                        label={` ${this.modifiers(this.props.character.intelligence, this.props.character.history)}  History (Int)`}
+                        checked={this.props.character.history}
+                        onCheck={() => this.props.updateCharacter({ history: !this.props.character.history })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.wisdom, this.state.insight)}  Insight (Wis)`}
-                        checked={this.state.insight}
-                        onCheck={() => this.setState({ insight: !this.state.insight })}
+                        label={` ${this.modifiers(this.props.character.wisdom, this.props.character.insight)}  Insight (Wis)`}
+                        checked={this.props.character.insight}
+                        onCheck={() => this.props.updateCharacter({ insight: !this.props.character.insight })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.charisma, this.state.intimidation)}  Intimidation (Cha)`}
-                        checked={this.state.intimidation}
-                        onCheck={() => this.setState({ intimidation: !this.state.intimidation })}
+                        label={` ${this.modifiers(this.props.character.charisma, this.props.character.intimidation)}  Intimidation (Cha)`}
+                        checked={this.props.character.intimidation}
+                        onCheck={() => this.props.updateCharacter({ intimidation: !this.props.character.intimidation })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.intelligence, this.state.investigation)}  Investigation (Int)`}
-                        checked={this.state.investigation}
-                        onCheck={() => this.setState({ investigation: !this.state.investigation })}
+                        label={` ${this.modifiers(this.props.character.intelligence, this.props.character.investigation)}  Investigation (Int)`}
+                        checked={this.props.character.investigation}
+                        onCheck={() => this.props.updateCharacter({ investigation: !this.props.character.investigation })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.wisdom, this.state.medicine)}  Medicine (Wis)`}
-                        checked={this.state.medicine}
-                        onCheck={() => this.setState({ medicine: !this.state.medicine })}
+                        label={` ${this.modifiers(this.props.character.wisdom, this.props.character.medicine)}  Medicine (Wis)`}
+                        checked={this.props.character.medicine}
+                        onCheck={() => this.props.updateCharacter({ medicine: !this.props.character.medicine })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.intelligence, this.state.nature)}  Nature (Int)`}
-                        checked={this.state.nature}
-                        onCheck={() => this.setState({ nature: !this.state.nature })}
+                        label={` ${this.modifiers(this.props.character.intelligence, this.props.character.nature)}  Nature (Int)`}
+                        checked={this.props.character.nature}
+                        onCheck={() => this.props.updateCharacter({ nature: !this.props.character.nature })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.wisdom, this.state.perception)}  Perception (Wis)`}
-                        checked={this.state.perception}
-                        onCheck={() => this.setState({ perception: !this.state.perception })}
+                        label={` ${this.modifiers(this.props.character.wisdom, this.props.character.perception)}  Perception (Wis)`}
+                        checked={this.props.character.perception}
+                        onCheck={() => this.props.updateCharacter({ perception: !this.props.character.perception })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.charisma, this.state.performance)}  Performance (Cha)`}
-                        checked={this.state.performance}
-                        onCheck={() => this.setState({ performance: !this.state.performance })}
+                        label={` ${this.modifiers(this.props.character.charisma, this.props.character.performance)}  Performance (Cha)`}
+                        checked={this.props.character.performance}
+                        onCheck={() => this.props.updateCharacter({ performance: !this.props.character.performance })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.charisma, this.state.persuasion)}  Persuasion (Cha)`}
-                        checked={this.state.persuasion}
-                        onCheck={() => this.setState({ persuasion: !this.state.persuasion })}
+                        label={` ${this.modifiers(this.props.character.charisma, this.props.character.persuasion)}  Persuasion (Cha)`}
+                        checked={this.props.character.persuasion}
+                        onCheck={() => this.props.updateCharacter({ persuasion: !this.props.character.persuasion })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.intelligence, this.state.religion)}  Religion (Int)`}
-                        checked={this.state.religion}
-                        onCheck={() => this.setState({ religion: !this.state.religion })}
+                        label={` ${this.modifiers(this.props.character.intelligence, this.props.character.religion)}  Religion (Int)`}
+                        checked={this.props.character.religion}
+                        onCheck={() => this.props.updateCharacter({ religion: !this.props.character.religion })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.dexterity, this.state.sleight_of_hand)}  Sleight of Hand (Dex)`}
-                        checked={this.state.sleight_of_hand}
-                        onCheck={() => this.setState({ sleight_of_hand: !this.state.sleight_of_hand })}
+                        label={` ${this.modifiers(this.props.character.dexterity, this.props.character.sleight_of_hand)}  Sleight of Hand (Dex)`}
+                        checked={this.props.character.sleight_of_hand}
+                        onCheck={() => this.props.updateCharacter({ sleight_of_hand: !this.props.character.sleight_of_hand })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.dexterity, this.state.stealth)}  Stealth (Dex)`}
-                        checked={this.state.stealth}
-                        onCheck={() => this.setState({ stealth: !this.state.stealth })}
+                        label={` ${this.modifiers(this.props.character.dexterity, this.props.character.stealth)}  Stealth (Dex)`}
+                        checked={this.props.character.stealth}
+                        onCheck={() => this.props.updateCharacter({ stealth: !this.props.character.stealth })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.wisdom, this.state.survival)}  Survival (Wis)`}
-                        checked={this.state.survival}
-                        onCheck={() => this.setState({ survival: !this.state.survival })}
+                        label={` ${this.modifiers(this.props.character.wisdom, this.props.character.survival)}  Survival (Wis)`}
+                        checked={this.props.character.survival}
+                        onCheck={() => this.props.updateCharacter({ survival: !this.props.character.survival })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <h5>SKILLS</h5>
                 </div>
                 <div className='box proficiency'>
-                    <h5>PROFICIENCY BONUS: {`+${this.state.proficiency_bonus}`}</h5>
+                    <h5>PROFICIENCY BONUS: {`+${this.props.character.proficiency_bonus}`}</h5>
                 </div>
                 <div className='box inspiration'>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.inspiration ? this.state.inspiration : ''}
-                        onChange={(e) => this.setState({ inspiration: Number(e.target.value) })}
+                        value={this.props.character.inspiration ? this.props.character.inspiration : ''}
+                        onChange={(e) => this.props.updateCharacter({ inspiration: Number(e.target.value) })}
                         floatingLabelText='Inspiration'
                         type='number'
                         style={{ width: '60%' }}
@@ -541,57 +383,57 @@ class Character extends Component {
                 </div>
                 <div className='box saving_throws'>
                     <Checkbox
-                        label={` ${this.modifiers(this.state.strength, this.state.strength_saving_throw)}  Strength`}
-                        checked={this.state.strength_saving_throw}
-                        onCheck={() => this.setState({ strength_saving_throw: !this.state.strength_saving_throw })}
+                        label={` ${this.modifiers(this.props.character.strength, this.props.character.strength_saving_throw)}  Strength`}
+                        checked={this.props.character.strength_saving_throw}
+                        onCheck={() => this.props.updateCharacter({ strength_saving_throw: !this.props.character.strength_saving_throw })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.dexterity, this.state.dexterity_saving_throw)}  Dexterity`}
-                        checked={this.state.dexterity_saving_throw}
-                        onCheck={() => this.setState({ dexterity_saving_throw: !this.state.dexterity_saving_throw })}
+                        label={` ${this.modifiers(this.props.character.dexterity, this.props.character.dexterity_saving_throw)}  Dexterity`}
+                        checked={this.props.character.dexterity_saving_throw}
+                        onCheck={() => this.props.updateCharacter({ dexterity_saving_throw: !this.props.character.dexterity_saving_throw })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.constitution, this.state.constitution_saving_throw)}  Constitution`}
-                        checked={this.state.constitution_saving_throw}
-                        onCheck={() => this.setState({ constitution_saving_throw: !this.state.constitution_saving_throw })}
+                        label={` ${this.modifiers(this.props.character.constitution, this.props.character.constitution_saving_throw)}  Constitution`}
+                        checked={this.props.character.constitution_saving_throw}
+                        onCheck={() => this.props.updateCharacter({ constitution_saving_throw: !this.props.character.constitution_saving_throw })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.wisdom, this.state.wisdom_saving_throw)}  Wisdom`}
-                        checked={this.state.wisdom_saving_throw}
-                        onCheck={() => this.setState({ wisdom_saving_throw: !this.state.wisdom_saving_throw })}
+                        label={` ${this.modifiers(this.props.character.wisdom, this.props.character.wisdom_saving_throw)}  Wisdom`}
+                        checked={this.props.character.wisdom_saving_throw}
+                        onCheck={() => this.props.updateCharacter({ wisdom_saving_throw: !this.props.character.wisdom_saving_throw })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.intelligence, this.state.intelligence_saving_throw)}  Intelligence`}
-                        checked={this.state.intelligence_saving_throw}
-                        onCheck={() => this.setState({ intelligence_saving_throw: !this.state.intelligence_saving_throw })}
+                        label={` ${this.modifiers(this.props.character.intelligence, this.props.character.intelligence_saving_throw)}  Intelligence`}
+                        checked={this.props.character.intelligence_saving_throw}
+                        onCheck={() => this.props.updateCharacter({ intelligence_saving_throw: !this.props.character.intelligence_saving_throw })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <Checkbox
-                        label={` ${this.modifiers(this.state.charisma, this.state.charisma_saving_throw)}  Charisma`}
-                        checked={this.state.charisma_saving_throw}
-                        onCheck={() => this.setState({ charisma_saving_throw: !this.state.charisma_saving_throw })}
+                        label={` ${this.modifiers(this.props.character.charisma, this.props.character.charisma_saving_throw)}  Charisma`}
+                        checked={this.props.character.charisma_saving_throw}
+                        onCheck={() => this.props.updateCharacter({ charisma_saving_throw: !this.props.character.charisma_saving_throw })}
                         iconStyle={{ margin: '0 3%' }}
                         labelStyle={{ width: '150px' }}
                     />
                     <h5>SAVING THROWS</h5>
                 </div>
                 <div className='box passive_wisdom'>
-                    <h5>PASSIVE WISDOM (PERCEPTION): {10 + Number(this.modifiers(this.state.wisdom, this.state.perception))}</h5>
+                    <h5>PASSIVE WISDOM (PERCEPTION): {10 + Number(this.modifiers(this.props.character.wisdom, this.props.character.perception))}</h5>
                 </div>
                 <div className='box other_prof'>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.languages ? this.state.languages : ''}
-                        onChange={(e) => this.setState({ languages: e.target.value })}
+                        value={this.props.character.languages ? this.props.character.languages : ''}
+                        onChange={(e) => this.props.updateCharacter({ languages: e.target.value })}
                         hintText='Languages'
                         floatingLabelText='Languages'
                         multiLine={true}
@@ -599,8 +441,8 @@ class Character extends Component {
                     />
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.other_proficiencies ? this.state.other_proficiencies : ''}
-                        onChange={(e) => this.setState({ other_proficiencies: e.target.value })}
+                        value={this.props.character.other_proficiencies ? this.props.character.other_proficiencies : ''}
+                        onChange={(e) => this.props.updateCharacter({ other_proficiencies: e.target.value })}
                         hintText='Other Proficiencies'
                         floatingLabelText='Other Proficiencies'
                         multiLine={true}
@@ -612,8 +454,8 @@ class Character extends Component {
                     <h5>ARMOR CLASS</h5>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.armor_class ? this.state.armor_class : ''}
-                        onChange={(e) => this.setState({ armor_class: Number(e.target.value) })}
+                        value={this.props.character.armor_class ? this.props.character.armor_class : ''}
+                        onChange={(e) => this.props.updateCharacter({ armor_class: Number(e.target.value) })}
                         style={{ width: '50%' }}
                         inputStyle={{ textAlign: 'center' }}
                     />
@@ -622,8 +464,8 @@ class Character extends Component {
                     <h5>INITIATIVE</h5>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.initiative ? this.state.initiative : ''}
-                        onChange={(e) => this.setState({ initiative: Number(e.target.value) })}
+                        value={this.props.character.initiative ? this.props.character.initiative : ''}
+                        onChange={(e) => this.props.updateCharacter({ initiative: Number(e.target.value) })}
                         style={{ width: '50%' }}
                         inputStyle={{ textAlign: 'center' }}
                     />
@@ -632,8 +474,8 @@ class Character extends Component {
                     <h5>SPEED</h5>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.speed ? this.state.speed : ''}
-                        onChange={(e) => this.setState({ speed: Number(e.target.value) })}
+                        value={this.props.character.speed ? this.props.character.speed : ''}
+                        onChange={(e) => this.props.updateCharacter({ speed: Number(e.target.value) })}
                         style={{ width: '50%' }}
                         inputStyle={{ textAlign: 'center' }}
                     />
@@ -642,8 +484,8 @@ class Character extends Component {
                     <h5>MAX HIT POINTS</h5>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.max_hit_points ? this.state.max_hit_points : ''}
-                        onChange={(e) => this.setState({ max_hit_points: Number(e.target.value) })}
+                        value={this.props.character.max_hit_points ? this.props.character.max_hit_points : ''}
+                        onChange={(e) => this.props.updateCharacter({ max_hit_points: Number(e.target.value) })}
                         style={{ width: '50%' }}
                         inputStyle={{ textAlign: 'center' }}
                     />
@@ -652,8 +494,8 @@ class Character extends Component {
                     <h5>CURRENT HP</h5>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.current_hit_points ? this.state.current_hit_points : ''}
-                        onChange={(e) => this.setState({ current_hit_points: Number(e.target.value) })}
+                        value={this.props.character.current_hit_points ? this.props.character.current_hit_points : ''}
+                        onChange={(e) => this.props.updateCharacter({ current_hit_points: Number(e.target.value) })}
                         style={{ width: '50%' }}
                         inputStyle={{ textAlign: 'center' }}
                     />
@@ -662,8 +504,8 @@ class Character extends Component {
                     <h5>TEMP HP</h5>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.temp_hit_points ? this.state.temp_hit_points : ''}
-                        onChange={(e) => this.setState({ temp_hit_points: Number(e.target.value) })}
+                        value={this.props.character.temp_hit_points ? this.props.character.temp_hit_points : ''}
+                        onChange={(e) => this.props.updateCharacter({ temp_hit_points: Number(e.target.value) })}
                         style={{ width: '50%' }}
                         inputStyle={{ textAlign: 'center' }}
                     />
@@ -671,15 +513,15 @@ class Character extends Component {
                 <div className='box hit_dice'>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.total_hit_dice}
-                        onChange={(e) => this.setState({ total_hit_dice: e.target.value })}
+                        value={this.props.character.total_hit_dice}
+                        onChange={(e) => this.props.updateCharacter({ total_hit_dice: e.target.value })}
                         floatingLabelText='Hit Dice'
                         style={{ width: '30%' }}
                     />
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.current_hit_dice ? this.state.current_hit_dice : ''}
-                        onChange={(e) => this.setState({ current_hit_dice: Number(e.target.value) })}
+                        value={this.props.character.current_hit_dice ? this.props.character.current_hit_dice : ''}
+                        onChange={(e) => this.props.updateCharacter({ current_hit_dice: Number(e.target.value) })}
                         floatingLabelText='Current HD'
                         type='number'
                         style={{ width: '40%' }}
@@ -697,8 +539,8 @@ class Character extends Component {
                 <div className='box money'>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.copper ? this.state.copper : ''}
-                        onChange={(e) => this.setState({ copper: Number(e.target.value) })}
+                        value={this.props.character.copper ? this.props.character.copper : ''}
+                        onChange={(e) => this.props.updateCharacter({ copper: Number(e.target.value) })}
                         floatingLabelText='Copper'
                         floatingLabelFixed={true}
                         type='number'
@@ -706,8 +548,8 @@ class Character extends Component {
                     />
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.silver ? this.state.silver : ''}
-                        onChange={(e) => this.setState({ silver: Number(e.target.value) })}
+                        value={this.props.character.silver ? this.props.character.silver : ''}
+                        onChange={(e) => this.props.updateCharacter({ silver: Number(e.target.value) })}
                         floatingLabelText='Silver'
                         floatingLabelFixed={true}
                         type='number'
@@ -715,8 +557,8 @@ class Character extends Component {
                     />
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.electrum ? this.state.electrum : ''}
-                        onChange={(e) => this.setState({ electrum: Number(e.target.value) })}
+                        value={this.props.character.electrum ? this.props.character.electrum : ''}
+                        onChange={(e) => this.props.updateCharacter({ electrum: Number(e.target.value) })}
                         floatingLabelText='Electrum'
                         floatingLabelFixed={true}
                         type='number'
@@ -724,8 +566,8 @@ class Character extends Component {
                     />
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.gold ? this.state.gold : ''}
-                        onChange={(e) => this.setState({ gold: Number(e.target.value) })}
+                        value={this.props.character.gold ? this.props.character.gold : ''}
+                        onChange={(e) => this.props.updateCharacter({ gold: Number(e.target.value) })}
                         floatingLabelText='Gold'
                         floatingLabelFixed={true}
                         type='number'
@@ -733,8 +575,8 @@ class Character extends Component {
                     />
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.platinum ? this.state.platinum : ''}
-                        onChange={(e) => this.setState({ platinum: Number(e.target.value) })}
+                        value={this.props.character.platinum ? this.props.character.platinum : ''}
+                        onChange={(e) => this.props.updateCharacter({ platinum: Number(e.target.value) })}
                         floatingLabelText='Platinum'
                         floatingLabelFixed={true}
                         type='number'
@@ -746,19 +588,19 @@ class Character extends Component {
                         <div className='successes'>
                             <Checkbox
                                 className='saves'
-                                checked={this.state.death_save_successes >= 1 ? true : false}
+                                checked={this.props.character.death_save_successes >= 1 ? true : false}
                                 onCheck={(event, isInputChecked) => this.deathSaveSuccesses(isInputChecked)}
                                 style={{ float: 'left', width: '1%' }}
                             />
                             <Checkbox
                                 className='saves'
-                                checked={this.state.death_save_successes >= 2 ? true : false}
+                                checked={this.props.character.death_save_successes >= 2 ? true : false}
                                 onCheck={(event, isInputChecked) => this.deathSaveSuccesses(isInputChecked)}
                                 style={{ float: 'left', width: '1%' }}
                             />
                             <Checkbox
                                 className='saves'
-                                checked={this.state.death_save_successes === 3 ? true : false}
+                                checked={this.props.character.death_save_successes === 3 ? true : false}
                                 onCheck={(event, isInputChecked) => this.deathSaveSuccesses(isInputChecked)}
                                 style={{ float: 'left', width: '1%' }}
                                 label='Successes'
@@ -767,19 +609,19 @@ class Character extends Component {
                         <div className='failures'>
                             <Checkbox
                                 className='saves'
-                                checked={this.state.death_save_failures >= 1 ? true : false}
+                                checked={this.props.character.death_save_failures >= 1 ? true : false}
                                 onCheck={(event, isInputChecked) => this.deathSaveFailures(isInputChecked)}
                                 style={{ float: 'left', width: '1%' }}
                             />
                             <Checkbox
                                 className='saves'
-                                checked={this.state.death_save_failures >= 2 ? true : false}
+                                checked={this.props.character.death_save_failures >= 2 ? true : false}
                                 onCheck={(event, isInputChecked) => this.deathSaveFailures(isInputChecked)}
                                 style={{ float: 'left', width: '1%' }}
                             />
                             <Checkbox
                                 className='saves'
-                                checked={this.state.death_save_failures === 3 ? true : false}
+                                checked={this.props.character.death_save_failures === 3 ? true : false}
                                 onCheck={(event, isInputChecked) => this.deathSaveFailures(isInputChecked)}
                                 style={{ float: 'left', width: '1%' }}
                                 label='Failures'
@@ -791,8 +633,8 @@ class Character extends Component {
                 <div className='box traits personality'>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.personality_traits}
-                        onChange={(e) => this.setState({ personality_traits: e.target.value })}
+                        value={this.props.character.personality_traits}
+                        onChange={(e) => this.props.updateCharacter({ personality_traits: e.target.value })}
                         hintText='Personality Traits'
                         floatingLabelText='Personality Traits'
                         multiLine={true}
@@ -803,8 +645,8 @@ class Character extends Component {
                 <div className='box traits ideals'>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.ideals}
-                        onChange={(e) => this.setState({ ideals: e.target.value })}
+                        value={this.props.character.ideals}
+                        onChange={(e) => this.props.updateCharacter({ ideals: e.target.value })}
                         hintText='Ideals'
                         floatingLabelText='Ideals'
                         multiLine={true}
@@ -815,8 +657,8 @@ class Character extends Component {
                 <div className='box traits bonds'>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.bonds}
-                        onChange={(e) => this.setState({ bonds: e.target.value })}
+                        value={this.props.character.bonds}
+                        onChange={(e) => this.props.updateCharacter({ bonds: e.target.value })}
                         hintText='Bonds'
                         floatingLabelText='Bonds'
                         multiLine={true}
@@ -827,8 +669,8 @@ class Character extends Component {
                 <div className='box traits flaws'>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.flaws}
-                        onChange={(e) => this.setState({ flaws: e.target.value })}
+                        value={this.props.character.flaws}
+                        onChange={(e) => this.props.updateCharacter({ flaws: e.target.value })}
                         hintText='Flaws'
                         floatingLabelText='Flaws'
                         multiLine={true}
@@ -839,8 +681,8 @@ class Character extends Component {
                 <div className='box feature_traits'>
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.features}
-                        onChange={(e) => this.setState({ features: e.target.value })}
+                        value={this.props.character.features}
+                        onChange={(e) => this.props.updateCharacter({ features: e.target.value })}
                         hintText='Features'
                         floatingLabelText='Features'
                         multiLine={true}
@@ -848,8 +690,8 @@ class Character extends Component {
                     />
                     <TextField
                         id='text-field-controlled'
-                        value={this.state.traits}
-                        onChange={(e) => this.setState({ traits: e.target.value })}
+                        value={this.props.character.traits}
+                        onChange={(e) => this.props.updateCharacter({ traits: e.target.value })}
                         hintText='Traits'
                         floatingLabelText='Traits'
                         multiLine={true}
@@ -870,4 +712,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { getCharacter, saveCharacter, createCharacter, resetCharacter, getWeapons, getArmor, getSpells })(Character);
+export default connect(mapStateToProps, { getCharacter, updateCharacter, saveCharacter, createCharacter, resetCharacter, getWeapons, getArmor, getSpells, getAllWeapons, getAllArmor, getAllSpells })(Character);
