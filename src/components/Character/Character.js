@@ -147,7 +147,7 @@ class Character extends Component {
                     <TextField
                         className='level'
                         id='text-field-controlled'
-                        value={this.props.characterlevel ? this.props.character.level : ''}
+                        value={this.props.character.level ? this.props.character.level : ''}
                         onChange={(e) => {
                             this.props.updateCharacter({ level: Number(e.target.value) });
                             this.proficiencyBonus(Number(e.target.value));
