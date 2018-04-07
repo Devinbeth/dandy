@@ -38,17 +38,17 @@ class Alignment extends Component {
                     floatingLabelText='Alignment'
                     value={this.props.character.alignment}
                     onChange={(event, index, value) => this.props.updateCharacter({ alignment: value })}
-                    style={{ width: '60%', textAlign: 'left' }}
+                    style={{ width: '170px', textAlign: 'left' }}
                 >
-                    <MenuItem value={'Lawful Good (LG)'} primaryText='Lawful Good (LG)' />
-                    <MenuItem value={'Neutral Good (NG)'} primaryText='Neutral Good (NG)' />
-                    <MenuItem value={'Chaotic Good (CG)'} primaryText='Chaotic Good (CG)' />
-                    <MenuItem value={'Lawful Neutral (LN)'} primaryText='Lawful Neutral (LN)' />
-                    <MenuItem value={'Neutral (N)'} primaryText='Neutral (N)' />
-                    <MenuItem value={'Chaotic Neutral (CN)'} primaryText='Chaotic Neutral (CN)' />
-                    <MenuItem value={'Lawful Evil (LE)'} primaryText='Lawful Evil (LE)' />
-                    <MenuItem value={'Neutral Evil (NE)'} primaryText='Neutral Evil (NE)' />
-                    <MenuItem value={'Chaotic Evil (CE)'} primaryText='Chaotic Evil (CE)' />
+                    <MenuItem value={'Lawful Good (LG)'} primaryText='Lawful Good' />
+                    <MenuItem value={'Neutral Good (NG)'} primaryText='Neutral Good' />
+                    <MenuItem value={'Chaotic Good (CG)'} primaryText='Chaotic Good' />
+                    <MenuItem value={'Lawful Neutral (LN)'} primaryText='Lawful Neutral' />
+                    <MenuItem value={'Neutral (N)'} primaryText='Neutral' />
+                    <MenuItem value={'Chaotic Neutral (CN)'} primaryText='Chaotic Neutral' />
+                    <MenuItem value={'Lawful Evil (LE)'} primaryText='Lawful Evil' />
+                    <MenuItem value={'Neutral Evil (NE)'} primaryText='Neutral Evil' />
+                    <MenuItem value={'Chaotic Evil (CE)'} primaryText='Chaotic Evil' />
                 </SelectField>
                 <IconButton tooltip='Alignment Details' onClick={() => this.setState({ toggle: !this.state.toggle })}>
                     <Info />

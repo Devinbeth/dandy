@@ -11,24 +11,18 @@ class Background extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: this.props.background,
             toggle: false
         }
     }
-    componentDidMount() {
-        this.setState({ value: this.props.background });
-    }
-    componentWillReceiveProps(newProps) {
-        this.setState({ value: newProps.background });
-    }
+
     render() {
         return (
             <div className='Background' >
                 <SelectField
                     floatingLabelText='Background'
                     value={this.props.character.background}
-                    onChange={(event, index, value) => this.props.updateBackground(value)}
-                    style={{ width: '60%', textAlign: 'left' }}
+                    onChange={(event, index, value) => this.props.updateCharacter({ background: value })}
+                    style={{ width: '170px', textAlign: 'left' }}
                 >
                     <MenuItem value={'Acolyte'} primaryText='Acolyte' />
                     <MenuItem value={'Charlatan'} primaryText='Charlatan' />
@@ -47,7 +41,7 @@ class Background extends Component {
                 <IconButton tooltip='Background Details' onClick={() => this.setState({ toggle: !this.state.toggle })}>
                     <ActionInfo />
                 </IconButton>
-                <Box 
+                <Box
                     toggle={this.state.toggle}
                     switch={() => this.setState({ toggle: !this.state.toggle })}
                     top={'15%'}

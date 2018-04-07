@@ -16,7 +16,6 @@ import Checkbox from 'material-ui/Checkbox';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Save from 'material-ui/svg-icons/content/save';
 import Undo from 'material-ui/svg-icons/content/undo';
-import {Image} from 'cloudinary-react';
 
 class Character extends Component {
     constructor(props) {
@@ -138,7 +137,6 @@ class Character extends Component {
                         </div>
                     </div>
                     <div className='box basic_info'>
-                        <Image cloudName="devinbeth" publicId="223585712847531" width="300" crop="scale"/>
                         <div className='race'>
                             <Race />
                         </div>

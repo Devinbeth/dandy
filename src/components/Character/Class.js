@@ -23,7 +23,7 @@ class Class extends Component {
                     floatingLabelText='Class'
                     value={this.props.character.class}
                     onChange={(event, index, value) => this.props.updateCharacter({ class: value })}
-                    style={{ width: '60%', textAlign: 'left' }}
+                    style={{ width: '140px', textAlign: 'left' }}
                 >
                     <MenuItem value={'Barbarian'} primaryText='Barbarian' />
                     <MenuItem value={'Bard'} primaryText='Bard' />
