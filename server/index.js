@@ -127,6 +127,7 @@ app.put('/api/spells/:id', spells_controller.editSpell);
 app.get('/api/info/weapons', info_controller.readAllWeapons);
 app.get('/api/info/armor', info_controller.readAllArmor);
 app.get('/api/info/spells', info_controller.readAllSpells);
+app.get('/api/info/alignment', info_controller.readAlignment);
 
 app.post('/api/payment', (req, res, next) => {
     

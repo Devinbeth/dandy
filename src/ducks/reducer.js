@@ -75,7 +75,8 @@ const initialState = {
     characterSpells: [{}],
     allWeapons: [{}],
     allArmor: [{}],
-    allSpells: [{}]
+    allSpells: [{}],
+    alignment: [{}]
 };
 
 
@@ -111,6 +112,7 @@ const REMOVE_SPELL = 'REMOVE_SPELL';
 const GET_ALL_WEAPONS = 'GET_ALL_WEAPONS';
 const GET_ALL_ARMOR = 'GET_ALL_ARMOR';
 const GET_ALL_SPELLS = 'GET_ALL_SPELLS';
+const GET_ALIGNMENT = 'GET_ALIGNMENT';
 
 
 //ACTION BUILDERS
@@ -300,6 +302,14 @@ export function getAllSpells() {
     };
 }
 
+export function getAlignment() {
+    let alignment = axios.get(`/api/info/alignment`).then(res => res.data);
+    return {
+        type: GET_ALIGNMENT,
+        payload: alignment
+    };
+}
+
 
 //REDUCER
 export default function reducer(state = initialState, action) {
@@ -380,6 +390,9 @@ export default function reducer(state = initialState, action) {
 
         case GET_ALL_SPELLS + '_FULFILLED':
             return Object.assign({}, state, { allSpells: action.payload });
+
+        case GET_ALIGNMENT + '_FULFILLED':
+            return Object.assign({}, state, { alignment: action.payload });
 
         default:
             return state;

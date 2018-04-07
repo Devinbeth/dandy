@@ -91,10 +91,10 @@ class Spells extends Component {
                 <Box
                     toggle={this.state.infoToggle}
                     switch={() => this.setState({ infoToggle: false })}
-                    top={'10%'}
+                    top={'62px'}
                     bottom={'5%'}
-                    right={'10%'}
-                    left={'10%'}
+                    right={'5%'}
+                    left={'5%'}
                     title={'SPELLS'}
                 >
                     <AllSpells switch={() => this.setState({ infoToggle: false })}/>

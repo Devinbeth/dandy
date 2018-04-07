@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCharacters, setCharacter, removeCharacter, resetCharacter, getAllWeapons, getAllArmor, getAllSpells } from '../../ducks/reducer.js';
 import './Home.css';
+import Header from '../Header/Header.js';
 import { Card, CardActions, CardHeader, CardTitle } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
@@ -61,6 +62,7 @@ class Home extends Component {
         });
         return (
             <div className='Home'>
+                <Header />
                 <div className='characters'>
                     {characterCards}
                 </div>

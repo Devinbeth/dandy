@@ -33,9 +33,24 @@ class Header extends Component {
         return (
             <div className='Header'>
                 <AppBar
-                    title={this.props.user.id ? <Link to='/home'>DANDY</Link> : <Link to='/'>DANDY</Link>}
+                    title={this.props.user.id ? 
+                        <div>
+                            <Link to='/'>DANDY</Link>
+                            {`  |  `}
+                            <Link to='/home'>Home</Link>
+                            {this.props.title ? `  |  ${this.props.title}` : null}
+                        </div> : <div>
+                            <Link to='/'>DANDY</Link>
+                            {this.props.title ? `  |  ${this.props.title}` : null}
+                        </div>
+                    }
                     onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}
-                    style={{ position: 'fixed' }}
+                    style={{ 
+                        position: 'relative',
+                        background: 'black'
+                    }}
+                    titleStyle={{ textAlign: 'left' }}
+                    zDepth={2}
                 >
                     <div className='links'>
                         <Link to='/about'><FlatButton label='About' style={link} /></Link>
@@ -64,10 +79,10 @@ class Header extends Component {
                     onRequestChange={(open) => this.setState({ open: !this.state.open })}
                 >
                     <AppBar
-                        title='Menu'
+                        title='DANDY'
                         iconElementLeft={<IconButton><NavigationClose /></IconButton>}
                         onLeftIconButtonClick={() => this.setState({ open: !this.state.open })}
-                        style={{ paddingRight: '25%' }}
+                        style={{ background: 'black', paddingRight: '25%' }}
                     />
                     <div className='menu_items'>
                         <br />

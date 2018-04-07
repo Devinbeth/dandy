@@ -14,25 +14,27 @@ export default function Box(props) {
                         onClick={(e) => e.stopPropagation()}
                         zDepth={5}
                         style={{
-                            zIndex: 5,
                             textAlign: 'center',
                             overflow: 'scroll',
-                            position: 'fixed',
+                            position: 'absolute',
                             top: props.top,
                             bottom: props.bottom,
                             left: props.left,
                             right: props.right,
+                            borderRadius: '7px'
                         }}
                     >
-                        <div 
+                        <div
                             className='paper_header'
-                            style={{ position: 'fixed', top: props.top, left: props.left, right: props.right }}
+                            style={{ position: 'fixed', top: props.top, left: props.left, right: props.right, zIndex: 50 }}
                         >
                             <AppBar
                                 title={props.title}
                                 showMenuIconButton={false}
                                 iconElementRight={<IconButton><Close /></IconButton>}
                                 onRightIconButtonClick={props.switch}
+                                zDepth={2}
+                                style={{ background: 'linear-gradient(to right, #ff512f, #f09819)' }}
                             />
                         </div>
                         <div className='paper_body'>
@@ -40,7 +42,7 @@ export default function Box(props) {
                         </div>
                     </Paper>
                 </div>
-            : null}
+                : null}
         </div>
     )
 }

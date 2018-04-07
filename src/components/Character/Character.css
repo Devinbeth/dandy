@@ -1,7 +1,6 @@
-.Character {
+.Character .character_sheet {
     background: #efefef;
-    position: absolute;
-    top: 65px;
+    position: relative;
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 11% 16.5% 11% 11% 11% 35%;
@@ -315,7 +314,7 @@
 }
 
 @media (max-width: 1200px) {
-    .Character {
+    .Character .character_sheet {
         grid-template-columns: 15% 15% 15% 15% 35%;
         grid-template-rows: 190px 190px repeat(31, 75px) 7px;
     }
@@ -457,7 +456,7 @@
 }
 
 @media (max-width: 500px) {
-    .Character {
+    .Character .character_sheet {
         grid-template-columns: 31% 31% 31%;
         grid-template-rows: 100px 400px repeat(50, 75px) 3px;
     }

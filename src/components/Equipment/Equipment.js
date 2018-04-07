@@ -91,10 +91,10 @@ class Equipment extends Component {
                 <Box
                     toggle={this.state.infoToggle}
                     switch={() => this.setState({ infoToggle: false })}
-                    top={'10%'}
+                    top={'62px'}
                     bottom={'5%'}
-                    right={'10%'}
-                    left={'10%'}
+                    right={'5%'}
+                    left={'5%'}
                     title={'ARMOR'}
                 >
                     <AllArmor switch={() => this.setState({ infoToggle: false })}/>

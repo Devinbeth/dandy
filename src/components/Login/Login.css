@@ -1,10 +1,12 @@
 .Login {
-    background-color: rgb(42, 47, 77);
+    background: #66D6E5;
+    background: -webkit-linear-gradient(170deg, #0072ff, #66D6E5, #f99922);
+    background: linear-gradient(170deg, #0072ff, #66D6E5, #f99922);
 }
 
 .Login .image{
-    height: 100vh;
-    background-image: url('../../assets/svg_logos/color_logo_with_background.svg');
+    height: 91.75vh;
+    background-image: url('../../assets/svg_logos/white_logo_transparent.svg');
     background-size: 70%;
     background-position: center;
     background-attachment: fixed;

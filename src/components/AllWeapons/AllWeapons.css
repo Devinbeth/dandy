@@ -1,8 +1,7 @@
-.AllWeapons {
-    padding: 85px 5%;
+.AllWeapons .content{
+    padding: 25px 5%;
     background: #efefef;
-    height: 100%;
-    min-height: 100vh;
+    min-height: 86.5vh;
 }
 
 .AllWeapons .weapon_filters {
@@ -36,6 +35,6 @@
 
 .AllWeapons .save {
     position: fixed;
-    bottom: 8%;
-    right: 12%;
+    bottom: 20px;
+    right: 20px;
 }

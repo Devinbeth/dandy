@@ -1,5 +1,5 @@
 .Header .links {
-    position: fixed;
+    position: relative;
     right: 5px;
     top: 12px;
 }
@@ -14,7 +14,7 @@
     }
     .Header .ham {
         display: inline;
-        position: fixed;
+        position: relative;
         right: 0;
         top: 10px;
     }
