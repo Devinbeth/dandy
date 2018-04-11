@@ -44,8 +44,8 @@ class Home extends Component {
                         />
                         <CardTitle title={e.name} subtitle={`${e.race} ${e.class}`} />
                         <CardActions>
-                            <Link to={`/character/${e.id}`}><RaisedButton label="View" primary={true} 
-                                  onClick={() => this.props.setCharacter(e)}
+                            <Link to={`/character/${e.id}`}><RaisedButton label="View" primary={true}
+                                onClick={() => this.props.setCharacter(e)}
                             />
                             </Link>
                             <RaisedButton label="Delete" secondary={true} onClick={() => {
@@ -64,7 +64,20 @@ class Home extends Component {
             <div className='Home'>
                 <Header />
                 <div className='characters'>
-                    {characterCards}
+                    {this.props.characters.length > 0 ? characterCards :
+                        <div className='character_cards'>
+                            <Card>
+                                <CardTitle title='Create a Character' />
+                                <CardActions>
+                                    <Link to='/character/0'>
+                                        <RaisedButton label="Create" primary={true}
+                                            onClick={() => this.props.resetCharacter()}
+                                        />
+                                    </Link>
+                                </CardActions>
+                            </Card>
+                        </div>
+                    }
                 </div>
                 <Link to='/character/0'><FloatingActionButton className='new' onClick={() => this.props.resetCharacter()} >
                     <Add />
