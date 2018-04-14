@@ -8,6 +8,7 @@ const cors = require('cors');
 const massive = require('massive');
 const { SERVER_PORT, SESSION_SECRET, DOMAIN, CLIENT_ID, CLIENT_SECRET, CALLBACK_URL, CONNECTION_STRING, STRIPE_PRIVATE_KEY } = process.env;
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
+const auth_controller = require('./controllers/auth_controller.js');
 const character_controller = require('./controllers/character_controller.js');
 const weapons_controller = require('./controllers/weapons_controller.js');
 const armor_controller = require('./controllers/armor_controller.js');
@@ -63,32 +64,12 @@ passport.deserializeUser((id, done) => {
 // AUTH ENDPOINTS
 app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: '/#/home',
-    failueRedirect: '/'
+    successRedirect: 'http://localhost:3000/#/home',
+    failueRedirect: 'http://localhost:3000/'
 }));
-app.get('/auth/me', (req, res) => {
-    if (req.user) {
-        res.status(200).send(req.user);
-    }
-    else {
-        res.status(401).send('Nice try suckaaaaaa!!!!!!');
-    }
-});
-app.get('/auth/logout', (req, res) => {
-    req.logOut();
-    res.redirect('/');
-});
-app.put('/user', (req, res) => {
-    const db = req.app.get('db');
-    db.users.update({ id: req.user.id }, req.body).then(user => {
-        if (req.user.id === user[0].id) {
-            res.status(200).send(user[0]);
-        }
-        else {
-            res.status(401).send('Nice try suckaaaaaa!!!!!!');
-        }
-    });
-})
+app.get('/auth/me', auth_controller.findUser);
+app.get('/auth/logout', auth_controller.logoutUser);
+app.put('/user', auth_controller.createUser);
 
 
 // CHARACTER ENDPOINTS
@@ -126,8 +107,9 @@ app.get('/api/info/armor', info_controller.readAllArmor);
 app.get('/api/info/spells', info_controller.readAllSpells);
 app.get('/api/info/alignment', info_controller.readAlignment);
 
+
+// STRIPE ENDPOINT
 app.post('/api/payment', (req, res, next) => {
-    
     const charge = stripe.charges.create(
       {
         source: req.body.token.id,
@@ -140,7 +122,7 @@ app.post('/api/payment', (req, res, next) => {
           else return res.sendStatus(200);
       }
     );
-  });
+});
 
 
 app.listen(SERVER_PORT, () => console.log(`Server is listening on port: ${SERVER_PORT}`));
