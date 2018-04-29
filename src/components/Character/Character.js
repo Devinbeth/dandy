@@ -58,6 +58,7 @@ class Character extends Component {
         }
         else {
             this.props.createCharacter(this.props.character);
+            window.history.back();
         }
     }
 

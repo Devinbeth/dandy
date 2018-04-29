@@ -1,5 +1,5 @@
-.AllSpells {
-    padding: 85px 5%;
+.AllSpells .content {
+    padding: 20px 5%;
     background: #efefef;
     height: 100%;
     min-height: 100vh;

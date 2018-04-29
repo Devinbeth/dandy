@@ -97,7 +97,7 @@ class Spells extends Component {
                     left={'5%'}
                     title={'SPELLS'}
                 >
-                    <AllSpells switch={() => this.setState({ infoToggle: false })}/>
+                    <AllSpells hasHeader={true} switch={() => this.setState({ infoToggle: false })}/>
                 </Box>
             </div>
         );

@@ -35,12 +35,12 @@ class Header extends Component {
                 <AppBar
                     title={this.props.user.id ? 
                         <div>
-                            <Link to='/'>DANDY</Link>
+                            <Link to='/'>Dandy</Link>
                             {`  |  `}
                             <Link to='/home'>Home</Link>
                             {this.props.title ? `  |  ${this.props.title}` : null}
                         </div> : <div>
-                            <Link to='/'>DANDY</Link>
+                            <Link to='/'>Dandy</Link>
                             {this.props.title ? `  |  ${this.props.title}` : null}
                         </div>
                     }
